@@ -24,13 +24,14 @@ public:
 	 * @brief construtor da classe Data vazio
 	 */
 	Data();
+
 	/**
 	 * @brief construtor da classe Data com parametros
 	 * @param d - dia
 	 * @param m - mes
 	 * @param a - ano
 	 */
-	Data(int d, int m, int a);
+	//Data(int d, int m, int a);
 
 	/**
 	 * @brief função para obter dia

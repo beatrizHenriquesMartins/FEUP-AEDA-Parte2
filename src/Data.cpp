@@ -6,12 +6,22 @@
  */
 
 #include "Data.h"
+#include <time.h>
 
 Data::Data() {
 
+	time_t now;
+	time(&now);
+
+	tm *ltm = localtime(&now);
+
+	dia=ltm->tm_mday;
+	mes=ltm->tm_mon;
+	ano=ltm->tm_year;
+
 }
 
-Data::Data(int d, int m, int a) {
+/*Data::Data(int d, int m, int a) {
 	if (m > 12 || m < 1)
 		throw DataInvalida();
 	if (m == 2) {
@@ -27,7 +37,7 @@ Data::Data(int d, int m, int a) {
 	dia = d;
 	mes = m;
 	ano = a;
-}
+}*/
 
 int Data::getDia() const {
 	return dia;
