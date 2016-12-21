@@ -93,9 +93,10 @@ public:
 
 	/**
 	 * @brief função para obter lista de todos os taxis
-	 * @return vector de taxis
+	 * @return priority_queue de taxis
 	 */
-	vector<Taxi> getTaxisTotais() const;
+	//vector<Taxi> getTaxisTotais() const;
+	priority_queue<Taxi> getTaxis() const;
 
 	/**
 	 * @brief função para adicionar taxi à lista de taxis
@@ -108,19 +109,19 @@ public:
 	 * @brief função que actualiza a lista de taxis
 	 * @param t - taxis
 	 */
-	void setTaxis(vector<Taxi> t);
+	void setTaxis(priority_queue<Taxi> t);
 
 	/**
 	 * @brief função para eliminar taxi
 	 * @param id - id taxi
 	 */
-	bool removeTaxi(int id);
+	void removeTaxi(int id);
 
 	/**
 	 * @brief função para procurar taxi
 	 * @param id - id taxi
 	 */
-	int procuraTaxi(int n) const;
+	Taxi* procuraTaxi(int n) const;
 
 	/**
 	 * @brief função que actualiza a lista de percursos

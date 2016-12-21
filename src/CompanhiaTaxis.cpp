@@ -34,57 +34,70 @@ vector<Cliente *> CompanhiaTaxis::getClientes() const {
 	return clientes;
 }
 
-vector<Taxi> CompanhiaTaxis::getTaxisTotais() const {
-	return taxisTotais;
+/*vector<Taxi> CompanhiaTaxis::getTaxisTotais() const {
+ return taxisTotais;
+ }*/
+
+priority_queue<Taxi> CompanhiaTaxis::getTaxis() const {
+	return taxis;
 }
 
 void CompanhiaTaxis::adicionaTaxi(Hora horI, Hora horO) {
 	Taxi t(horI, horO);
 	capital -= 500;
-	taxisTotais.push_back(t);
+	taxis.push(t);
 }
 
-void CompanhiaTaxis::setTaxis(vector<Taxi> t)
-{
-	taxisTotais=t;
+void CompanhiaTaxis::setTaxis(priority_queue<Taxi> t) {
+	taxis = t;
 
 }
 
-int CompanhiaTaxis::procuraTaxi(int n) const {
-	if (taxisTotais.size() == 0) {
-		return -1;
+Taxi* CompanhiaTaxis::procuraTaxi(int n) const {
+	if (taxis.size() == 0) {
+		throw TaxisIndisponiveis();
 	}
 
-	vector<int> aux;
+	priority_queue<Taxi> aux = taxis;
 
-	for (unsigned int i = 0; i < taxisTotais.size(); i++) {
-		aux.push_back(taxisTotais[i].getNumeroTaxi());
+	while (!aux.empty()) {
+
+		Taxi t = aux.top();
+
+		if (t.getNumeroTaxi() == n) {
+			return t;
+		}
+
+		aux.pop();
 	}
 
-	int ind;
-	ind = sequentialSearch(aux, n);
-
-	if (ind == -1) {
-		return -1;
-	}
-
-	return ind;
+	throw TaxisIndisponiveis();
 }
 
-bool CompanhiaTaxis::removeTaxi(int n) {
-	int ind;
-	ind = procuraTaxi(n);
+void CompanhiaTaxis::removeTaxi(int n) {
+	Taxi *t;
+	t = procuraTaxi(n);
 
-	if (ind == -1) {
-		return false;
+	t->getRentabilidade();
+
+	capital += t->getRentabilidade();
+
+	priority_queue<Taxi> aux;
+
+	while (!taxis.empty()) {
+
+		Taxi t = taxis.top();
+
+		if (t.getNumeroTaxi() == n) {
+
+			taxis.pop();
+			continue;
+		}
+
+		aux.push(t);
+		taxis.pop();
 	}
 
-	vector<Taxi>::iterator itBegin = taxisTotais.begin();
-
-	capital += taxisTotais[ind].getRentabilidade();
-	taxisTotais.erase(itBegin + ind);
-
-	return true;
 }
 
 void CompanhiaTaxis::setClientes(vector<Cliente*> c) {
@@ -165,13 +178,16 @@ void CompanhiaTaxis::fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1) {
 
 	Viagem v(dia, horaIn, p1);
 	v.horaFinal();
-	for (unsigned int i = 0; i < taxisTotais.size(); i++) {
-		if (taxisTotais[i].getDisponivel(horaIn, v.getHoraOut())) {
 
-			taxisTotais[i].setRentabilidade(v.pagarViagem());
-			return;
-		}
-	}
+	Taxi t = taxis.top();
+	taxis.pop();
+
+	t.changeDispo(v.horaFinal());
+
+	t.setRentabilidade(v.pagarViagem());
+	taxis.push(t);
+
+	return;
 	throw TaxisIndisponiveis("Nao existem taxis de momento disponiveis");
 }
 
@@ -291,10 +307,18 @@ void CompanhiaTaxis::mostrarClientesPorID() {
 
 void CompanhiaTaxis::mostrarTaxis() {
 
-	vector<Taxi>::iterator it = taxisTotais.begin();
-	vector<Taxi>::iterator ite = taxisTotais.end();
+	if (taxis.size() == 0) {
+		throw TaxisIndisponiveis();
+	}
 
-	for (; it != ite; it++) {
-		cout << (*it) << endl;
+	priority_queue<Taxi> aux = taxis;
+
+	while (!aux.empty()) {
+
+		Taxi t = aux.top();
+
+		cout << t << endl;
+
+		aux.pop();
 	}
 }

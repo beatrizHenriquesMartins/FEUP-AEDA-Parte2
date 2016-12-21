@@ -8,9 +8,16 @@
 #include "Hora.h"
 
 Hora::Hora() {
-	hora = 0;
-	minutos = 0;
-	segundos = 0;
+
+	time_t now;
+	time(&now);
+
+	tm *ltm = localtime(&now);
+
+	hora = ltm->tm_hour;
+	minutos = ltm->tm_min;
+	segundos = ltm->tm_sec;
+
 }
 
 Hora::Hora(int h, int m, int s) {
