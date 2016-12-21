@@ -72,7 +72,7 @@ float Taxi::getdispo()const {
 
 void Taxi::changeDispo(float n)
 {
-	dispo=n;
+	dispo+=n;
 
 }
 
