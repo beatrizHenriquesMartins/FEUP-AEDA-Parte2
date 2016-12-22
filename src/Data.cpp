@@ -1,8 +1,8 @@
 /*
  * Data.cpp
  *
- *  Created on: 01/11/2016
- *      Author: Diogo Pereira
+ *  Created on: 21/12/2016
+ *      Author: beatrizHm
  */
 
 #include "Data.h"
@@ -15,13 +15,13 @@ Data::Data() {
 
 	tm *ltm = localtime(&now);
 
-	dia=ltm->tm_mday;
-	mes=ltm->tm_mon;
-	ano=ltm->tm_year;
+	dia = ltm->tm_mday;
+	mes = ltm->tm_mon;
+	ano = ltm->tm_year;
 
 }
 
-/*Data::Data(int d, int m, int a) {
+Data::Data(int d, int m, int a) {
 	if (m > 12 || m < 1)
 		throw DataInvalida();
 	if (m == 2) {
@@ -37,7 +37,7 @@ Data::Data() {
 	dia = d;
 	mes = m;
 	ano = a;
-}*/
+}
 
 int Data::getDia() const {
 	return dia;
@@ -63,23 +63,6 @@ void Data::setAno(int a) {
 	ano = a;
 }
 
-//
-string Data::toString() {
-	stringstream ss;
-	ss << this->getDia() << "/" << this->getMes() << "/" << this->getAno();
-	return ss.str();
-}
-//
-
-ostream & operator <<(ostream os, Data d) {
-
-	os << d.getDia() << "/" << d.getMes() << "/" << d.getAno();
-	return os;
-
-}
-
-/////
-
 bool Data::operator <(const Data d) {
 
 	if (ano < d.getAno())
@@ -92,3 +75,13 @@ bool Data::operator <(const Data d) {
 		return false;
 }
 
+string Data::toString() {
+	stringstream ss;
+	ss << this->getDia() << "/" << this->getMes() << "/" << this->getAno();
+	return ss.str();
+}
+
+ostream & operator <<(ostream os, Data d) {
+	os << d.getDia() << "/" << d.getMes() << "/" << d.getAno();
+	return os;
+}

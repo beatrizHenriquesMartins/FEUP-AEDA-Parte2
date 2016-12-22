@@ -1,3 +1,13 @@
+/*
+ * sequentialSearch.h
+ *
+ *  Created on: 22/12/2016
+ *      Author: beatrizHm
+ */
+
+#ifndef SEQUENTIALSEARCH_H_
+#define SEQUENTIALSEARCH_H_
+
 #include <vector>
 using namespace std;
 
@@ -10,3 +20,5 @@ int sequentialSearch(const vector<Comparable> &v, Comparable x) {
 	}
 	return -1;     // n�o encontrou
 }
+
+#endif /* SEQUENTIALSEARCH_H_ */

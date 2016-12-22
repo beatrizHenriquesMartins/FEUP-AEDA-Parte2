@@ -1,21 +1,22 @@
 /*
  * CompanhiaTaxis.cpp
  *
- *  Created on: 17/10/2016
- *      Author: Pedro Silva
+ *  Created on: 21/12/2016
+ *      Author: beatrizHm
  */
 
 #include "CompanhiaTaxis.h"
-#include <algorithm>
+#include "Cliente.h"
+
+#include <vector>
 
 CompanhiaTaxis::CompanhiaTaxis() {
-	capital = 0;
+	this->capital = 0;
 }
 
 CompanhiaTaxis::CompanhiaTaxis(string n, float c) {
-	nome = n;
-	capital = c;
-
+	this->nome = n;
+	this->capital = c;
 }
 
 string CompanhiaTaxis::getNome() {
@@ -34,9 +35,9 @@ vector<Cliente *> CompanhiaTaxis::getClientes() const {
 	return clientes;
 }
 
-/*vector<Taxi> CompanhiaTaxis::getTaxisTotais() const {
- return taxisTotais;
- }*/
+vector<Taxi> CompanhiaTaxis::getTaxisTotais() const {
+	return taxisTotais;
+}
 
 priority_queue<Taxi> CompanhiaTaxis::getTaxis() const {
 	return taxis;
@@ -54,9 +55,8 @@ void CompanhiaTaxis::setTaxis(priority_queue<Taxi> t) {
 }
 
 Taxi* CompanhiaTaxis::procuraTaxi(int n) const {
-	if (taxis.size() == 0) {
+	if (taxis.size() == 0)
 		throw TaxisIndisponiveis();
-	}
 
 	priority_queue<Taxi> aux = taxis;
 
@@ -139,9 +139,13 @@ bool CompanhiaTaxis::removeCliente(int id) {
 		return false;
 	}
 
-	vector<Cliente*>::iterator itBegin = clientes.begin();
+	/*
+	 vector<Cliente*>::iterator itBegin = clientes.begin();
 
-	clientes.erase(itBegin + ind);
+	 clientes.erase(itBegin + ind);
+	 */
+
+	clientes.erase(clientes.begin() + ind);
 
 	return true;
 }
@@ -266,17 +270,23 @@ void CompanhiaTaxis::cobrarPagamentoMensal() {
 void CompanhiaTaxis::mostrarClientesPorCapital() {
 	vector<Cliente> v;
 
-	for (unsigned int i = 0; i < clientes.size(); i++)
+	for (unsigned int i = 0; i < clientes.size(); i++) {
 		v.push_back(*(clientes[i]));
+	}
 
-	vector<Cliente>::iterator it = v.begin();
-	vector<Cliente>::iterator ite = v.end();
+	/*vector<Cliente>::iterator it = v.begin();
+	 vector<Cliente>::iterator ite = v.end();
+	 sort(it, ite);
+	 reverse(it, ite);
+	 for (; it != ite; it++) {
+	 cout << (*it).mostrarCliente() << endl;
+	 }*/
 
-	sort(it, ite);
-	reverse(it, ite);
+	sort(v.begin(), v.end());
+	reverse(v.begin(), v.end());
 
-	for (; it != ite; it++) {
-		cout << (*it).mostrarCliente() << endl;
+	for (unsigned int j = 0; j < v.size(); j++) {
+		cout << v[j].mostrarCliente() << endl;
 	}
 
 }
@@ -292,24 +302,32 @@ void CompanhiaTaxis::mostrarClientesPorID() {
 
 	vector<Cliente> v;
 
-	for (unsigned int i = 0; i < clientes.size(); i++)
+	for (unsigned int i = 0; i < clientes.size(); i++) {
 		v.push_back(*(clientes[i]));
-
-	vector<Cliente>::iterator it = v.begin();
-	vector<Cliente>::iterator ite = v.end();
-
-	sort(it, ite, compaID);
-	for (; it != ite; it++) {
-		cout << (*it).mostrarCliente() << endl;
 	}
 
+	/*
+	 vector<Cliente>::iterator it = v.begin();
+	 vector<Cliente>::iterator ite = v.end();
+
+	 sort(it, ite, compaID);
+
+	 for (; it != ite; it++) {
+	 cout << (*it).mostrarCliente() << endl;
+	 }
+	 */
+
+	sort(v.begin(), v.end(), compaID);
+
+	for (unsigned int j = 0; j < v.size(); j++) {
+		cout << v[j].mostrarCliente() << endl;
+	}
 }
 
 void CompanhiaTaxis::mostrarTaxis() {
 
-	if (taxis.size() == 0) {
+	if (taxis.size() == 0)
 		throw TaxisIndisponiveis();
-	}
 
 	priority_queue<Taxi> aux = taxis;
 
@@ -322,3 +340,4 @@ void CompanhiaTaxis::mostrarTaxis() {
 		aux.pop();
 	}
 }
+

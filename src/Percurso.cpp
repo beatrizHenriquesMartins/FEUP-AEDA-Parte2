@@ -1,8 +1,8 @@
 /*
  * Percurso.cpp
  *
- *  Created on: 01/11/2016
- *      Author: Diogo
+ *  Created on: 21/12/2016
+ *      Author: beatrizHm
  */
 
 #include "Percurso.h"
@@ -43,17 +43,16 @@ void Percurso::setDistancia(int distancia) {
 	this->distancia = distancia;
 }
 
-
 string Percurso::toString() {
 	stringstream ss;
-	ss << "Percurso: " << localPartida << "-" << localDestino
-				<< " Distancia: " << distancia;
+	ss << "Percurso: " << localPartida << "-" << localDestino << " Distancia: "
+			<< distancia;
 	return ss.str();
 }
 
 ostream & operator <<(ostream os, Percurso p) {
-
 	os << "Percurso: " << p.getLocalPartida() << "-" << p.getLocalDestino()
 			<< " Distancia: " << p.getDistancia();
 	return os;
 }
+
