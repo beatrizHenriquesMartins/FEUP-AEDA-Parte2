@@ -179,6 +179,12 @@ public:
 	int ultimoIDcliente();
 
 	/**
+	 * @brief função que nos permite ter o taxi mais disponivel dentro do Horario da Viagem passada como argumento
+	 * @return Taxi que tem as caracteristicas pretendidas
+	 */
+
+	Taxi* CompanhiaTaxis::proximoTaxi(Viagem v);
+	/**
 	 * @brief função cria uma viagem de ocasinal
 	 * @param dia - data
 	 * @param horaIn - hora de inicio

@@ -34,10 +34,10 @@ Data Viagem::getData() const {
 	return data;
 }
 
-void Viagem::setData(int d, int m, int a) {
+/*void Viagem::setData(int d, int m, int a) {
 	Data d1 = Data(d, m, a);
 	this->data = d1;
-}
+}*/
 
 Hora Viagem::getHoraIn() const {
 	return horaIn;

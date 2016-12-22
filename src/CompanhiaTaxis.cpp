@@ -91,13 +91,17 @@ void CompanhiaTaxis::removeTaxi(int n) {
 		if (t.getNumeroTaxi() == n) {
 
 			taxis.pop();
-			continue;
+			break;
 		}
 
 		aux.push(t);
 		taxis.pop();
 	}
 
+	while (!aux.empty()) {
+		taxis.push(aux.top());
+		aux.pop();
+	}
 }
 
 void CompanhiaTaxis::setClientes(vector<Cliente*> c) {
@@ -174,21 +178,49 @@ int CompanhiaTaxis::ultimoIDcliente() {
 	return clientes[ind]->getID() + 1;
 }
 
+Taxi* CompanhiaTaxis::proximoTaxi(Viagem v) {
+
+	Taxi res;
+	priority_queue<Taxi> aux;
+
+	while (!taxis.empty()) {
+
+		Taxi t = taxis.top();
+
+		if (t.inHorario(v.getHoraIn(), v.getHoraOut())) {
+
+			taxis.pop();
+			res = t;
+			break;
+		}
+
+		aux.push(t);
+		taxis.pop();
+	}
+
+	while (!aux.empty()) {
+		taxis.push(aux.top());
+		aux.pop();
+	}
+
+	if (res.getNumeroTaxi() == 0)
+		throw TaxisIndisponiveis();
+	else
+		return res;
+}
+
 void CompanhiaTaxis::fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1) {
 
 	Viagem v(dia, horaIn, p1);
 	v.horaFinal();
 
-	Taxi t = taxis.top();
-	taxis.pop();
+	Taxi* t = this->proximoTaxi(v);
 
-	t.changeDispo(v.horaFinal());
+	t->changeDispo(v.horaFinal());
 
-	t.setRentabilidade(v.pagarViagem());
-	taxis.push(t);
+	t->setRentabilidade(v.pagarViagem());
+	taxis.push(*t);
 
-	return;
-	throw TaxisIndisponiveis("Nao existem taxis de momento disponiveis");
 }
 
 void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
@@ -200,47 +232,48 @@ void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 	for (unsigned int j = 0; j < clientes.size(); j++) {
 		if (clientes[j]->getID() == id) {
 
-			for (unsigned int i = 0; i < taxisTotais.size(); i++) {
+			Taxi* t = this->proximoTaxi(v);
 
-				if (taxisTotais[i].getDisponivel(horaIn, v.getHoraOut())) {
+			if (disc)
+				v.modificaCusto(clientes[j]->giveMonthlyPromotion(per));
 
-					if (disc)
-						v.modificaCusto(clientes[j]->giveMonthlyPromotion(per));
-					clientes[j]->addViagemHistorico(v);
-					clientes[j]->aumentaPontos();
-					clientes[j]->addViagemMensal(v);
-					if (clientes[j]->getCusto().getTipo() == "fim_do_mes") {
-						if (clientes[j]->getPontos() > 50) {
-							clientes[j]->resetPontos();
-							return;
-						}
-						return;
-					}
-					if (clientes[j]->getCusto().getTipo() == "credito") {
-
-						if (clientes[j]->getPontos() > 50) {
-							clientes[j]->resetPontos();
-							return;
-						}
-						clientes[j]->changeCustoTotal(v.pagarViagem() * 1.05);
-						taxisTotais[i].setRentabilidade(v.pagarViagem() * 1.05);
-						return;
-					} else {
-						v.pagarViagem();
-						if (clientes[j]->getPontos() > 50) {
-							clientes[j]->resetPontos();
-							return;
-						}
-						clientes[j]->changeCustoTotal(v.pagarViagem());
-						taxisTotais[i].setRentabilidade(v.pagarViagem());
-						return;
-					}
+			clientes[j]->addViagemHistorico(v);
+			clientes[j]->aumentaPontos();
+			clientes[j]->addViagemMensal(v);
+			if (clientes[j]->getCusto().getTipo() == "fim_do_mes") {
+				if (clientes[j]->getPontos() > 50) {
+					clientes[j]->resetPontos();
+					taxis.push(*t);
+					return;
 				}
-
+				taxis.push(*t);
+				return;
 			}
-			throw TaxisIndisponiveis(
-					"Nao existem taxis de momento disponiveis");
+			if (clientes[j]->getCusto().getTipo() == "credito") {
+
+				if (clientes[j]->getPontos() > 50) {
+					clientes[j]->resetPontos();
+					taxis.push(*t);
+					return;
+				}
+				clientes[j]->changeCustoTotal(v.pagarViagem() * 1.05);
+				t->setRentabilidade(v.pagarViagem() * 1.05);
+				taxis.push(*t);
+				return;
+			} else {
+				v.pagarViagem();
+				if (clientes[j]->getPontos() > 50) {
+					clientes[j]->resetPontos();
+					taxis.push(*t);
+					return;
+				}
+				clientes[j]->changeCustoTotal(v.pagarViagem());
+				t->setRentabilidade(v.pagarViagem());
+				taxis.push(*t);
+				return;
+			}
 		}
+
 	}
 
 	throw ClienteInexistente(id);
@@ -256,11 +289,25 @@ void CompanhiaTaxis::cobrarPagamentoMensal() {
 		clientes[i]->resetMes();
 	}
 
-	for (unsigned int j = 0; j < taxisTotais.size(); j++) {
-		capital += taxisTotais[j].getRentabilidade();
-		float n = -1 * (taxisTotais[j].getRentabilidade());
-		taxisTotais[j].setRentabilidade(n);
+	priority_queue<Taxi> aux;
+
+	while (!taxis.empty()) {
+
+		Taxi t = taxis.top();
+
+		capital += t.getRentabilidade();
+		float n = -1 * (t.getRentabilidade());
+		t.setRentabilidade(n);
+
+		aux.push(t);
+		taxis.pop();
 	}
+
+	while (!aux.empty()) {
+		taxis.push(aux.top());
+		aux.pop();
+	}
+
 }
 
 void CompanhiaTaxis::mostrarClientesPorCapital() {

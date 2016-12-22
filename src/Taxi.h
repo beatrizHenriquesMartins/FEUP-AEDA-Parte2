@@ -23,6 +23,11 @@ class Taxi {
 	float dispo;
 public:
 	/**
+	 * @brief construtor da classe Taxi sem parametros
+	 */
+	Taxi();
+
+	/**
 	 * @brief construtor da classe Taxi com parametros
 	 * @param horI - hora inicio
 	 * @param horO - hora final
@@ -53,7 +58,7 @@ public:
 	 * @brief função para obter disponibilidade
 	 * @return retorna disponibilidade
 	 */
-	//bool getDisponivel(Hora hi, Hora hf);
+	bool inHorario(Hora hi, Hora hf);
 
 	/**
 	 * @brief função para obter Rentabilidade
@@ -88,7 +93,7 @@ public:
 
 	friend ostream & operator <<(ostream & os, Taxi t);
 
-	float getdispo()const;
+	float getdispo() const;
 
 	void changeDispo(float n);
 

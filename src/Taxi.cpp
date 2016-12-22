@@ -10,12 +10,18 @@
 int Taxi::ultinumeroTaxi = 1;
 
 //Taxi
+
+Taxi::Taxi() {
+	rentabilidade = 0;
+	numeroTaxi = 0;
+	dispo = 0;
+}
 Taxi::Taxi(Hora horI, Hora horO) {
 	horaIn = horI;
 	horaOff = horO;
 	rentabilidade = 0;
 	numeroTaxi = ultinumeroTaxi++;
-	dispo=0;
+	dispo = 0;
 }
 
 Taxi::Taxi(int n, float r, Hora horI, Hora horO) {
@@ -24,7 +30,7 @@ Taxi::Taxi(int n, float r, Hora horI, Hora horO) {
 	rentabilidade = r;
 	numeroTaxi = n;
 	ultinumeroTaxi = ++n;
-	dispo=0;
+	dispo = 0;
 }
 
 Taxi::~Taxi() {
@@ -35,12 +41,12 @@ int Taxi::getNumeroTaxi() const {
 	return numeroTaxi;
 }
 
-/*bool Taxi::getDisponivel(Hora hi, Hora hf) {
+bool Taxi::inHorario(Hora hi, Hora hf) {
 	if (hf <= horaOff && horaIn <= hi)
 		return true;
 	else
 		return false;
-}*/
+}
 
 float Taxi::getRentabilidade() {
 	return rentabilidade;
@@ -60,30 +66,25 @@ Hora Taxi::getHoraOff() {
 
 ostream & operator <<(ostream & os, Taxi t) {
 
-	os << "Taxi numero " << t.getNumeroTaxi()<< " ; "<< " Rentabilidade Atual: "
-				<< t.getRentabilidade()<<" ; " << " Disponivel entre:" << t.getHoraIn()
-				<< " e as " << t.getHoraOff();
+	os << "Taxi numero " << t.getNumeroTaxi() << " ; "
+			<< " Rentabilidade Atual: " << t.getRentabilidade() << " ; "
+			<< " Disponivel entre:" << t.getHoraIn() << " e as "
+			<< t.getHoraOff();
 	return os;
 }
 
-float Taxi::getdispo()const {
+float Taxi::getdispo() const {
 	return dispo;
 }
 
-void Taxi::changeDispo(float n)
-{
-	dispo+=n;
+void Taxi::changeDispo(float n) {
+	dispo += n;
 
 }
-
 
 bool Taxi::operator <(const Taxi t) {
 
-	return dispo>t.getdispo();
+	return dispo > t.getdispo();
 
 }
-
-
-
-
 
