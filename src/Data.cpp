@@ -21,7 +21,7 @@ Data::Data() {
 
 }
 
-/*Data::Data(int d, int m, int a) {
+Data::Data(int d, int m, int a) {
 	if (m > 12 || m < 1)
 		throw DataInvalida();
 	if (m == 2) {
@@ -37,7 +37,7 @@ Data::Data() {
 	dia = d;
 	mes = m;
 	ano = a;
-}*/
+}
 
 int Data::getDia() const {
 	return dia;

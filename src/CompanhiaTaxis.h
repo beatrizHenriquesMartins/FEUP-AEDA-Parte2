@@ -106,7 +106,7 @@ public:
 	void adicionaTaxi(Hora horI, Hora horO);
 
 	/**
-	 * @brief função que actualiza a lista de taxis
+	 * @brief função que actualiza a priority_queue de taxis
 	 * @param t - taxis
 	 */
 	void setTaxis(priority_queue<Taxi> t);
@@ -115,7 +115,7 @@ public:
 	 * @brief função para eliminar taxi
 	 * @param id - id taxi
 	 */
-	void removeTaxi(int id);
+	bool removeTaxi(int id);
 
 	/**
 	 * @brief função para procurar taxi

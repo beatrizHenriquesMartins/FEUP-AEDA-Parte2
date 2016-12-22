@@ -292,7 +292,7 @@ void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 		int n;
 		string lixo;
 
-		vector<Taxi> aux;
+		priority_queue<Taxi> aux;
 		file >> n;
 		getline(file, lixo, '\n');
 
@@ -323,7 +323,7 @@ void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 			Hora horaIn = stringToHora(hi);
 			Hora horaF = stringToHora(hf);
 			Taxi t(id, rent, horaIn, horaF);
-			aux.push_back(t);
+			aux.push(t);
 		}
 		comp.setTaxis(aux);
 
@@ -510,16 +510,17 @@ void Menu::escreverFicheiroClientesViagensCliente(CompanhiaTaxis &comp) {
 }
 
 void Menu::escreverFicheiroTaxis(CompanhiaTaxis &comp) {
-	if (comp.getTaxisTotais().size() == 0)
+	if (comp.getTaxis().size() == 0)
 		return;
 	ofstream file("Taxis.txt");
 
-	vector<Taxi> vt = comp.getTaxisTotais();
+	priority_queue<Taxi> vt = comp.getTaxis();
 
 	file << vt.size() << endl;
-	for (unsigned int j = 0; j < vt.size(); j++) {
 
-		file << vt[j] << endl;
+	while(!vt.empty()){
+		file << vt.top() << endl;
+		vt.pop();
 	}
 
 	file.close();
@@ -611,14 +612,14 @@ void Menu::menuTaxis(CompanhiaTaxis &comp) {
 					e.alertaErro();
 				}
 
-				i = comp.procuraTaxi(id);
+				/*i = comp.procuraTaxi(id);
 				if (i == -1) {
 					cout << "Taxi numero " << id << " nao existe" << endl;
 					break;
-				}
-				vector<Taxi> vC = comp.getTaxisTotais();
+				}*/
 
-				cout << vC[i] << endl;
+				Taxi t=*(comp.procuraTaxi(id));
+				cout << t << endl;
 				break;
 			}
 
@@ -802,7 +803,7 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 					if (cin.fail())
 						throw ErroInput();
 
-					Data d1(dia, mes, ano);
+					Data d1;//(dia, mes, ano);
 
 					comp.mostrarClientesPorID();
 					cout << "ID do cliente que quer fazer uma viagem: ";

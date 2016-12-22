@@ -74,7 +74,7 @@ Taxi* CompanhiaTaxis::procuraTaxi(int n) const {
 	throw TaxisIndisponiveis();
 }
 
-void CompanhiaTaxis::removeTaxi(int n) {
+bool CompanhiaTaxis::removeTaxi(int n) {
 	Taxi *t;
 	t = procuraTaxi(n);
 
@@ -102,6 +102,8 @@ void CompanhiaTaxis::removeTaxi(int n) {
 		taxis.push(aux.top());
 		aux.pop();
 	}
+
+	return true;
 }
 
 void CompanhiaTaxis::setClientes(vector<Cliente*> c) {
