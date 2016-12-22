@@ -106,7 +106,7 @@ public:
 	void adicionaTaxi(Hora horI, Hora horO);
 
 	/**
-	 * @brief função que actualiza a lista de taxis
+	 * @brief função que actualiza a priority_queue de taxis
 	 * @param t - taxis
 	 */
 	void setTaxis(priority_queue<Taxi> t);
@@ -115,7 +115,7 @@ public:
 	 * @brief função para eliminar taxi
 	 * @param id - id taxi
 	 */
-	void removeTaxi(int id);
+	bool removeTaxi(int id);
 
 	/**
 	 * @brief função para procurar taxi
@@ -178,6 +178,12 @@ public:
 	 */
 	int ultimoIDcliente();
 
+	/**
+	 * @brief função que nos permite ter o taxi mais disponivel dentro do Horario da Viagem passada como argumento
+	 * @return Taxi que tem as caracteristicas pretendidas
+	 */
+
+	Taxi* CompanhiaTaxis::proximoTaxi(Viagem v);
 	/**
 	 * @brief função cria uma viagem de ocasinal
 	 * @param dia - data

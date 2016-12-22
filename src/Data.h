@@ -31,7 +31,7 @@ public:
 	 * @param m - mes
 	 * @param a - ano
 	 */
-	//Data(int d, int m, int a);
+	Data(int d, int m, int a);
 
 	/**
 	 * @brief função para obter dia

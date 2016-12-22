@@ -15,6 +15,7 @@
 
 #include "CompanhiaTaxis.h"
 #include <fstream>
+#include "Data.h"
 
 using namespace std;
 
