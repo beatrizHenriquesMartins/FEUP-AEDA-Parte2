@@ -1,8 +1,8 @@
 /*
  * Cliente.cpp
  *
- *  Created on: 30/10/2016
- *      Author: Beatriz de Henriques Martins
+ *  Created on: 21/12/2016
+ *      Author: beatrizHm
  */
 
 #include "Cliente.h"
@@ -75,10 +75,6 @@ int Cliente::getNIF() const {
 	return NIF;
 }
 
-void Cliente::setNIF(int nif) {
-	NIF = nif;
-}
-
 string Cliente::getMorada() const {
 	return morada;
 }
@@ -99,12 +95,8 @@ int Cliente::getPontos() {
 	return cartaoPontos;
 }
 
-void Cliente::aumentaPontos() {
-	cartaoPontos++;
-}
-
-void Cliente::resetPontos() {
-	cartaoPontos = 0;
+void Cliente::setNIF(int nif) {
+	NIF = nif;
 }
 
 void Cliente::setMorada(string m) {
@@ -117,6 +109,14 @@ void Cliente::setEmail(string mail) {
 
 void Cliente::setNumeroTelemovel(int nT) {
 	numeroTelemovel = nT;
+}
+
+void Cliente::aumentaPontos() {
+	cartaoPontos++;
+}
+
+void Cliente::resetPontos() {
+	cartaoPontos = 0;
 }
 
 void Cliente::addViagemMensal(Viagem v) {
@@ -165,7 +165,19 @@ bool Cliente::isParticular() {
 
 }
 
+void Cliente::mostrarViagens() {
 
+	for (unsigned int i = 0; i < historicoViagens.size(); i++) {
+		cout << historicoViagens[i].toString() << endl;
+	}
+}
+
+void Cliente::mostrarViagensmensais() {
+
+	for (unsigned int i = 0; i < viagensMensais.size(); i++) {
+		cout << viagensMensais[i].toString() << endl;
+	}
+}
 
 bool Cliente::operator <(Cliente c2) {
 	if (custo.getTotal() < c2.getCusto().getTotal())
@@ -179,20 +191,6 @@ bool Cliente::operator <(Cliente c2) {
 		}
 	}
 	return false;
-}
-
-void Cliente::mostrarViagens() {
-
-	for (unsigned int i = 0; i < historicoViagens.size(); i++) {
-		cout << historicoViagens[i].toString() << endl;
-	}
-}
-
-void Cliente::mostrarViagensmensais() {
-
-	for (unsigned int i = 0; i < viagensMensais.size(); i++) {
-		cout << viagensMensais[i].toString() << endl;
-	}
 }
 
 //Particular
@@ -255,6 +253,10 @@ Empresa::Empresa(string nC, string m, string mail, int nT, int nif,
 	this->numFuncionarios = numFuncionarios;
 }
 
+int Empresa::getNfunc() {
+	return numFuncionarios;
+}
+
 float Empresa::giveMonthlyPromotion(float p) {
 	if (custo.getTipo() != "fim_do_mes") {
 		if (viagensMensais.size() / numFuncionarios >= 20) {
@@ -283,8 +285,4 @@ string Empresa::mostrarCliente() {
 
 bool Empresa::isParticular() {
 	return false;
-}
-
-int Empresa::getNfunc() {
-	return numFuncionarios;
 }

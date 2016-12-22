@@ -1,12 +1,12 @@
 /*
  * Menu.h
  *
- *  Created on: 01/11/2016
- *      Author: Beatriz de Henriques Martins
+ *  Created on: 22/12/2016
+ *      Author: beatrizHm
  */
 
-#ifndef SRC_MENU_H_
-#define SRC_MENU_H_
+#ifndef MENU_H_
+#define MENU_H_
 
 #include <string>
 #include <iomanip>
@@ -58,4 +58,4 @@ public:
 	;
 };
 
-#endif /* SRC_MENU_H_ */
+#endif /* MENU_H_ */

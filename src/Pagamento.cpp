@@ -1,9 +1,10 @@
 /*
- * Pagamento.c
+ * Pagamento.cpp
  *
- *  Created on: 30/10/2016
- *      Author: Pedro Silva
+ *  Created on: 21/12/2016
+ *      Author: beatrizHm
  */
+
 #include "Pagamento.h"
 
 Pagamento::Pagamento() {
@@ -25,7 +26,7 @@ string Pagamento::getTipo() {
 }
 
 void Pagamento::changeTotal(float n) {
-	dinheiro +=n;
+	dinheiro += n;
 }
 
 void Pagamento::changeTipo(string t) {
