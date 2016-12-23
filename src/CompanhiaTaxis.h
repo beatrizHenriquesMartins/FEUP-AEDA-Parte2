@@ -183,7 +183,7 @@ public:
 	 * @return Taxi que tem as caracteristicas pretendidas
 	 */
 
-	Taxi* CompanhiaTaxis::proximoTaxi(Viagem v);
+	Taxi* proximoTaxi(Viagem v);
 	/**
 	 * @brief função cria uma viagem de ocasinal
 	 * @param dia - data
