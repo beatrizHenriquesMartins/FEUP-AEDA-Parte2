@@ -21,23 +21,53 @@ using namespace std;
 class Menu {
 public:
 	Menu();
-	void menuInicio(CompanhiaTaxis &comp);
+
 	void trim(string &str);
+
 	void lerFicheiroClienteParticular(CompanhiaTaxis &comp);
 	void lerFicheiroClienteEmpresas(CompanhiaTaxis &comp);
 	void lerFicheiroViagens(CompanhiaTaxis &comp);
 	void lerFicheiroTaxis(CompanhiaTaxis &comp);
+
 	Data stringToData(string &s);
 	Hora stringToHora(string &s);
+
 	void escreverFicheiroClientesParticulares(CompanhiaTaxis &comp);
 	void escreverFicheiroClientesEmpresa(CompanhiaTaxis &comp);
 	void escreverFicheiroClientesViagensCliente(CompanhiaTaxis &comp);
 	void escreverFicheiroComp(CompanhiaTaxis &comp);
 	void escreverFicheiroTaxis(CompanhiaTaxis &comp);
-	void menuEntrar(CompanhiaTaxis &comp);
-	void menuClientes(CompanhiaTaxis &comp);
-	void menuTaxis(CompanhiaTaxis &comp);
+
+	void menuInicio(CompanhiaTaxis &comp);
+
+	void menuEmp(CompanhiaTaxis &comp);
+
 	void menuCompanhia(CompanhiaTaxis &comp);
+	void menuNomeCompanhia(CompanhiaTaxis &comp);
+	void menuVerClientesPorID(CompanhiaTaxis &comp);
+
+	void menuClientes(CompanhiaTaxis &comp);
+	void menuNovoCliente(CompanhiaTaxis &comp);
+	void menuRemoverCliente(CompanhiaTaxis &comp);
+	void menuFazerViagem(CompanhiaTaxis &comp);
+	void menuVerCliente(CompanhiaTaxis &comp);
+	void menuVerHistoricoCliente(CompanhiaTaxis &comp);
+	void menuViagensMensaisClientes(CompanhiaTaxis &comp);
+	void menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp);
+
+	void menuVerCapital(CompanhiaTaxis &comp);
+	void menuPrestarServicoOcasional(CompanhiaTaxis &comp);
+	void menuListaClientesMaisLucrativos(CompanhiaTaxis &comp);
+	void menuMostrarTodosTaxis(CompanhiaTaxis &comp);
+	void menuAplicarDescontoMensal(CompanhiaTaxis &comp);
+
+	void menuTaxis(CompanhiaTaxis &comp);
+	void menuComprarTaxi(CompanhiaTaxis &comp);
+	void menuRemoverTaxi(CompanhiaTaxis &comp);
+	void menuVerTaxi(CompanhiaTaxis &comp);
+
+	void menuCobrarPagamentosMensais(CompanhiaTaxis &comp);
+
 };
 
 class OpcaoErrada {
