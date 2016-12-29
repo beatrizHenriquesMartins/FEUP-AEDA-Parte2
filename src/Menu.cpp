@@ -34,50 +34,6 @@ Menu::Menu() {
 	}
 }
 
-void Menu::menuInicio(CompanhiaTaxis &comp) {
-	while (1) {
-		cout << "||Menu||" << endl << setw(5) << " " << "Bem vindo" << endl
-				<< setw(5) << " " << "1. Entrar" << endl << setw(5) << " "
-				<< "2. Sair" << endl;
-
-		int op;
-		try {
-			cout << setw(5) << " " << "op: ";
-			cin >> op;
-
-			if (cin.fail()) {
-				throw ErroInput();
-			}
-			if (op < 1 || op > 2)
-				throw OpcaoErrada();
-
-			if (op == 1) {
-				menuEntrar(comp);
-			} else if (op == 2) {
-				escreverFicheiroClientesParticulares(comp);
-				escreverFicheiroClientesEmpresa(comp);
-				escreverFicheiroClientesViagensCliente(comp);
-				escreverFicheiroComp(comp);
-				escreverFicheiroTaxis(comp);
-				cout << endl << "Terminou" << endl;
-				return;
-			}
-
-		} catch (OpcaoErrada &x) {
-			x.alertaErro();
-
-		} catch (ErroInput &e) {
-
-			e.alertaErro();
-
-		} catch (HoraInvalida &d) {
-
-			cout << d.getRazao() << endl;
-
-		}
-	}
-}
-
 void Menu::trim(string &str) {
 	if (str.size() != 0) {
 		size_t first = str.find_first_not_of(" ");
@@ -525,414 +481,67 @@ void Menu::escreverFicheiroTaxis(CompanhiaTaxis &comp) {
 	file.close();
 }
 
-void Menu::menuEntrar(CompanhiaTaxis &comp) {
+void Menu::menuInicio(CompanhiaTaxis &comp) {
+	while (1) {
+		cout << "||Menu||" << endl << setw(5) << " " << "Bem vindo" << endl
+				<< setw(5) << " " << "1. Entrar" << endl << setw(5) << " "
+				<< "2. Sair" << endl;
+
+		int op;
+		try {
+			cout << setw(5) << " " << "op: ";
+			cin >> op;
+
+			if (cin.fail()) {
+				throw ErroInput();
+			}
+
+			if (op < 1 || op > 2)
+				throw OpcaoErrada();
+
+			if (op == 1) {
+				menuEmp(comp);
+			} else if (op == 2) {
+				escreverFicheiroClientesParticulares(comp);
+				escreverFicheiroClientesEmpresa(comp);
+				escreverFicheiroClientesViagensCliente(comp);
+				escreverFicheiroComp(comp);
+				escreverFicheiroTaxis(comp);
+				cout << endl << "Terminou" << endl;
+				return;
+			}
+
+		} catch (OpcaoErrada &x) {
+			x.alertaErro();
+
+		} catch (ErroInput &e) {
+
+			e.alertaErro();
+
+		} catch (HoraInvalida &d) {
+
+			cout << d.getRazao() << endl;
+
+		}
+	}
+}
+
+void Menu::menuEmp(CompanhiaTaxis &comp) {
 
 	lerFicheiroClienteParticular(comp);
 	lerFicheiroClienteEmpresas(comp);
-	//lerFicheiroPercurso(comp);
 	lerFicheiroViagens(comp);
 	lerFicheiroTaxis(comp);
+	//lerFicheiroPercurso(comp);
+
 	menuCompanhia(comp);
-}
-
-void Menu::menuTaxis(CompanhiaTaxis &comp) {
-	while (1) {
-
-		cout << endl << "||Taxis" << endl << setw(5) << " "
-				<< "1. Compra de Taxi" << endl
-
-				<< setw(5) << " " << "2. Remover Taxi" << endl << setw(5) << " "
-				<< "3. Ver Taxi especifico" << " " << endl
-				<< "4. Voltar ao Menu da Companhia" << endl;
-
-		int opC;
-
-		try {
-			cout << setw(5) << " " << "op: ";
-			cin >> opC;
-
-			switch (opC) {
-			case 1: {
-				int hi, mi, si, hf, mf, sf;
-				cout << "Digite a hora inicial na qual o Taxi esta disponivel:"
-						<< endl << "Horas ";
-				cin >> hi;
-				if (cin.fail())
-					throw ErroInput();
-				cout << " Minutos: ";
-				cin >> mi;
-				if (cin.fail())
-					throw ErroInput();
-				cout << " Segundos: ";
-				cin >> si;
-				if (cin.fail())
-					throw ErroInput();
-
-				cout << "E a final:" << endl << "Horas ";
-				cin >> hf;
-				if (cin.fail())
-					throw ErroInput();
-				cout << " Minutos: ";
-				cin >> mf;
-				if (cin.fail())
-					throw ErroInput();
-				cout << " Segundos: ";
-				cin >> sf;
-				if (cin.fail())
-					throw ErroInput();
-
-				comp.adicionaTaxi(Hora(hi, mi, si), Hora(hf, mf, sf));
-				break;
-			}
-
-			case 2: {
-				int n;
-				comp.mostrarTaxis();
-				cout << "Nr do taxi que quer remover: ";
-				cin >> n;
-				bool rem = comp.removeTaxi(n);
-				if (rem)
-					cout << "Taxi removido" << endl;
-				else
-					cout << "Taxi nao encontrado para remover" << endl;
-				break;
-			}
-
-			case 3: {
-				int id, i;
-
-				try {
-					cout << "Nr do taxi que quer ver: ";
-					cin >> id;
-					if (cin.fail())
-						throw ErroInput();
-				} catch (ErroInput &e) {
-
-					e.alertaErro();
-				}
-
-				i = comp.procuraTaxi(id);
-				if (i == -1) {
-					cout << "Taxi numero " << id << " nao existe" << endl;
-					break;
-				}
-				vector<Taxi> vC = comp.getTaxisTotais();
-
-				cout << vC[i] << endl;
-				break;
-			}
-
-			case 4: {
-				return;
-			}
-			default:
-				throw OpcaoErrada();
-			}
-		} catch (OpcaoErrada &x) {
-			x.alertaErro();
-		}
-	}
-}
-
-void Menu::menuClientes(CompanhiaTaxis &comp) {
-	while (1) {
-
-		cout << endl << "||Clientes" << endl << setw(5) << " "
-				<< "1. Novo Cliente" << endl
-
-				<< setw(5) << " " << "2. Remover Cliente" << endl << setw(5)
-				<< " " << "3. Fazer uma viagem" << endl << setw(5) << " "
-				<< "4. Ver Cliente especifico" << endl << setw(5) << " "
-				<< "5. Ver historico de viagens de cliente especifico" << endl
-				<< setw(5) << " "
-				<< "6. Ver viagens do mes atual de cliente especifico" << endl
-				<< setw(5) << " " << "7. Voltar ao Menu da Companhia" << endl;
-
-		int opC;
-		try {
-			cout << setw(5) << " " << "op: ";
-			cin >> opC;
-
-			switch (opC) {
-			case 1: {
-				int emp;
-				while (1) {
-					try {
-
-						cout << "1:Empresa ou 2:Particular? ";
-						cin >> emp;
-						if (emp == 1 || emp == 2)
-							break;
-						throw OpcaoErrada();
-					} catch (OpcaoErrada &x) {
-						x.alertaErro();
-					}
-				}
-
-				int NIF, numeroTelemovel, op;
-				string nome, morada, email, t;
-
-				cin.ignore();
-				cout << setw(5) << " " << "Nome: ";
-				getline(cin, nome);
-
-				cout << setw(5) << " " << "Morada: ";
-				getline(cin, morada);
-
-				cout << setw(5) << " " << "Email: ";
-				getline(cin, email);
-
-				//cin.ignore();
-				cout << setw(5) << " " << "NIFF: ";
-				cin >> NIF;
-
-				cout << setw(5) << " " << "Nr.Telemovel: ";
-				cin >> numeroTelemovel;
-
-				int erro = 1;
-				while (erro) {
-					cout << setw(5) << " " << "Tipo de pagamento: " << endl;
-					cout << "Escolher entre:" << endl;
-					cout << "1: Numerario  " << "2: Multibanco  "
-							<< "3: Credito  " << "4: Mensal" << endl;
-					cin >> op;
-
-					if (cin.fail())
-						throw OpcaoErrada();
-
-					switch (op) {
-					case 1: {
-						t = "numerario";
-						erro = 0;
-						break;
-					}
-					case 2: {
-						t = "multibanco";
-						erro = 0;
-						break;
-					}
-					case 3: {
-						t = "credito";
-						erro = 0;
-						break;
-					}
-					case 4: {
-						t = "fim_do_mes";
-						erro = 0;
-						break;
-					}
-					default:
-						throw OpcaoErrada();
-					}
-				}
-
-				if (emp == 1) {
-					int num_func;
-					cout << setw(5) << " " << "Nr.Funcionarios da Empresa: ";
-					cin >> num_func;
-					comp.adicionaClienteEmpresa(nome, morada, email,
-							numeroTelemovel, NIF, t, num_func);
-				} else
-					comp.adicionaClienteParticular(nome, morada, email,
-							numeroTelemovel, NIF, t);
-				break;
-			}
-
-			case 2: {
-				int id;
-				comp.mostrarClientesPorID();
-				cout << "ID do cliente que quer remover: ";
-				cin >> id;
-				bool rem = comp.removeCliente(id);
-				if (rem)
-					cout << "Cliente removido" << endl;
-				else
-					cout << "Cliente nao encontrado para remover" << endl;
-				break;
-			}
-
-			case 3: {
-
-				int id, distancia, hi, mi, si, dia, mes, ano;
-				string localPartida, localDestino;
-				try {
-					cout << "Qual e o local de origem da viagem? ";
-					cin >> localPartida;
-					if (cin.fail())
-						throw ErroInput();
-					cout << "E de destino? ";
-					cin >> localDestino;
-					if (cin.fail())
-						throw ErroInput();
-					cout << "Distancia entre locais: ";
-					cin >> distancia;
-					if (cin.fail()) {
-						cin.clear();
-						cin.ignore(1000);
-						break;
-						//throw ErroInput();
-					}
-					cout << "Digite as horas a que a viagem comeca:" << endl
-							<< "Horas ";
-					cin >> hi;
-					if (cin.fail())
-						throw ErroInput();
-					cout << " Minutos: ";
-					cin >> mi;
-					if (cin.fail())
-						throw ErroInput();
-					cout << " Segundos: ";
-					cin >> si;
-					if (cin.fail())
-						throw ErroInput();
-
-					Hora h1(hi, mi, si);
-
-					cout << "Digite o dia em que a viagem ocorre:" << endl
-							<< "Dia ";
-					cin >> dia;
-					if (cin.fail())
-						throw ErroInput();
-					cout << " Mes: ";
-					cin >> mes;
-					if (cin.fail())
-						throw ErroInput();
-					cout << " Ano: ";
-					cin >> ano;
-					if (cin.fail())
-						throw ErroInput();
-
-					Data d1(dia, mes, ano);
-
-					comp.mostrarClientesPorID();
-					cout << "ID do cliente que quer fazer uma viagem: ";
-					cin >> id;
-					if (cin.fail()) {
-						cin.clear();
-						cin.ignore(1000);
-						throw ErroInput();
-					}
-					if (comp.procuraCliente(id) == -1)
-						throw ClienteInexistente(id);
-
-					comp.fazerViagemCliente(id, d1, h1,
-							Percurso(localPartida, localDestino, distancia),
-							desconto, percentagem);
-
-				} catch (ErroInput &e) {
-
-					e.alertaErro();
-
-				} catch (ClienteInexistente &c) {
-					cout << "Cliente numero " << c.getID() << " nao existe"
-							<< endl;
-				} catch (TaxisIndisponiveis &t) {
-					cout << t.getRazao() << endl;
-
-				} catch (HoraInvalida &h) {
-
-					cout << h.getRazao() << endl;
-				} catch (DataInvalida &d) {
-
-					d.dataErrada();
-				}
-				break;
-			}
-
-			case 4: {
-				int id, i;
-
-				try {
-					cout << "ID do cliente que quer ver: ";
-					cin >> id;
-					if (cin.fail())
-						throw ErroInput();
-				} catch (ErroInput &e) {
-
-					e.alertaErro();
-					break;
-				}
-
-				i = comp.procuraCliente(id);
-				if (i == -1) {
-					cout << "Cliente numero " << id << " nao existe" << endl;
-					break;
-				}
-				vector<Cliente*> vC = comp.getClientes();
-
-				cout << vC[i]->mostrarCliente() << endl;
-				break;
-			}
-
-			case 5: {
-
-				int id, i;
-
-				try {
-					cout << "ID do cliente que quer ver: ";
-					cin >> id;
-					if (cin.fail())
-						throw ErroInput();
-				} catch (ErroInput &e) {
-
-					e.alertaErro();
-					break;
-				}
-
-				i = comp.procuraCliente(id);
-				if (i == -1) {
-					cout << "Cliente numero " << id << " nao existe" << endl;
-					break;
-				}
-				vector<Cliente*> vC = comp.getClientes();
-
-				vC[i]->mostrarViagens();
-				break;
-			}
-
-			case 6: {
-
-				int id, i;
-
-				try {
-					cout << "ID do cliente que quer ver: ";
-					cin >> id;
-					if (cin.fail())
-						throw ErroInput();
-				} catch (ErroInput &e) {
-
-					e.alertaErro();
-					break;
-				}
-
-				i = comp.procuraCliente(id);
-				if (i == -1) {
-					cout << "Cliente numero " << id << " nao existe" << endl;
-					break;
-				}
-				vector<Cliente*> vC = comp.getClientes();
-
-				vC[i]->mostrarViagensmensais();
-				break;
-			}
-			case 7: {
-				return;
-			}
-			default:
-				throw OpcaoErrada();
-			}
-		} catch (OpcaoErrada &x) {
-			x.alertaErro();
-		}
-	}
 }
 
 void Menu::menuCompanhia(CompanhiaTaxis &comp) {
 	while (1) {
 
 		cout << endl << "||Companhia de taxis" << endl << setw(5) << " "
-
-		<< "1. Nome da Companhia" << endl << setw(5) << " "
+				<< "1. Nome da Companhia" << endl << setw(5) << " "
 				<< "2. Ver Clientes por ID" << endl << setw(5) << " "
 				<< "3. Gestao de Clientes" << endl << setw(5) << " "
 				<< "4. Ver capital" << endl << setw(5) << " "
@@ -951,128 +560,35 @@ void Menu::menuCompanhia(CompanhiaTaxis &comp) {
 
 			switch (opC) {
 			case 1: {
-				cout << comp.getNome() << endl;
+				menuNomeCompanhia(comp);
 				break;
 			}
 			case 2: {
-				comp.mostrarClientesPorID();
+				menuVerClientesPorID(comp);
 				break;
 			}
 			case 3: {
 				menuClientes(comp);
 				break;
 			}
-
 			case 4: {
-				cout << "Capital: " << comp.getCapital() << endl;
+				menuVerCapital(comp);
 				break;
 			}
 			case 5: {
-				string nome;
-				int t;
-				cin.ignore();
-				cout << setw(5) << " " << "Nome: ";
-				getline(cin, nome);
-
-				int distancia, hi, mi, si, dia, mes, ano;
-				string localPartida, localDestino;
-
-				try {
-					cout << "Qual e o local de origem da viagem? ";
-					cin >> localPartida;
-					if (cin.fail())
-						throw ErroInput();
-					cout << "E de destino? ";
-					cin >> localDestino;
-					if (cin.fail())
-						throw ErroInput();
-					cout << "Distancia entre locais: ";
-					cin >> distancia;
-					if (cin.fail())
-						throw ErroInput();
-
-					cout << "Digite as horas a que a viagem comeca:" << endl
-							<< "Horas ";
-					cin >> hi;
-					if (cin.fail())
-						throw ErroInput();
-					cout << " Minutos: ";
-					cin >> mi;
-					if (cin.fail())
-						throw ErroInput();
-					cout << " Segundos: ";
-					cin >> si;
-					if (cin.fail())
-						throw ErroInput();
-					Hora h1(hi, mi, si);
-
-					cout << "Digite o dia em que a viagem ocorre: Dia ";
-					cin >> dia;
-					if (cin.fail())
-						throw ErroInput();
-					cout << " Mes: ";
-					cin >> mes;
-					if (cin.fail())
-						throw ErroInput();
-					cout << " Ano: ";
-					cin >> ano;
-					if (cin.fail())
-						throw ErroInput();
-					Data d1(dia, mes, ano);
-
-					int erro = 1;
-					while (erro) {
-						try {
-							cout << setw(5) << " " << "Tipo de pagamento: "
-									<< endl;
-							cout << "Escolher entre:" << endl;
-							cout << "1: Numerario  " << "2: Multibanco :";
-							cin >> t;
-							if (cin.fail())
-								throw ErroInput();
-							if ((t != 2) && (t != 1))
-								throw OpcaoErrada();
-							else
-								erro = 0;
-
-						} catch (OpcaoErrada &x) {
-							x.alertaErro();
-						}
-					}
-
-					comp.fazerViagemOcasional(d1, h1,
-							Percurso(localPartida, localDestino, distancia));
-
-				} catch (ErroInput &e) {
-
-					e.alertaErro();
-
-				}
-
-				catch (TaxisIndisponiveis &t) {
-					cout << t.getRazao() << endl;
-
-				} catch (HoraInvalida &h) {
-
-					cout << h.getRazao() << endl;
-				} catch (DataInvalida &d) {
-
-					d.dataErrada();
-				}
+				menuPrestarServicoOcasional(comp);
 				break;
 			}
 			case 6: {
-				comp.mostrarClientesPorCapital();
+				menuListaClientesMaisLucrativos(comp);
 				break;
 			}
 			case 7: {
-				comp.mostrarTaxis();
+				menuMostrarTodosTaxis(comp);
 				break;
 			}
 			case 8: {
-				desconto = true;
-				cout << "Percentagem de desconto:(entre 0 e 1): ";
-				cin >> percentagem;
+				menuAplicarDescontoMensal(comp);
 				break;
 			}
 
@@ -1082,9 +598,7 @@ void Menu::menuCompanhia(CompanhiaTaxis &comp) {
 			}
 
 			case 10: {
-				comp.cobrarPagamentoMensal();
-				desconto = false;
-				percentagem = 1;
+				menuCobrarPagamentosMensais(comp);
 				break;
 			}
 			case 11: {
@@ -1100,4 +614,647 @@ void Menu::menuCompanhia(CompanhiaTaxis &comp) {
 			e.alertaErro();
 		}
 	}
+}
+
+void Menu::menuNomeCompanhia(CompanhiaTaxis &comp) {
+	cout << "|Nome Companhia|" << endl << endl;
+	cout << comp.getNome() << endl;
+	menuCompanhia(comp);
+}
+
+void Menu::menuVerClientesPorID(CompanhiaTaxis &comp) {
+	cout << "|Mostrar Clientes Por ID|" << endl << endl;
+	comp.mostrarClientesPorID();
+	menuCompanhia(comp);
+}
+
+void Menu::menuClientes(CompanhiaTaxis &comp) {
+	while (1) {
+
+		cout << endl << "||Clientes" << endl << setw(5) << " "
+				<< "1. Novo Cliente" << endl << setw(5) << " "
+				<< "2. Remover Cliente" << endl << setw(5) << " "
+				<< "3. Fazer uma viagem" << endl << setw(5) << " "
+				<< "4. Ver Cliente especifico" << endl << setw(5) << " "
+				<< "5. Ver historico de viagens de cliente especifico" << endl
+				<< setw(5) << " "
+				<< "6. Ver viagens do mes atual de cliente especifico" << endl
+				<< setw(5) << " "
+				<< "7. Ver viagens não pagas do mes actual de cliente especifico"
+				<< endl << setw(5) << " " << "8. Voltar ao Menu da Companhia"
+				<< endl;
+
+		int opC;
+		try {
+			cout << setw(5) << " " << "op: ";
+			cin >> opC;
+
+			switch (opC) {
+			case 1: {
+				menuNovoCliente(comp);
+				break;
+			}
+			case 2: {
+				menuRemoverCliente(comp);
+				break;
+			}
+
+			case 3: {
+				menuFazerViagem(comp);
+				break;
+			}
+
+			case 4: {
+				menuVerCliente(comp);
+				break;
+			}
+
+			case 5: {
+				menuVerHistoricoCliente(comp);
+				break;
+			}
+
+			case 6: {
+				menuViagensMensaisClientes(comp);
+				break;
+			}
+			case 7: {
+				menuViagensMensaisNaoPagasClientes(comp);
+				break;
+			}
+			case 8: {
+				//menuCompanhia(comp);
+				return;
+			}
+			default:
+				throw OpcaoErrada();
+			}
+		} catch (OpcaoErrada &x) {
+			x.alertaErro();
+		}
+	}
+}
+
+void Menu::menuNovoCliente(CompanhiaTaxis &comp) {
+	int emp;
+
+	cout << "|Novo Cliente|" << endl << endl;
+
+	while (1) {
+		try {
+			cout << "1:Empresa ou 2:Particular? ";
+			cin >> emp;
+			if (emp == 1 || emp == 2)
+				break;
+			throw OpcaoErrada();
+		} catch (OpcaoErrada &x) {
+			x.alertaErro();
+		}
+	}
+
+	int NIF;
+	int numeroTelemovel;
+	int op;
+	string nome;
+	string morada;
+	string email;
+	string t;
+
+	cin.ignore();
+	cout << setw(5) << " " << "Nome: ";
+	getline(cin, nome);
+
+	cout << setw(5) << " " << "Morada: ";
+	getline(cin, morada);
+
+	cout << setw(5) << " " << "Email: ";
+	getline(cin, email);
+
+	//cin.ignore();
+	cout << setw(5) << " " << "NIF: ";
+	cin >> NIF;
+
+	cout << setw(5) << " " << "Numero Telemovel: ";
+	cin >> numeroTelemovel;
+
+	int erro = 1;
+	//
+	t = "Mensal";
+
+	if (emp == 1) {
+		int num_func;
+		cout << setw(5) << " " << "Numero Funcionarios da Empresa: ";
+		cin >> num_func;
+		comp.adicionaClienteEmpresa(nome, morada, email, numeroTelemovel, NIF,
+				t, num_func);
+	} else {
+		comp.adicionaClienteParticular(nome, morada, email, numeroTelemovel,
+				NIF, t);
+	}
+
+	menuClientes(comp);
+}
+
+void Menu::menuRemoverCliente(CompanhiaTaxis &comp) {
+	int id;
+
+	cout << "|Remover Cliente|" << endl << endl;
+
+	comp.mostrarClientesPorID();
+
+	cout << "ID do cliente que quer remover: ";
+
+	cin >> id;
+	bool rem = comp.removeCliente(id);
+
+	if (rem) {
+		cout << "Cliente removido" << endl;
+	} else {
+		cout << "Cliente nao encontrado para remover" << endl;
+	}
+
+	menuClientes(comp);
+}
+
+void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
+	int id;
+	int distancia;
+	int hi;
+	int mi;
+	int si;
+	int dia;
+	int mes;
+	int ano;
+	string localPartida;
+	string localDestino;
+
+	cout << "|Fazer Viagem|" << endl << endl;
+
+	try {
+		cout << "Qual e o local de origem da viagem? ";
+		cin >> localPartida;
+		if (cin.fail())
+			throw ErroInput();
+		cout << "E de destino? ";
+		cin >> localDestino;
+		if (cin.fail())
+			throw ErroInput();
+		cout << "Distancia entre locais: ";
+		cin >> distancia;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000);
+			break;
+			//throw ErroInput();
+		}
+		cout << "Digite as horas a que a viagem comeca:" << endl << "Horas ";
+		cin >> hi;
+		if (cin.fail())
+			throw ErroInput();
+		cout << " Minutos: ";
+		cin >> mi;
+		if (cin.fail())
+			throw ErroInput();
+		cout << " Segundos: ";
+		cin >> si;
+		if (cin.fail())
+			throw ErroInput();
+
+		Hora h1(hi, mi, si);
+
+		cout << "Digite o dia em que a viagem ocorre:" << endl << "Dia ";
+		cin >> dia;
+		if (cin.fail())
+			throw ErroInput();
+		cout << " Mes: ";
+		cin >> mes;
+		if (cin.fail())
+			throw ErroInput();
+		cout << " Ano: ";
+		cin >> ano;
+		if (cin.fail())
+			throw ErroInput();
+
+		Data d1(dia, mes, ano);
+
+		comp.mostrarClientesPorID();
+		cout << "ID do cliente que quer fazer uma viagem: ";
+		cin >> id;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000);
+			throw ErroInput();
+		}
+		if (comp.procuraCliente(id) == -1)
+			throw ClienteInexistente(id);
+
+		comp.fazerViagemCliente(id, d1, h1,
+				Percurso(localPartida, localDestino, distancia), desconto,
+				percentagem);
+
+	} catch (ErroInput &e) {
+
+		e.alertaErro();
+
+	} catch (ClienteInexistente &c) {
+		cout << "Cliente numero " << c.getID() << " nao existe" << endl;
+	} catch (TaxisIndisponiveis &t) {
+		cout << t.getRazao() << endl;
+
+	} catch (HoraInvalida &h) {
+
+		cout << h.getRazao() << endl;
+	} catch (DataInvalida &d) {
+
+		d.dataErrada();
+	}
+
+	menuClientes(comp);
+}
+
+void Menu::menuVerCliente(CompanhiaTaxis &comp) {
+	int id;
+	int i;
+
+	cout << "|Ver Cliente|" << endl << endl;
+
+	try {
+		cout << "ID do cliente que quer ver: ";
+		cin >> id;
+		if (cin.fail())
+			throw ErroInput();
+	} catch (ErroInput &e) {
+		e.alertaErro();
+		break;
+	}
+
+	i = comp.procuraCliente(id);
+	if (i == -1) {
+		cout << "Cliente numero " << id << " nao existe" << endl;
+		break;
+	}
+
+	vector<Cliente*> vC = comp.getClientes();
+
+	cout << vC[i]->mostrarCliente() << endl;
+
+	menuClientes(comp);
+}
+
+void Menu::menuVerHistoricoCliente(CompanhiaTaxis &comp) {
+	int id;
+	int i;
+
+	cout << "|Ver Histoico Cliente|" << endl << endl;
+
+	try {
+		cout << "ID do cliente que quer ver: ";
+		cin >> id;
+		if (cin.fail())
+			throw ErroInput();
+	} catch (ErroInput &e) {
+		e.alertaErro();
+		break;
+	}
+
+	i = comp.procuraCliente(id);
+	if (i == -1) {
+		cout << "Cliente numero " << id << " nao existe" << endl;
+		break;
+	}
+	vector<Cliente*> vC = comp.getClientes();
+
+	vC[i]->mostrarViagens();
+
+	menuClientes(comp);
+}
+
+void Menu::menuViagensMensaisClientes(CompanhiaTaxis &comp) {
+	int id;
+	int i;
+
+	cout << "|Viagens Mensais Cliente|" << endl << endl;
+
+	try {
+		cout << "ID do cliente que quer ver: ";
+		cin >> id;
+		if (cin.fail())
+			throw ErroInput();
+	} catch (ErroInput &e) {
+		e.alertaErro();
+		break;
+	}
+
+	i = comp.procuraCliente(id);
+	if (i == -1) {
+		cout << "Cliente numero " << id << " nao existe" << endl;
+		break;
+	}
+	vector<Cliente*> vC = comp.getClientes();
+
+	vC[i]->mostrarViagensmensais();
+
+	menuClientes(comp);
+}
+
+void Menu::menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp) {
+	int id;
+	int i;
+
+	cout << "|Viagens Mensais Nao Pagas Clientes|" << endl << endl;
+
+	try {
+		cout << "ID do cliente que quer ver: ";
+		cin >> id;
+		if (cin.fail())
+			throw ErroInput();
+	} catch (ErroInput &e) {
+		e.alertaErro();
+		break;
+	}
+
+	i = comp.procuraCliente(id);
+	if (i == -1) {
+		cout << endl << "Cliente numero " << id << " nao existe" << endl;
+		break;
+	}
+	cout << endl;
+	vector<Cliente*> vC = comp.getClientes();
+
+	vC[i]->mostrarViagensNaoPagas();
+
+	menuClientes(comp);
+}
+
+void Menu::menuVerCapital(CompanhiaTaxis &comp) {
+	cout << "|Ver Capital|" << endl << endl;
+
+	cout << "Capital: " << comp.getCapital() << endl;
+
+	menuCompanhia(comp);
+}
+
+void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
+	string nome;
+	int t;
+
+	cout << "|Prestar Serviço Ocasional|" << endl << endl;
+
+	cin.ignore();
+	cout << setw(5) << " " << "Nome: ";
+	getline(cin, nome);
+
+	int distancia;
+	int hi;
+	int mi;
+	int si;
+	int dia;
+	int mes;
+	int ano;
+	string localPartida;
+	string localDestino;
+
+	try {
+		cout << "Qual e o local de origem da viagem? ";
+		cin >> localPartida;
+		if (cin.fail())
+			throw ErroInput();
+		cout << "E de destino? ";
+		cin >> localDestino;
+		if (cin.fail())
+			throw ErroInput();
+		cout << "Distancia entre locais: ";
+		cin >> distancia;
+		if (cin.fail())
+			throw ErroInput();
+
+		cout << "Digite as horas a que a viagem comeca:" << endl << "Horas ";
+		cin >> hi;
+		if (cin.fail())
+			throw ErroInput();
+		cout << " Minutos: ";
+		cin >> mi;
+		if (cin.fail())
+			throw ErroInput();
+		cout << " Segundos: ";
+		cin >> si;
+		if (cin.fail())
+			throw ErroInput();
+		Hora h1(hi, mi, si);
+
+		cout << "Digite o dia em que a viagem ocorre: Dia ";
+		cin >> dia;
+		if (cin.fail())
+			throw ErroInput();
+		cout << " Mes: ";
+		cin >> mes;
+		if (cin.fail())
+			throw ErroInput();
+		cout << " Ano: ";
+		cin >> ano;
+		if (cin.fail())
+			throw ErroInput();
+		Data d1(dia, mes, ano);
+
+		int erro = 1;
+		while (erro) {
+			try {
+				cout << setw(5) << " " << "Tipo de pagamento: " << endl;
+				cout << "Escolher entre:" << endl;
+				cout << "1: Numerario  " << "2: Multibanco :";
+				cin >> t;
+
+				if (cin.fail())
+					throw ErroInput();
+
+				if ((t != 2) && (t != 1))
+					throw OpcaoErrada();
+				else
+					erro = 0;
+
+			} catch (OpcaoErrada &x) {
+				x.alertaErro();
+			}
+		}
+
+		comp.fazerViagemOcasional(d1, h1,
+				Percurso(localPartida, localDestino, distancia));
+
+	} catch (ErroInput &e) {
+		e.alertaErro();
+	} catch (TaxisIndisponiveis &t) {
+		cout << t.getRazao() << endl;
+	} catch (HoraInvalida &h) {
+		cout << h.getRazao() << endl;
+	} catch (DataInvalida &d) {
+		d.dataErrada();
+	}
+
+	menuCompanhia(comp);
+}
+
+void Menu::menuListaClientesMaisLucrativos(CompanhiaTaxis &comp) {
+	cout << "|Lista Clientes Mais Lucrativos|" << endl << endl;
+
+	comp.mostrarClientesPorCapital();
+
+	menuCompanhia(comp);
+}
+
+void Menu::menuMostrarTodosTaxis(CompanhiaTaxis &comp) {
+	cout << "|Mostrar Todos os Taxis|" << endl << endl;
+
+	comp.mostrarTaxis();
+
+	menuCompanhia(comp);
+}
+
+void Menu::menuAplicarDescontoMensal(CompanhiaTaxis &comp) {
+	cout << "|Aplicar Desconto Mensal|" << endl << endl;
+
+	desconto = true;
+	cout << "Percentagem de desconto:(entre 0 e 1): ";
+	cin >> percentagem;
+	menuCompanhia(comp);
+}
+
+void Menu::menuTaxis(CompanhiaTaxis &comp) {
+	while (1) {
+
+		cout << endl << "||Taxis" << endl << setw(5) << " "
+				<< "1. Compra de Taxi" << endl << setw(5) << " "
+				<< "2. Remover Taxi" << endl << setw(5) << " "
+				<< "3. Ver Taxi especifico" << " " << endl
+				<< "4. Voltar ao Menu da Companhia" << endl;
+
+		int opC;
+
+		try {
+			cout << setw(5) << " " << "op: ";
+			cin >> opC;
+
+			switch (opC) {
+			case 1: {
+				menuComprarTaxi(comp);
+				break;
+			}
+
+			case 2: {
+				menuRemoverTaxi(comp);
+				break;
+			}
+
+			case 3: {
+				menuVerTaxi(comp);
+				break;
+			}
+
+			case 4: {
+				//menuCompanhia(comp);
+				return;
+			}
+			default:
+				throw OpcaoErrada();
+			}
+		} catch (OpcaoErrada &x) {
+			x.alertaErro();
+		}
+	}
+}
+
+void Menu::menuComprarTaxi(CompanhiaTaxis &comp) {
+	int hi;
+	int mi;
+	int si;
+	int hf;
+	int mf;
+	int sf;
+
+	cout << "|Comprar Taxi|" << endl << endl;
+
+	cout << "Digite a hora inicial na qual o Taxi esta disponivel:" << endl
+			<< "Horas ";
+	cin >> hi;
+	if (cin.fail())
+		throw ErroInput();
+	cout << " Minutos: ";
+	cin >> mi;
+	if (cin.fail())
+		throw ErroInput();
+	cout << " Segundos: ";
+	cin >> si;
+	if (cin.fail())
+		throw ErroInput();
+
+	cout << "E a final:" << endl << "Horas ";
+	cin >> hf;
+	if (cin.fail())
+		throw ErroInput();
+	cout << " Minutos: ";
+	cin >> mf;
+	if (cin.fail())
+		throw ErroInput();
+	cout << " Segundos: ";
+	cin >> sf;
+	if (cin.fail())
+		throw ErroInput();
+
+	comp.adicionaTaxi(Hora(hi, mi, si), Hora(hf, mf, sf));
+
+	menuTaxis(comp);
+}
+
+void Menu::menuRemoverTaxi(CompanhiaTaxis &comp) {
+	int n;
+
+	cout << "|Remover Taxi|" << endl << endl;
+
+	comp.mostrarTaxis();
+	cout << "Nr do taxi que quer remover: ";
+	cin >> n;
+
+	bool rem = comp.removeTaxi(n);
+	if (rem) {
+		cout << "Taxi removido" << endl;
+	} else {
+		cout << "Taxi nao encontrado para remover" << endl;
+	}
+
+	menuTaxis(comp);
+}
+
+void Menu::menuVerTaxi(CompanhiaTaxis &comp) {
+	int id;
+	int i;
+
+	cout << "|Ver Taxi|" << endl << endl;
+
+	try {
+		cout << "Nr do taxi que quer ver: ";
+		cin >> id;
+		if (cin.fail())
+			throw ErroInput();
+	} catch (ErroInput &e) {
+
+		e.alertaErro();
+	}
+
+	i = comp.procuraTaxi(id);
+	if (i == -1) {
+		cout << "Taxi numero " << id << " nao existe" << endl;
+		break;
+	}
+	vector<Taxi> vC = comp.getTaxisTotais();
+
+	cout << vC[i] << endl;
+	menuTaxis(comp);
+}
+
+void Menu::menuCobrarPagamentosMensais(CompanhiaTaxis &comp) {
+	cout << "|Cobrar Pagementos Mensais|" << endl << endl;
+
+	comp.cobrarPagamentoMensal();
+	desconto = false;
+	percentagem = 1;
+	menuCompanhia(comp);
 }

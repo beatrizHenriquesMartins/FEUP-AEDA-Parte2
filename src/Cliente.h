@@ -45,12 +45,13 @@ protected:
 	int numeroTelemovel;
 	vector<Viagem> historicoViagens;
 	vector<Viagem> viagensMensais;
+	vector<Viagem> viagensNaoPagas;
 	int cartaoPontos;
 
 public:
 	Cliente(int id, string nome, string morada, string email,
 			int numeroTelemovel, int nif, float cap, string tipoPagamento,
-			int pontos);
+			int pontos, vector<Viagem> viagensNaoPagas); //
 	Cliente(string nC, string m, string mail, int nT, int nif,
 			string tipoPagamento);
 
@@ -62,7 +63,9 @@ public:
 	int getNIF() const;
 	string getMorada() const;
 	string getEmail() const;
-	vector<Viagem> getHistoricoViagens();
+	vector<Viagem> getHistoricoViagens() const;
+	vector<Viagem> getViagensMensais() const; //
+	vector<Viagem> getViagensNaoPagas() const; //
 	int getNumeroTelemovel() const;
 	int getPontos();
 
@@ -87,8 +90,9 @@ public:
 
 	virtual bool isParticular();
 
-	void mostrarViagens();
-	void mostrarViagensmensais();
+	void mostrarViagens(); //
+	void mostrarViagensmensais(); //
+	void mostrarViagensNaoPagas(); //
 
 	bool operator <(Cliente c2);
 };
