@@ -28,15 +28,17 @@ public:
 	void lerFicheiroClienteEmpresas(CompanhiaTaxis &comp);
 	void lerFicheiroViagens(CompanhiaTaxis &comp);
 	void lerFicheiroTaxis(CompanhiaTaxis &comp);
+	void lerFicheiroViagensNaoPagasMensais(CompanhiaTaxis &comp);
 
 	Data stringToData(string &s);
 	Hora stringToHora(string &s);
 
 	void escreverFicheiroClientesParticulares(CompanhiaTaxis &comp);
 	void escreverFicheiroClientesEmpresa(CompanhiaTaxis &comp);
-	void escreverFicheiroClientesViagensCliente(CompanhiaTaxis &comp);
+	void escreverFicheiroClientesViagens(CompanhiaTaxis &comp);
 	void escreverFicheiroComp(CompanhiaTaxis &comp);
 	void escreverFicheiroTaxis(CompanhiaTaxis &comp);
+	void escreverFicheiroClientesViagensNaoPagasMensais(CompanhiaTaxis &comp);
 
 	void menuInicio(CompanhiaTaxis &comp);
 

@@ -52,13 +52,14 @@ private:
 	vector<Taxi> taxisTotais;
 	//////
 	tabCli inativos;
-	BST<Viagem> viagens;
+	//BST<Viagem> viagens;
 	priority_queue<Taxi> taxis;
 	/////
 
 public:
 	CompanhiaTaxis();
 	CompanhiaTaxis(string n, float c);
+
 	string getNome();
 	float getCapital();
 	void somaCapital(float n);
@@ -79,8 +80,7 @@ public:
 	int procuraCliente(int id) const;
 	int ultimoIDcliente();
 	void fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1);
-	void fazerViagemCliente(int id, Data dia, Hora horaIn, Percurso p1,
-			bool disc, float per);
+	void fazerViagemCliente(int id, Data dia, Hora horaIn, Percurso p1,bool disc, float per);
 	void cobrarPagamentoMensal();
 	void mostrarClientesPorCapital();
 	void mostrarClientesPorID();

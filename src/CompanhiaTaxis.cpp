@@ -98,6 +98,18 @@ void CompanhiaTaxis::removeTaxi(int n) {
 		taxis.pop();
 	}
 
+	int idT = procuraTaxis(n);
+
+	if (idT != -1) {
+		this->capital = this->capital + taxisTotais[idT].getRentabilidade();
+
+		taxisTotais.erase(taxisTotais.begin() + idT);
+		//vector<Taxi>::iterator it = taxisTotais.begin();
+
+		cout << "taxi removido" << endl;
+	} else {
+		cout << "taxi não existe" << endl;
+	}
 }
 
 void CompanhiaTaxis::setClientes(vector<Cliente*> c) {
@@ -117,6 +129,7 @@ vector<Percurso*> CompanhiaTaxis::getPercursos() const {
 	return percursosDisponiveis;
 
 }
+
 void CompanhiaTaxis::adicionaClienteParticular(string nome, string morada,
 		string email, int nT, int nif, string tipoPagamento) {
 	Cliente *c = new Particular(nome, morada, email, nT, nif, tipoPagamento);
@@ -196,7 +209,7 @@ void CompanhiaTaxis::fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1) {
 }
 
 void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
-		Percurso p1, bool disc, float per) {
+		Percurso p1, bool disc, float per, string tipoPag) {
 
 	Viagem v(dia, horaIn, p1);
 	v.horaFinal();
@@ -213,15 +226,17 @@ void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 					clientes[j]->addViagemHistorico(v);
 					clientes[j]->aumentaPontos();
 					clientes[j]->addViagemMensal(v);
-					if (clientes[j]->getCusto().getTipo() == "fim_do_mes") {
+					//if (clientes[j]->getCusto().getTipo() == "fim_do_mes") {
+					if (tipoPag == "fim_do_mes") {
+						clientes[j]->addViagemMensalFimDoMes(v);
 						if (clientes[j]->getPontos() > 50) {
 							clientes[j]->resetPontos();
 							return;
 						}
 						return;
 					}
-					if (clientes[j]->getCusto().getTipo() == "credito") {
-
+					//if (clientes[j]->getCusto().getTipo() == "credito") {
+					if (tipoPag == "credito") {
 						if (clientes[j]->getPontos() > 50) {
 							clientes[j]->resetPontos();
 							return;
@@ -248,7 +263,6 @@ void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 	}
 
 	throw ClienteInexistente(id);
-
 }
 
 void CompanhiaTaxis::cobrarPagamentoMensal() {
@@ -325,7 +339,6 @@ void CompanhiaTaxis::mostrarClientesPorID() {
 }
 
 void CompanhiaTaxis::mostrarTaxis() {
-
 	if (taxis.size() == 0)
 		throw TaxisIndisponiveis();
 
@@ -340,4 +353,3 @@ void CompanhiaTaxis::mostrarTaxis() {
 		aux.pop();
 	}
 }
-

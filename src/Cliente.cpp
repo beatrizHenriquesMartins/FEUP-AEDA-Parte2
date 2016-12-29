@@ -137,6 +137,10 @@ void Cliente::addViagemHistorico(Viagem v) {
 	historicoViagens.push_back(v);
 }
 
+void Cliente::addViagemMensalFimDoMes(Viagem v) {
+	viagensNaoPagas.push_back(v);
+}
+
 void Cliente::resetMes() {
 	vector<Viagem> v;
 
@@ -151,9 +155,14 @@ float Cliente::giveMonthlyPromotion(float p) {
 
 float Cliente::fimdoMes() {
 	float n = 0;
-	for (unsigned int i = 0; i < viagensMensais.size(); i++) {
-		viagensMensais[i].pagarViagem();
-		n += viagensMensais[i].getCustoViagem();
+	/*for (unsigned int i = 0; i < viagensMensais.size(); i++) {
+	 viagensMensais[i].pagarViagem();
+	 n += viagensMensais[i].getCustoViagem();
+	 }*/
+
+	for (unsigned int i = 0; i < viagensNaoPagas.size(); i++) {
+		viagensNaoPagas[i].pagarViagem();
+		n += viagensNaoPagas[i].getCustoViagem();
 	}
 
 	n = n * 1.02;
@@ -216,9 +225,9 @@ bool Cliente::operator <(Cliente c2) {
 //Particular
 Particular::Particular(int id, string nome, string morada, string email,
 		int numeroTelemovel, int nif, float cap, string tipoPagamento,
-		int pontos) :
+		int pontos, vector<Viagem> viagensNaoPagas) :
 		Cliente(id, nome, morada, email, numeroTelemovel, nif, cap,
-				tipoPagamento, pontos) {
+				tipoPagamento, pontos, viagensNaoPagas) {
 
 }
 
@@ -261,9 +270,9 @@ bool Particular::isParticular() {
 //Empresa
 Empresa::Empresa(int id, string nome, string morada, string email,
 		int numeroTelemovel, int nif, float cap, string tipoPagamento,
-		int nFuncionarios, int pontos) :
+		int nFuncionarios, int pontos, vector<Viagem> viagensNaoPagas) :
 		Cliente(id, nome, morada, email, numeroTelemovel, nif, cap,
-				tipoPagamento, pontos) {
+				tipoPagamento, pontos, viagensNaoPagas) {
 	this->numFuncionarios = nFuncionarios;
 }
 

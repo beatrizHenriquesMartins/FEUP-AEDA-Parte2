@@ -79,12 +79,13 @@ public:
 
 	void addViagemMensal(Viagem v);
 	void addViagemHistorico(Viagem v);
+	void addViagemMensalFimDoMes(Viagem v);//
 
-	void resetMes();
+	void resetMes();//
 
 	virtual float giveMonthlyPromotion(float p);
 
-	float fimdoMes();
+	float fimdoMes();//
 
 	virtual string mostrarCliente();
 
@@ -101,7 +102,7 @@ class Particular: public Cliente {
 public:
 	Particular(int id, string nome, string morada, string email,
 			int numeroTelemovel, int nif, float cap, string tipoPagamento,
-			int pontos);
+			int pontos, vector<Viagem> viagensNaoPagas);
 	Particular(string nC, string m, string mail, int nT, int nif,
 			string tipo_pagamento);
 	float giveMonthlyPromotion(float p);
@@ -116,7 +117,7 @@ class Empresa: public Cliente {
 public:
 	Empresa(int id, string nome, string morada, string email,
 			int numeroTelemovel, int nif, float cap, string tipoPagamento,
-			int nFuncionarios, int pontos);
+			int nFuncionarios, int pontos, vector<Viagem> viagensNaoPagas);
 	Empresa(string nC, string m, string mail, int nT, int nif,
 			string tipoPagamento, int numFuncionarios);
 	int getNfunc();
