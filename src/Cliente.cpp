@@ -44,7 +44,7 @@ int Cliente::ultidC = 1;
 
 Cliente::Cliente(int id, string nome, string morada, string email,
 		int numeroTelemovel, int nif, float cap, string tipoPagamento,
-		int pontos) :
+		int pontos, vector<Viagem> viagensNaoPagas) :
 		Utente(nome, tipoPagamento) {
 	this->id = id;
 	ultidC = ++id;
@@ -54,6 +54,7 @@ Cliente::Cliente(int id, string nome, string morada, string email,
 	this->email = email;
 	this->numeroTelemovel = numeroTelemovel;
 	cartaoPontos = pontos;
+	this->viagensNaoPagas = viagensNaoPagas;
 }
 
 Cliente::Cliente(string nC, string m, string mail, int nT, int nif,
@@ -83,8 +84,16 @@ string Cliente::getEmail() const {
 	return email;
 }
 
-vector<Viagem> Cliente::getHistoricoViagens() {
+vector<Viagem> Cliente::getHistoricoViagens() const {
 	return historicoViagens;
+}
+
+vector<Viagem> Cliente::getViagensMensais() const {
+	return this->viagensMensais;
+}
+
+vector<Viagem> Cliente::getViagensNaoPagas() const {
+	return this->viagensNaoPagas;
 }
 
 int Cliente::getNumeroTelemovel() const {
@@ -130,7 +139,10 @@ void Cliente::addViagemHistorico(Viagem v) {
 
 void Cliente::resetMes() {
 	vector<Viagem> v;
+
 	viagensMensais = v;
+
+	viagensNaoPagas = v; //
 }
 
 float Cliente::giveMonthlyPromotion(float p) {
@@ -152,12 +164,13 @@ float Cliente::fimdoMes() {
 
 string Cliente::mostrarCliente() {
 	stringstream ss;
-	ss << id << " Nome: " << this->getNomeC() << " Morada: " << morada
-			<< " Email: " << email << " Nr Telemovel: " << numeroTelemovel
-			<< " NIF: " << NIF << " Total dispendido na Companhia: "
-			<< this->getCusto().getTotal() << " Tipo de pagamento: "
-			<< this->getCusto().getTipo() << " Nr total de pontos no cartao: "
-			<< cartaoPontos;
+	ss << "ID: " << id << endl << " Nome: " << this->getNomeC() << endl
+			<< " Morada: " << morada << endl << " Email: " << email << endl
+			<< " Nr Telemovel: " << numeroTelemovel << endl << " NIF: " << NIF
+			<< endl << " Total dispendido na Companhia: "
+			<< this->getCusto().getTotal() << endl << " Tipo de pagamento: "
+			<< this->getCusto().getTipo() << endl
+			<< " Nr total de pontos no cartao: " << cartaoPontos;
 	return ss.str();
 }
 
@@ -165,22 +178,29 @@ bool Cliente::isParticular() {
 
 }
 
-void Cliente::mostrarViagens() {
-
+void Cliente::mostrarViagens() {  //
 	for (unsigned int i = 0; i < historicoViagens.size(); i++) {
-		cout << historicoViagens[i].toString() << endl;
+		cout << "Viagem " << i + 1 << endl << historicoViagens[i].toString()
+				<< endl;
 	}
 }
 
-void Cliente::mostrarViagensmensais() {
-
+void Cliente::mostrarViagensmensais() {  //
 	for (unsigned int i = 0; i < viagensMensais.size(); i++) {
-		cout << viagensMensais[i].toString() << endl;
+		cout << "Viagem " << i + 1 << endl << viagensMensais[i].toString()
+				<< endl;
+	}
+}
+
+void Cliente::mostrarViagensNaoPagas() {
+	for (unsigned int i = 0; i < viagensNaoPagas.size(); i++) {
+		cout << "Viagem " << i + 1 << endl << viagensNaoPagas[i].toString()
+				<< endl;
 	}
 }
 
 bool Cliente::operator <(Cliente c2) {
-	if (custo.getTotal() < c2.getCusto().getTotal())
+	if (this->custo.getTotal() < c2.getCusto().getTotal())
 		return true;
 	else {
 		if (this->custo.getTotal() == c2.getCusto().getTotal()) {
@@ -225,12 +245,12 @@ float Particular::giveMonthlyPromotion(float p) {
 
 string Particular::mostrarCliente() {
 	stringstream ss;
-	ss << id << " Nome: " << this->getNomeC() << " Morada: " << morada
-			<< " Email: " << email << " Nr Telemovel: " << numeroTelemovel
-			<< " NIF: " << NIF << " Total dispendido na Companhia: "
-			<< this->getCusto().getTotal() << " Tipo de pagamento: "
-			<< this->getCusto().getTipo() << " Nr total de pontos no cartao: "
-			<< cartaoPontos;
+	ss << id << " Nome: " << this->getNomeC() << endl << " Morada: " << morada
+			<< endl << " Email: " << email << endl << " Nr Telemovel: "
+			<< numeroTelemovel << endl << " NIF: " << NIF << endl
+			<< " Total dispendido na Companhia: " << this->getCusto().getTotal()
+			<< endl << " Tipo de pagamento: " << this->getCusto().getTipo()
+			<< endl << " Nr total de pontos no cartao: " << cartaoPontos;
 	return ss.str();
 }
 
@@ -274,12 +294,13 @@ float Empresa::giveMonthlyPromotion(float p) {
 
 string Empresa::mostrarCliente() {
 	stringstream ss;
-	ss << id << " Nome: " << this->getNomeC() << " Morada: " << morada
-			<< " Email: " << email << " Nr Telemovel: " << numeroTelemovel
-			<< " NIF: " << NIF << " Total dispendido na Companhia: "
-			<< this->getCusto().getTotal() << " Tipo de pagamento: "
-			<< this->getCusto().getTipo() << " Nr total de pontos no cartao: "
-			<< cartaoPontos << " Nr funcionarios: " << numFuncionarios;
+	ss << id << " Nome: " << this->getNomeC() << endl << " Morada: " << morada
+			<< endl << " Email: " << email << endl << " Nr Telemovel: "
+			<< numeroTelemovel << endl << " NIF: " << NIF << endl
+			<< " Total dispendido na Companhia: " << this->getCusto().getTotal()
+			<< endl << " Tipo de pagamento: " << this->getCusto().getTipo()
+			<< endl << " Nr total de pontos no cartao: " << cartaoPontos << endl
+			<< " Nr funcionarios: " << numFuncionarios;
 	return ss.str();
 }
 
