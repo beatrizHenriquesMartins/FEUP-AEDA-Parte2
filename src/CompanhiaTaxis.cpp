@@ -135,8 +135,8 @@ bool CompanhiaTaxis::removeCliente(int id) {
 	return true;
 }
 
-void CompanhiaTaxis::removeClienteTabela(Cliente c) {
-	inativos.erase(inativos.find(c), inativos.end()); //erasing by range
+void CompanhiaTaxis::removeClienteTabela(Cliente* c) {
+	this->inativos.erase(inativos.find(c), inativos.end()); //erasing by range
 }
 
 Taxi* CompanhiaTaxis::procuraTaxi(int n) const {
