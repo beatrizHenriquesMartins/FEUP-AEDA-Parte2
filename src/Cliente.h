@@ -51,7 +51,7 @@ protected:
 public:
 	Cliente(int id, string nome, string morada, string email,
 			int numeroTelemovel, int nif, float cap, string tipoPagamento,
-			int pontos, vector<Viagem> viagensNaoPagas); //
+			int pontos); //
 	Cliente(string nC, string m, string mail, int nT, int nif,
 			string tipoPagamento);
 
@@ -73,18 +73,20 @@ public:
 	void setMorada(string m);
 	void setEmail(string mail);
 	void setNumeroTelemovel(int nT);
+	void setID(int id);
 
 	void aumentaPontos();
 	void resetPontos();
 
 	void addViagemMensal(Viagem v);
 	void addViagemHistorico(Viagem v);
+	void addViagemMensalFimDoMes(Viagem v); //
 
-	void resetMes();
+	void resetMes(); //
 
 	virtual float giveMonthlyPromotion(float p);
 
-	float fimdoMes();
+	float fimdoMes(); //
 
 	virtual string mostrarCliente();
 

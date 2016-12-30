@@ -44,7 +44,7 @@ int Cliente::ultidC = 1;
 
 Cliente::Cliente(int id, string nome, string morada, string email,
 		int numeroTelemovel, int nif, float cap, string tipoPagamento,
-		int pontos, vector<Viagem> viagensNaoPagas) :
+		int pontos) :
 		Utente(nome, tipoPagamento) {
 	this->id = id;
 	ultidC = ++id;
@@ -54,7 +54,6 @@ Cliente::Cliente(int id, string nome, string morada, string email,
 	this->email = email;
 	this->numeroTelemovel = numeroTelemovel;
 	cartaoPontos = pontos;
-	this->viagensNaoPagas = viagensNaoPagas;
 }
 
 Cliente::Cliente(string nC, string m, string mail, int nT, int nif,
@@ -120,6 +119,10 @@ void Cliente::setNumeroTelemovel(int nT) {
 	numeroTelemovel = nT;
 }
 
+void Cliente::setID(int id) {
+	this->id = id;
+}
+
 void Cliente::aumentaPontos() {
 	cartaoPontos++;
 }
@@ -137,6 +140,10 @@ void Cliente::addViagemHistorico(Viagem v) {
 	historicoViagens.push_back(v);
 }
 
+void Cliente::addViagemMensalFimDoMes(Viagem v) {
+	viagensNaoPagas.push_back(v);
+}
+
 void Cliente::resetMes() {
 	vector<Viagem> v;
 
@@ -151,9 +158,14 @@ float Cliente::giveMonthlyPromotion(float p) {
 
 float Cliente::fimdoMes() {
 	float n = 0;
-	for (unsigned int i = 0; i < viagensMensais.size(); i++) {
-		viagensMensais[i].pagarViagem();
-		n += viagensMensais[i].getCustoViagem();
+	/*for (unsigned int i = 0; i < viagensMensais.size(); i++) {
+	 viagensMensais[i].pagarViagem();
+	 n += viagensMensais[i].getCustoViagem();
+	 }*/
+
+	for (unsigned int i = 0; i < viagensNaoPagas.size(); i++) {
+		viagensNaoPagas[i].pagarViagem();
+		n += viagensNaoPagas[i].getCustoViagem();
 	}
 
 	n = n * 1.02;

@@ -27,10 +27,6 @@ float CompanhiaTaxis::getCapital() {
 	return capital;
 }
 
-void CompanhiaTaxis::somaCapital(float n) {
-	capital += n;
-}
-
 vector<Cliente *> CompanhiaTaxis::getClientes() const {
 	return clientes;
 }
@@ -43,35 +39,49 @@ priority_queue<Taxi> CompanhiaTaxis::getTaxis() const {
 	return taxis;
 }
 
+vector<Percurso*> CompanhiaTaxis::getPercursos() const {
+	return percursosDisponiveis;
+
+}
+
+tabCli CompanhiaTaxis::getInativos() const {
+	return this->inativos;
+}
+
+void CompanhiaTaxis::setTaxis(priority_queue<Taxi> t) {
+	taxis = t;
+}
+
+void CompanhiaTaxis::setPercursos(vector<Percurso*> p) {
+	percursosDisponiveis = p;
+}
+
+void CompanhiaTaxis::setClientes(vector<Cliente*> c) {
+	this->clientes = c;
+}
+
+void CompanhiaTaxis::somaCapital(float n) {
+	capital += n;
+}
+
 void CompanhiaTaxis::adicionaTaxi(Hora horI, Hora horO) {
 	Taxi t(horI, horO);
 	capital -= 500;
 	taxis.push(t);
 }
 
-void CompanhiaTaxis::setTaxis(priority_queue<Taxi> t) {
-	taxis = t;
-
+void CompanhiaTaxis::adicionaClienteParticular(string nome, string morada,
+		string email, int nT, int nif, string tipoPagamento) {
+	Cliente *c = new Particular(nome, morada, email, nT, nif, tipoPagamento);
+	clientes.push_back(c);
 }
 
-Taxi* CompanhiaTaxis::procuraTaxi(int n) const {
-	if (taxis.size() == 0)
-		throw TaxisIndisponiveis();
-
-	priority_queue<Taxi> aux = taxis;
-
-	while (!aux.empty()) {
-
-		Taxi t = aux.top();
-
-		if (t.getNumeroTaxi() == n) {
-			return t;
-		}
-
-		aux.pop();
-	}
-
-	throw TaxisIndisponiveis();
+void CompanhiaTaxis::adicionaClienteEmpresa(string nome, string morada,
+		string email, int nT, int nif, string tipoPagamento,
+		int numFuncionarios) {
+	Cliente *c = new Empresa(nome, morada, email, nT, nif, tipoPagamento,
+			numFuncionarios);
+	clientes.push_back(c);
 }
 
 void CompanhiaTaxis::removeTaxi(int n) {
@@ -98,37 +108,18 @@ void CompanhiaTaxis::removeTaxi(int n) {
 		taxis.pop();
 	}
 
-}
+	int idT = procuraTaxis(n);
 
-void CompanhiaTaxis::setClientes(vector<Cliente*> c) {
-	this->clientes = c;
-}
+	if (idT != -1) {
+		this->capital = this->capital + taxisTotais[idT].getRentabilidade();
 
-void CompanhiaTaxis::concaClientes(vector<Cliente*> c) {
+		taxisTotais.erase(taxisTotais.begin() + idT);
+		//vector<Taxi>::iterator it = taxisTotais.begin();
 
-	clientes.insert(clientes.end(), c.begin(), c.end());
-}
-
-void CompanhiaTaxis::setPercursos(vector<Percurso*> p) {
-	percursosDisponiveis = p;
-}
-
-vector<Percurso*> CompanhiaTaxis::getPercursos() const {
-	return percursosDisponiveis;
-
-}
-void CompanhiaTaxis::adicionaClienteParticular(string nome, string morada,
-		string email, int nT, int nif, string tipoPagamento) {
-	Cliente *c = new Particular(nome, morada, email, nT, nif, tipoPagamento);
-	clientes.push_back(c);
-}
-
-void CompanhiaTaxis::adicionaClienteEmpresa(string nome, string morada,
-		string email, int nT, int nif, string tipoPagamento,
-		int numFuncionarios) {
-	Cliente *c = new Empresa(nome, morada, email, nT, nif, tipoPagamento,
-			numFuncionarios);
-	clientes.push_back(c);
+		cout << "taxi removido" << endl;
+	} else {
+		cout << "taxi não existe" << endl;
+	}
 }
 
 bool CompanhiaTaxis::removeCliente(int id) {
@@ -148,6 +139,30 @@ bool CompanhiaTaxis::removeCliente(int id) {
 	clientes.erase(clientes.begin() + ind);
 
 	return true;
+}
+
+void CompanhiaTaxis::removeClienteTabela(Cliente c) {
+	inativos.erase(inativos.find(c), inativos.end()); //erasing by range
+}
+
+Taxi* CompanhiaTaxis::procuraTaxi(int n) const {
+	if (taxis.size() == 0)
+		throw TaxisIndisponiveis();
+
+	priority_queue<Taxi> aux = taxis;
+
+	while (!aux.empty()) {
+
+		Taxi t = aux.top();
+
+		if (t.getNumeroTaxi() == n) {
+			return t;
+		}
+
+		aux.pop();
+	}
+
+	throw TaxisIndisponiveis();
 }
 
 int CompanhiaTaxis::procuraCliente(int id) const {
@@ -196,7 +211,7 @@ void CompanhiaTaxis::fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1) {
 }
 
 void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
-		Percurso p1, bool disc, float per) {
+		Percurso p1, bool disc, float per, string tipoPag) {
 
 	Viagem v(dia, horaIn, p1);
 	v.horaFinal();
@@ -213,15 +228,17 @@ void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 					clientes[j]->addViagemHistorico(v);
 					clientes[j]->aumentaPontos();
 					clientes[j]->addViagemMensal(v);
-					if (clientes[j]->getCusto().getTipo() == "fim_do_mes") {
+					//if (clientes[j]->getCusto().getTipo() == "fim_do_mes") {
+					if (tipoPag == "fim_do_mes") {
+						clientes[j]->addViagemMensalFimDoMes(v);
 						if (clientes[j]->getPontos() > 50) {
 							clientes[j]->resetPontos();
 							return;
 						}
 						return;
 					}
-					if (clientes[j]->getCusto().getTipo() == "credito") {
-
+					//if (clientes[j]->getCusto().getTipo() == "credito") {
+					if (tipoPag == "credito") {
 						if (clientes[j]->getPontos() > 50) {
 							clientes[j]->resetPontos();
 							return;
@@ -248,10 +265,11 @@ void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 	}
 
 	throw ClienteInexistente(id);
-
 }
 
 void CompanhiaTaxis::cobrarPagamentoMensal() {
+	resetTabelaClientes(); //
+	criarTabelaClientes(); //
 
 	for (unsigned int i = 0; i < clientes.size(); i++) {
 		if (clientes[i]->getCusto().getTipo() == "fim_do_mes")
@@ -325,7 +343,6 @@ void CompanhiaTaxis::mostrarClientesPorID() {
 }
 
 void CompanhiaTaxis::mostrarTaxis() {
-
 	if (taxis.size() == 0)
 		throw TaxisIndisponiveis();
 
@@ -341,3 +358,53 @@ void CompanhiaTaxis::mostrarTaxis() {
 	}
 }
 
+void CompanhiaTaxis::concaClientes(vector<Cliente*> c) {
+
+	clientes.insert(clientes.end(), c.begin(), c.end());
+}
+
+void CompanhiaTaxis::criarTabelaClientes() {
+	vector<Cliente*> aux;
+
+	for (unsigned int i = 0; i < clientes.size(); i++) {
+		if (clientes[i]->getViagensMensais().size() == 0) {
+			inativos.insert(clientes[i]);
+			aux.push_back(clientes[i]);
+		}
+	}
+
+	for (unsigned int k = 0; k < aux.size(); k++) {
+		/*for (unsigned int j = 0; j < clientes.size(); j++) {
+		 if (aux[k]->getID() == clientes[j]->getID()
+		 && aux[k]->getNIF() == clientes[j]->getNIF()
+		 && aux[k]->getMorada() == clientes[j]->getMorada()
+		 && aux[k]->getMorada() == clientes[j]->getMorada()
+		 && aux[k]->getEmail() == clientes[j]->getEmail()
+		 && aux[k]->getNumeroTelemovel()
+		 == clientes[j]->getNumeroTelemovel()
+		 && aux[k]->getNomeC() == clientes[j]->getNomeC()) {
+		 clientes.erase(clientes.begin() + j);
+		 break;
+		 }
+		 }*/
+		removeCliente(aux[k].getID());
+	}
+}
+
+void CompanhiaTaxis::resetTabelaClientes() {
+	inativos.clear();
+}
+
+/*
+ bool CompanhiaTaxis::verficaClienteTabela(int id) {
+ Cliente* c; //= Cliente(id, "a", "b", "c", -1, -1, -1, "d");
+ c->setID(id);
+
+ //typedef unordered_set<Cliente, HashCli, EqualCli>::iterator
+ itTabCli = inativos.find(*c);
+
+ if (itTabCli == inativos.end()) {
+
+ }
+ }
+ */

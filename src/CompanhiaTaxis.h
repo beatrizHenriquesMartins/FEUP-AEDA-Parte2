@@ -33,15 +33,16 @@ struct HashCli {
 	int operator()(const Cliente* c1) const {
 		int v = 0;
 		string nome = c1->getNomeC();
-		for (unsigned int i = 0; i < nome.size(); i++)
+		for (unsigned int i = 0; i < nome.size(); i++) {
 			v = 37 * v + nome[i];
-
+		}
 		v += c1->getID();
 		return v;
 	}
 };
 
-typedef unordered_set<Taxi, HashCli, EqualCli> tabCli;
+typedef unordered_set<Cliente, HashCli, EqualCli> tabCli;
+typedef unordered_set<Cliente, HashCli, EqualCli>::iterator itTabCli;
 
 class CompanhiaTaxis {
 private:
@@ -52,41 +53,59 @@ private:
 	vector<Taxi> taxisTotais;
 	//////
 	tabCli inativos;
-	BST<Viagem> viagens;
+	//BST<Viagem> viagens;
 	priority_queue<Taxi> taxis;
 	/////
 
 public:
 	CompanhiaTaxis();
 	CompanhiaTaxis(string n, float c);
+
 	string getNome();
 	float getCapital();
-	void somaCapital(float n);
 	vector<Cliente *> getClientes() const;
 	vector<Taxi> getTaxisTotais() const;
 	priority_queue<Taxi> getTaxis() const;
-	void adicionaTaxi(Hora horI, Hora horO);
-	void setTaxis(priority_queue<Taxi> t);
-	void removeTaxi(int id);
-	Taxi* procuraTaxi(int n) const;
-	void setPercursos(vector<Percurso*> p);
 	vector<Percurso*> getPercursos() const;
+	tabCli getInativos() const; //hash
+
+	void setTaxis(priority_queue<Taxi> t);
+	void setPercursos(vector<Percurso*> p);
+	void setClientes(vector<Cliente*> c);
+
+	void somaCapital(float n);
+
+	void adicionaTaxi(Hora horI, Hora horO);
 	void adicionaClienteParticular(string nome, string morada, string email,
 			int nT, int nif, string tipoPagamento);
 	void adicionaClienteEmpresa(string nome, string morada, string email,
 			int nT, int nif, string tipoPagamento, int numFuncionarios);
+
+	void removeTaxi(int id);
 	bool removeCliente(int id);
+	void removeClienteTabela(Cliente c); //hash
+
+	Taxi* procuraTaxi(int n) const;
 	int procuraCliente(int id) const;
+
 	int ultimoIDcliente();
+
 	void fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1);
 	void fazerViagemCliente(int id, Data dia, Hora horaIn, Percurso p1,
 			bool disc, float per);
+
 	void cobrarPagamentoMensal();
+
 	void mostrarClientesPorCapital();
 	void mostrarClientesPorID();
 	void mostrarTaxis();
-	void setClientes(vector<Cliente*> c);
+
 	void concaClientes(vector<Cliente*> c);
+
+	void criarTabelaClientes(); //hash
+	void resetTabelaClientes(); //hash
+
+	//bool verficaClienteTabela(int id);
 };
 
 #endif /* COMPANHIATAXIS_H_ */
