@@ -41,8 +41,8 @@ struct HashCli {
 	}
 };
 
-typedef unordered_set<Cliente, HashCli, EqualCli> tabCli;
-typedef unordered_set<Cliente, HashCli, EqualCli>::iterator itTabCli;
+typedef unordered_set<Cliente*, HashCli, EqualCli> tabCli;
+typedef unordered_set<Cliente*, HashCli, EqualCli>::iterator itTabCli;
 
 class CompanhiaTaxis {
 private:
@@ -50,10 +50,9 @@ private:
 	float capital;
 	vector<Cliente *> clientes;
 	vector<Percurso*> percursosDisponiveis;
-	vector<Taxi> taxisTotais;
 	//////
 	tabCli inativos;
-	//BST<Viagem> viagens;
+	BST<Viagem> viagens;
 	priority_queue<Taxi> taxis;
 	/////
 
@@ -64,7 +63,6 @@ public:
 	string getNome();
 	float getCapital();
 	vector<Cliente *> getClientes() const;
-	vector<Taxi> getTaxisTotais() const;
 	priority_queue<Taxi> getTaxis() const;
 	vector<Percurso*> getPercursos() const;
 	tabCli getInativos() const; //hash
@@ -81,7 +79,7 @@ public:
 	void adicionaClienteEmpresa(string nome, string morada, string email,
 			int nT, int nif, string tipoPagamento, int numFuncionarios);
 
-	void removeTaxi(int id);
+	bool removeTaxi(int n);
 	bool removeCliente(int id);
 	void removeClienteTabela(Cliente c); //hash
 
@@ -92,7 +90,7 @@ public:
 
 	void fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1);
 	void fazerViagemCliente(int id, Data dia, Hora horaIn, Percurso p1,
-			bool disc, float per);
+			bool disc, float per, string tipoPag);
 
 	void cobrarPagamentoMensal();
 
@@ -104,6 +102,16 @@ public:
 
 	void criarTabelaClientes(); //hash
 	void resetTabelaClientes(); //hash
+
+	BST<Viagem> getViagens(); //BST
+	void addViagemBST(Viagem &v); //BST
+	void mostrarViagensBST(); //BST
+
+	/**
+	 * @brief função que nos permite ter o taxi mais disponivel dentro do Horario da Viagem passada como argumento
+	 * @return Taxi que tem as caracteristicas pretendidas
+	 */
+	Taxi* proximoTaxi(Viagem v);
 
 	//bool verficaClienteTabela(int id);
 };

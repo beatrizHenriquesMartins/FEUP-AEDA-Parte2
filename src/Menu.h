@@ -12,9 +12,10 @@
 #include <iomanip>
 #include <iostream>
 #include <stdlib.h>
+#include <fstream>
 
 #include "CompanhiaTaxis.h"
-#include <fstream>
+#include "Data.h"
 
 using namespace std;
 
@@ -47,6 +48,7 @@ public:
 	void menuCompanhia(CompanhiaTaxis &comp);
 	void menuNomeCompanhia(CompanhiaTaxis &comp);
 	void menuVerClientesPorID(CompanhiaTaxis &comp);
+	void menuViagensRealizadas(CompanhiaTaxis &comp);
 
 	void menuClientes(CompanhiaTaxis &comp);
 	void menuNovoCliente(CompanhiaTaxis &comp);

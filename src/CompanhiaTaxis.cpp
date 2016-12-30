@@ -12,11 +12,15 @@
 
 CompanhiaTaxis::CompanhiaTaxis() {
 	this->capital = 0;
+	Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0));
+	BST<Viagem> viagens(null);
 }
 
 CompanhiaTaxis::CompanhiaTaxis(string n, float c) {
 	this->nome = n;
 	this->capital = c;
+	Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0));
+	BST<Viagem> viagens(null);
 }
 
 string CompanhiaTaxis::getNome() {
@@ -29,10 +33,6 @@ float CompanhiaTaxis::getCapital() {
 
 vector<Cliente *> CompanhiaTaxis::getClientes() const {
 	return clientes;
-}
-
-vector<Taxi> CompanhiaTaxis::getTaxisTotais() const {
-	return taxisTotais;
 }
 
 priority_queue<Taxi> CompanhiaTaxis::getTaxis() const {
@@ -84,7 +84,7 @@ void CompanhiaTaxis::adicionaClienteEmpresa(string nome, string morada,
 	clientes.push_back(c);
 }
 
-void CompanhiaTaxis::removeTaxi(int n) {
+bool CompanhiaTaxis::removeTaxi(int n) {
 	Taxi *t;
 	t = procuraTaxi(n);
 
@@ -101,25 +101,19 @@ void CompanhiaTaxis::removeTaxi(int n) {
 		if (t.getNumeroTaxi() == n) {
 
 			taxis.pop();
-			continue;
+			break;
 		}
 
 		aux.push(t);
 		taxis.pop();
 	}
 
-	int idT = procuraTaxis(n);
-
-	if (idT != -1) {
-		this->capital = this->capital + taxisTotais[idT].getRentabilidade();
-
-		taxisTotais.erase(taxisTotais.begin() + idT);
-		//vector<Taxi>::iterator it = taxisTotais.begin();
-
-		cout << "taxi removido" << endl;
-	} else {
-		cout << "taxi não existe" << endl;
+	while (!aux.empty()) {
+		taxis.push(aux.top());
+		aux.pop();
 	}
+
+	return true;
 }
 
 bool CompanhiaTaxis::removeCliente(int id) {
@@ -146,8 +140,9 @@ void CompanhiaTaxis::removeClienteTabela(Cliente c) {
 }
 
 Taxi* CompanhiaTaxis::procuraTaxi(int n) const {
-	if (taxis.size() == 0)
+	if (taxis.size() == 0) {
 		throw TaxisIndisponiveis();
+	}
 
 	priority_queue<Taxi> aux = taxis;
 
@@ -198,70 +193,66 @@ void CompanhiaTaxis::fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1) {
 	Viagem v(dia, horaIn, p1);
 	v.horaFinal();
 
-	Taxi t = taxis.top();
-	taxis.pop();
+	Taxi* t = this->proximoTaxi(v);
 
-	t.changeDispo(v.horaFinal());
+	t->changeDispo(v.horaFinal());
 
-	t.setRentabilidade(v.pagarViagem());
-	taxis.push(t);
+	t->setRentabilidade(v.pagarViagem());
+	taxis.push(*t);
 
-	return;
-	throw TaxisIndisponiveis("Nao existem taxis de momento disponiveis");
 }
 
 void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 		Percurso p1, bool disc, float per, string tipoPag) {
-
 	Viagem v(dia, horaIn, p1);
 	v.horaFinal();
 	v.pagarViagem();
 	for (unsigned int j = 0; j < clientes.size(); j++) {
 		if (clientes[j]->getID() == id) {
 
-			for (unsigned int i = 0; i < taxisTotais.size(); i++) {
+			Taxi* t = this->proximoTaxi(v);
 
-				if (taxisTotais[i].getDisponivel(horaIn, v.getHoraOut())) {
+			if (disc)
+				v.modificaCusto(clientes[j]->giveMonthlyPromotion(per));
 
-					if (disc)
-						v.modificaCusto(clientes[j]->giveMonthlyPromotion(per));
-					clientes[j]->addViagemHistorico(v);
-					clientes[j]->aumentaPontos();
-					clientes[j]->addViagemMensal(v);
-					//if (clientes[j]->getCusto().getTipo() == "fim_do_mes") {
-					if (tipoPag == "fim_do_mes") {
-						clientes[j]->addViagemMensalFimDoMes(v);
-						if (clientes[j]->getPontos() > 50) {
-							clientes[j]->resetPontos();
-							return;
-						}
-						return;
-					}
-					//if (clientes[j]->getCusto().getTipo() == "credito") {
-					if (tipoPag == "credito") {
-						if (clientes[j]->getPontos() > 50) {
-							clientes[j]->resetPontos();
-							return;
-						}
-						clientes[j]->changeCustoTotal(v.pagarViagem() * 1.05);
-						taxisTotais[i].setRentabilidade(v.pagarViagem() * 1.05);
-						return;
-					} else {
-						v.pagarViagem();
-						if (clientes[j]->getPontos() > 50) {
-							clientes[j]->resetPontos();
-							return;
-						}
-						clientes[j]->changeCustoTotal(v.pagarViagem());
-						taxisTotais[i].setRentabilidade(v.pagarViagem());
-						return;
-					}
+			clientes[j]->addViagemHistorico(v);
+			clientes[j]->aumentaPontos();
+			clientes[j]->addViagemMensal(v);
+			if (clientes[j]->getCusto().getTipo() == "fim_do_mes") {
+				clientes[j]->addViagemMensalFimDoMes(v);
+				if (clientes[j]->getPontos() > 50) {
+					clientes[j]->resetPontos();
+					taxis.push(*t);
+					return;
 				}
-
+				taxis.push(*t);
+				return;
 			}
-			throw TaxisIndisponiveis(
-					"Nao existem taxis de momento disponiveis");
+			if (clientes[j]->getCusto().getTipo() == "credito") {
+
+				if (clientes[j]->getPontos() > 50) {
+					clientes[j]->resetPontos();
+					taxis.push(*t);
+					return;
+				}
+				clientes[j]->changeCustoTotal(v.pagarViagem() * 1.05);
+				t->setRentabilidade(v.pagarViagem() * 1.05);
+				taxis.push(*t);
+				return;
+			} else {
+				v.pagarViagem();
+				if (clientes[j]->getPontos() > 50) {
+					clientes[j]->resetPontos();
+					taxis.push(*t);
+					return;
+				}
+				clientes[j]->changeCustoTotal(v.pagarViagem());
+				t->setRentabilidade(v.pagarViagem());
+				taxis.push(*t);
+				return;
+			}
 		}
+
 	}
 
 	throw ClienteInexistente(id);
@@ -278,10 +269,23 @@ void CompanhiaTaxis::cobrarPagamentoMensal() {
 		clientes[i]->resetMes();
 	}
 
-	for (unsigned int j = 0; j < taxisTotais.size(); j++) {
-		capital += taxisTotais[j].getRentabilidade();
-		float n = -1 * (taxisTotais[j].getRentabilidade());
-		taxisTotais[j].setRentabilidade(n);
+	priority_queue<Taxi> aux;
+
+	while (!taxis.empty()) {
+
+		Taxi t = taxis.top();
+
+		capital += t.getRentabilidade();
+		float n = -1 * (t.getRentabilidade());
+		t.setRentabilidade(n);
+
+		aux.push(t);
+		taxis.pop();
+	}
+
+	while (!aux.empty()) {
+		taxis.push(aux.top());
+		aux.pop();
 	}
 }
 
@@ -343,8 +347,10 @@ void CompanhiaTaxis::mostrarClientesPorID() {
 }
 
 void CompanhiaTaxis::mostrarTaxis() {
-	if (taxis.size() == 0)
+
+	if (taxis.size() == 0) {
 		throw TaxisIndisponiveis();
+	}
 
 	priority_queue<Taxi> aux = taxis;
 
@@ -368,7 +374,7 @@ void CompanhiaTaxis::criarTabelaClientes() {
 
 	for (unsigned int i = 0; i < clientes.size(); i++) {
 		if (clientes[i]->getViagensMensais().size() == 0) {
-			inativos.insert(clientes[i]);
+			this->inativos.insert(clientes[i]);
 			aux.push_back(clientes[i]);
 		}
 	}
@@ -387,7 +393,7 @@ void CompanhiaTaxis::criarTabelaClientes() {
 		 break;
 		 }
 		 }*/
-		removeCliente(aux[k].getID());
+		this->removeCliente(aux[k]->getID());
 	}
 }
 
@@ -408,3 +414,51 @@ void CompanhiaTaxis::resetTabelaClientes() {
  }
  }
  */
+
+//////BST////////77
+BST<Viagem> CompanhiaTaxis::getViagens() {
+	return this->viagens;
+}
+
+void CompanhiaTaxis::addViagemBST(Viagem &v) {
+	viagens.insert(v);
+}
+
+void CompanhiaTaxis::mostrarViagensBST() {
+	BSTItrIn<Viagem> it(viagens);
+	while (!it.isAtEnd()) {
+		cout << it.retrieve() << endl;
+		it.advance();
+	}
+}
+
+Taxi* CompanhiaTaxis::proximoTaxi(Viagem v) {
+
+	Taxi res;
+	priority_queue<Taxi> aux;
+
+	while (!taxis.empty()) {
+
+		Taxi t = taxis.top();
+
+		if (t.inHorario(v.getHoraIn(), v.getHoraOut())) {
+
+			taxis.pop();
+			res = t;
+			break;
+		}
+
+		aux.push(t);
+		taxis.pop();
+	}
+
+	while (!aux.empty()) {
+		taxis.push(aux.top());
+		aux.pop();
+	}
+
+	if (res.getNumeroTaxi() == 0)
+		throw TaxisIndisponiveis();
+	else
+		return res;
+}

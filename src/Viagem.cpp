@@ -1,15 +1,13 @@
 /*
  * Viagem.cpp
  *
- *  Created on: 21/12/2016
- *      Author: beatrizHm
+ *  Created on: 01/11/2016
+ *      Author: Diogo Pereira
  */
 
 #include "Viagem.h"
-
-Viagem::Viagem() {
-
-}
+#include "Data.h"
+#include "Percurso.h"
 
 Viagem::Viagem(Data dia, Hora horaIn, Percurso p1) {
 	this->data = dia;
@@ -36,50 +34,37 @@ Data Viagem::getData() const {
 	return data;
 }
 
+/*void Viagem::setData(int d, int m, int a) {
+ Data d1 = Data(d, m, a);
+ this->data = d1;
+ }*/
+
 Hora Viagem::getHoraIn() const {
 	return horaIn;
-}
-
-Hora Viagem::getHoraOut() const {
-	return horaOut;
-}
-
-string Viagem::getPartida() const {
-	return deslocacao.getLocalPartida();
-}
-
-string Viagem::getDestino() const {
-	return deslocacao.getLocalDestino();
-}
-
-float Viagem::getCustoViagem() const {
-	return custo;
-}
-
-Percurso Viagem::getDeslocacao() {
-	return deslocacao;
-}
-
-string Viagem::getCliente() const {
-	return cliente;
-
-}
-
-void Viagem::setData(int d, int m, int a) {
-	Data d1 = Data(d, m, a);
-	this->data = d1;
 }
 
 void Viagem::setHoraIn(Hora hora) {
 	horaIn = hora;
 }
 
+Hora Viagem::getHoraOut() const {
+	return horaOut;
+}
+
 void Viagem::setHoraOut(Hora hora) {
 	horaOut = hora;
 }
 
+string Viagem::getPartida() const {
+	return deslocacao.getLocalPartida();
+}
+
 void Viagem::setPartida(string localP, int dist1) {
 	deslocacao.setLocalPartida(localP, dist1);
+}
+
+string Viagem::getDestino() const {
+	return deslocacao.getLocalDestino();
 }
 
 void Viagem::setDestino(string localD, int dist2) {
@@ -111,6 +96,19 @@ float Viagem::pagarViagem() {
 	return custo;
 }
 
+Percurso Viagem::getDeslocacao() {
+	return deslocacao;
+}
+
+float Viagem::getCustoViagem() const {
+	return custo;
+}
+
+string Viagem::getCliente() const {
+	return cliente;
+
+}
+
 void Viagem::modificaCusto(float per) {
 	custo = custo * per;
 }
@@ -132,13 +130,15 @@ string Viagem::toString() {
 	stringstream ss;
 	ss << "Data: " << this->getData().toString() << " Hora Inicial: " << horaIn
 			<< " Hora Final: " << horaOut << " " << deslocacao.toString()
-			<< " Custo: " << this->getCustoViagem();
+			<< " Custo: " << this->getCustoViagem() << " Nome: "
+			<< this->getCliente();
 	return ss.str();
 }
 
 ostream & operator<<(ostream & os, Viagem &v) {
 	os << "Data: " << v.getData().toString() << " Hora Inicial: "
 			<< v.getHoraIn() << " Hora Final: " << v.getHoraOut() << " "
-			<< v.getDeslocacao().toString() << " Custo: " << v.getCustoViagem();
+			<< v.getDeslocacao().toString() << " Custo: " << v.getCustoViagem()
+			<< " Nome: " << v.getCliente();
 	return os;
 }

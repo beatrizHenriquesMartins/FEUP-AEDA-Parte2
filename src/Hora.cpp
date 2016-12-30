@@ -1,14 +1,14 @@
 /*
  * Hora.cpp
  *
- *  Created on: 21/12/2016
- *      Author: beatrizHm
+ *  Created on: 08/11/2016
+ *      Author: Pedro Silva
  */
 
 #include "Hora.h"
-#include <time.h>
 
 Hora::Hora() {
+
 	time_t now;
 	time(&now);
 
@@ -67,6 +67,15 @@ Hora Hora::somaHoras(int min) {
 	return h;
 }
 
+//
+string Hora::toString() {
+	stringstream ss;
+	ss << this->getHora() << ":" << this->getMinutos() << ":"
+			<< this->getSegundos() << "h";
+	return ss.str();
+}
+//
+
 bool Hora::operator <(Hora h2) {
 
 	if (hora < h2.getHora())
@@ -95,16 +104,10 @@ bool Hora::operator <=(Hora h2) {
 
 }
 
-string Hora::toString() {
-	stringstream ss;
-	ss << this->getHora() << ":" << this->getMinutos() << ":"
-			<< this->getSegundos() << "h";
-	return ss.str();
-}
-
 ostream & operator <<(ostream & os, Hora h) {
 
 	os << h.getHora() << ":" << h.getMinutos() << ":" << h.getSegundos() << "h";
 	return os;
 
 }
+

@@ -1,8 +1,8 @@
 /*
  * Data.cpp
  *
- *  Created on: 21/12/2016
- *      Author: beatrizHm
+ *  Created on: 01/11/2016
+ *      Author: Diogo Pereira
  */
 
 #include "Data.h"
@@ -63,6 +63,23 @@ void Data::setAno(int a) {
 	ano = a;
 }
 
+//
+string Data::toString() {
+	stringstream ss;
+	ss << this->getDia() << "/" << this->getMes() << "/" << this->getAno();
+	return ss.str();
+}
+//
+
+ostream & operator <<(ostream os, Data d) {
+
+	os << d.getDia() << "/" << d.getMes() << "/" << d.getAno();
+	return os;
+
+}
+
+/////
+
 bool Data::operator <(const Data d) {
 
 	if (ano < d.getAno())
@@ -75,13 +92,3 @@ bool Data::operator <(const Data d) {
 		return false;
 }
 
-string Data::toString() {
-	stringstream ss;
-	ss << this->getDia() << "/" << this->getMes() << "/" << this->getAno();
-	return ss.str();
-}
-
-ostream & operator <<(ostream os, Data d) {
-	os << d.getDia() << "/" << d.getMes() << "/" << d.getAno();
-	return os;
-}

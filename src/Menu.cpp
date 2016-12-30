@@ -230,10 +230,12 @@ void Menu::lerFicheiroViagens(CompanhiaTaxis &comp) {
 			idAux.push_back(id);
 			aux.push_back(v);
 		}
+
 		for (unsigned int i = 0; i < idAux.size(); i++) {
 			int index = comp.procuraCliente(idAux[i]);
 			if (index == 0) {
 				comp.getClientes()[index]->addViagemHistorico(aux[i]);
+				comp.addViagemBST(aux[i]); // BST
 			}
 		}
 	} else {
@@ -248,7 +250,7 @@ void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 		int n;
 		string lixo;
 
-		vector<Taxi> aux;
+		priority_queue<Taxi> aux;
 		file >> n;
 		getline(file, lixo, '\n');
 
@@ -279,7 +281,7 @@ void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 			Hora horaIn = stringToHora(hi);
 			Hora horaF = stringToHora(hf);
 			Taxi t(id, rent, horaIn, horaF);
-			aux.push_back(t);
+			aux.push(t);
 		}
 		comp.setTaxis(aux);
 
@@ -533,16 +535,17 @@ void Menu::escreverFicheiroClientesViagens(CompanhiaTaxis &comp) {
 }
 
 void Menu::escreverFicheiroTaxis(CompanhiaTaxis &comp) {
-	if (comp.getTaxisTotais().size() == 0)
+	if (comp.getTaxis().size() == 0)
 		return;
 	ofstream file("Taxis.txt");
 
-	vector<Taxi> vt = comp.getTaxisTotais();
+	priority_queue<Taxi> vt = comp.getTaxis();
 
 	file << vt.size() << endl;
-	for (unsigned int j = 0; j < vt.size(); j++) {
 
-		file << vt[j] << endl;
+	while (!vt.empty()) {
+		file << vt.top() << endl;
+		vt.pop();
 	}
 
 	file.close();
@@ -670,7 +673,8 @@ void Menu::menuCompanhia(CompanhiaTaxis &comp) {
 				<< setw(5) << " " << "8. Aplicar desconto mensal " << endl
 				<< setw(5) << " " << "9. Gestao de Taxis " << endl << setw(5)
 				<< " " << "10. Cobrar pagamentos mensais" << endl << setw(5)
-				<< " " << "11. Sair" << endl;
+				<< " " << "11. Mostrar viagens da Companhia" << endl << setw(5)
+				<< " " << "12. Sair" << endl;
 		int opC;
 
 		try {
@@ -721,6 +725,10 @@ void Menu::menuCompanhia(CompanhiaTaxis &comp) {
 				break;
 			}
 			case 11: {
+				menuViagensRealizadas(comp);
+				break;
+			}
+			case 12: {
 				return;
 			}
 			default:
@@ -1426,5 +1434,12 @@ void Menu::menuCobrarPagamentosMensais(CompanhiaTaxis &comp) {
 	comp.cobrarPagamentoMensal();
 	desconto = false;
 	percentagem = 1;
+	menuCompanhia(comp);
+}
+
+void Menu::menuViagensRealizadas(CompanhiaTaxis &comp) {
+	cout << "|Viagens Realizadas|" << endl << endl;
+	comp.mostrarViagensBST();
+	cout << endl;
 	menuCompanhia(comp);
 }
