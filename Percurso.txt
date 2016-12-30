@@ -1,0 +1,19 @@
+Feup; Reitoria; 15
+
+Feup; Trindade; 14
+
+Feup; Jardim do Morro; 22
+
+Feup; Câmara da Maia; 25
+
+Reitoria; Trindade; 3
+
+Reitoria; Jardim do Morro; 12
+
+Reitoria; Câmara da Maia; 28
+
+Trindade; Jardim do Morro; 13
+
+Trindade; Câmara da Maia; 26
+
+Jardim do Morro; Câmara da Maia; 33
