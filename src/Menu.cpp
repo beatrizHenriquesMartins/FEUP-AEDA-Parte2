@@ -624,6 +624,7 @@ void Menu::menuInicio(CompanhiaTaxis &comp) {
 				escreverFicheiroClientesViagens(comp);
 				escreverFicheiroComp(comp);
 				escreverFicheiroTaxis(comp);
+				escreverFicheiroClientesViagensNaoPagasMensais(comp);
 				cout << endl << "Terminou" << endl;
 				return;
 			}
@@ -649,6 +650,7 @@ void Menu::menuEmp(CompanhiaTaxis &comp) {
 	lerFicheiroClienteEmpresas(comp);
 	lerFicheiroViagens(comp);
 	lerFicheiroTaxis(comp);
+	lerFicheiroViagensNaoPagasMensais(comp);
 	//lerFicheiroPercurso(comp);
 
 	menuCompanhia(comp);
@@ -963,8 +965,35 @@ void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 			throw ErroInput();
 		}
 
-		if (comp.procuraCliente(id) == -1)
+		Cliente* c;
+		c->setID(id);
+
+		if (comp.procuraCliente(id) == -1
+				&& comp.getInativos().find(*c) == comp.getInativos().end())
 			throw ClienteInexistente(id);
+
+		if (comp.getInativos().find(*c) != comp.getInativos().end()) {
+			Cliente*cliente = comp.getInativos().find(*c);
+			if (cliente->isParticular() == true) {
+				string n = cliente->getNomeC();
+				string m = cliente->getMorada();
+				string e = cliente->getEmail();
+				int nT = cliente->getNumeroTelemovel();
+				int nif = cliente->getNIF();
+				string c = cliente->getCusto();
+				comp.adicionaClienteParticular(n, m, e, nT, nif, c);
+			} else {
+				string n = cliente->getNomeC();
+				string m = cliente->getMorada();
+				string e = cliente->getEmail();
+				int nT = cliente->getNumeroTelemovel();
+				int nif = cliente->getNIF();
+				string c = cliente->getCusto();
+				int nF = cliente->getNfunc();
+				comp.adicionaClienteEmpresa(n, m, e, nT, nif, c, nF);
+			}
+			comp.removeClienteTabela(*cliente);
+		}
 
 		int opPag;
 		string tipoPag;
@@ -999,19 +1028,14 @@ void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 				Percurso(localPartida, localDestino, distancia), desconto,
 				percentagem);
 	} catch (ErroInput &e) {
-
 		e.alertaErro();
-
 	} catch (ClienteInexistente &c) {
 		cout << "Cliente numero " << c.getID() << " nao existe" << endl;
 	} catch (TaxisIndisponiveis &t) {
 		cout << t.getRazao() << endl;
-
 	} catch (HoraInvalida &h) {
-
 		cout << h.getRazao() << endl;
 	} catch (DataInvalida &d) {
-
 		d.dataErrada();
 	}
 

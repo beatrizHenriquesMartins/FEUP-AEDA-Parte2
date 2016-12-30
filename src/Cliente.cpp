@@ -44,7 +44,7 @@ int Cliente::ultidC = 1;
 
 Cliente::Cliente(int id, string nome, string morada, string email,
 		int numeroTelemovel, int nif, float cap, string tipoPagamento,
-		int pontos, vector<Viagem> viagensNaoPagas) :
+		int pontos) :
 		Utente(nome, tipoPagamento) {
 	this->id = id;
 	ultidC = ++id;
@@ -54,7 +54,6 @@ Cliente::Cliente(int id, string nome, string morada, string email,
 	this->email = email;
 	this->numeroTelemovel = numeroTelemovel;
 	cartaoPontos = pontos;
-	this->viagensNaoPagas = viagensNaoPagas;
 }
 
 Cliente::Cliente(string nC, string m, string mail, int nT, int nif,
@@ -118,6 +117,10 @@ void Cliente::setEmail(string mail) {
 
 void Cliente::setNumeroTelemovel(int nT) {
 	numeroTelemovel = nT;
+}
+
+void Cliente::setID(int id) {
+	this->id = id;
 }
 
 void Cliente::aumentaPontos() {
@@ -225,9 +228,9 @@ bool Cliente::operator <(Cliente c2) {
 //Particular
 Particular::Particular(int id, string nome, string morada, string email,
 		int numeroTelemovel, int nif, float cap, string tipoPagamento,
-		int pontos, vector<Viagem> viagensNaoPagas) :
+		int pontos) :
 		Cliente(id, nome, morada, email, numeroTelemovel, nif, cap,
-				tipoPagamento, pontos, viagensNaoPagas) {
+				tipoPagamento, pontos) {
 
 }
 
@@ -270,9 +273,9 @@ bool Particular::isParticular() {
 //Empresa
 Empresa::Empresa(int id, string nome, string morada, string email,
 		int numeroTelemovel, int nif, float cap, string tipoPagamento,
-		int nFuncionarios, int pontos, vector<Viagem> viagensNaoPagas) :
+		int nFuncionarios, int pontos) :
 		Cliente(id, nome, morada, email, numeroTelemovel, nif, cap,
-				tipoPagamento, pontos, viagensNaoPagas) {
+				tipoPagamento, pontos) {
 	this->numFuncionarios = nFuncionarios;
 }
 
