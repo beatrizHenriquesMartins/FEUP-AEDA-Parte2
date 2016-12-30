@@ -24,13 +24,14 @@ Taxi::Taxi(Hora horI, Hora horO) {
 	dispo = 0;
 }
 
-Taxi::Taxi(int n, float r, Hora horI, Hora horO) {
+//Rodas
+Taxi::Taxi(int n, float r, Hora horI, Hora horO, float dis) {
 	horaIn = horI;
 	horaOff = horO;
 	rentabilidade = r;
 	numeroTaxi = n;
 	ultinumeroTaxi = ++n;
-	dispo = 0;
+	dispo = dis;
 }
 
 Taxi::~Taxi() {
@@ -64,12 +65,13 @@ Hora Taxi::getHoraOff() {
 	return horaOff;
 }
 
+//Rodas
 ostream & operator <<(ostream & os, Taxi t) {
 
 	os << "Taxi numero " << t.getNumeroTaxi() << " ; "
 			<< " Rentabilidade Atual: " << t.getRentabilidade() << " ; "
-			<< " Disponivel entre:" << t.getHoraIn() << " e as "
-			<< t.getHoraOff();
+			<< " Horario entre: " << t.getHoraIn() << " e as "
+			<< t.getHoraOff() << " ; " << "Disponibilidade: " << t.getdispo();
 	return os;
 }
 

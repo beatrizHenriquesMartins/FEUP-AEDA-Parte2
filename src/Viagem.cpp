@@ -5,7 +5,8 @@
  *      Author: Diogo Pereira
  */
 
-#include "Viagem.h"
+//Rodas
+#include "viagem.h"
 #include "Data.h"
 #include "Percurso.h"
 
@@ -35,9 +36,9 @@ Data Viagem::getData() const {
 }
 
 /*void Viagem::setData(int d, int m, int a) {
-	Data d1 = Data(d, m, a);
-	this->data = d1;
-}*/
+ Data d1 = Data(d, m, a);
+ this->data = d1;
+ }*/
 
 Hora Viagem::getHoraIn() const {
 	return horaIn;
@@ -108,21 +109,10 @@ string Viagem::getCliente() const {
 	return cliente;
 
 }
-/////
+
 void Viagem::modificaCusto(float per) {
 	custo = custo * per;
 }
-//////
-
-string Viagem::toString() {
-	stringstream ss;
-	ss << "Data: " << this->getData().toString() << " Hora Inicial: " << horaIn
-			<< " Hora Final: " << horaOut << " " << deslocacao.toString()
-			<< " Custo: " << this->getCustoViagem();
-	return ss.str();
-}
-
-////////
 
 bool Viagem::operator <(const Viagem v) {
 
@@ -137,5 +127,19 @@ bool Viagem::operator <(const Viagem v) {
 	return false;
 }
 
+string Viagem::toString() {
+	stringstream ss;
+	ss << "Data: " << this->getData().toString() << " Hora Inicial: " << horaIn
+			<< " Hora Final: " << horaOut << " " << deslocacao.toString()
+			<< " Custo: " << this->getCustoViagem() << " Nome: "
+			<< this->getCliente();
+	return ss.str();
+}
 
-
+ostream & operator<<(ostream & os, Viagem &v) {
+	os << "Data: " << v.getData().toString() << " Hora Inicial: "
+			<< v.getHoraIn() << " Hora Final: " << v.getHoraOut() << " "
+			<< v.getDeslocacao().toString() << " Custo: " << v.getCustoViagem()
+			<< " Nome: " << v.getCliente();
+	return os;
+}

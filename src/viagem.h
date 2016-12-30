@@ -34,7 +34,7 @@ private:
 public:
 
 	/**
-	 * @brief função construtor Viagem
+	 * @brief fun√ß√£o construtor Viagem
 	 * @param dia - data
 	 * @param horaIn - hora inicio
 	 * @param p1 - percurso
@@ -42,7 +42,7 @@ public:
 	Viagem(Data dia, Hora horaIn, Percurso p1);
 
 	/**
-	 * @brief função construtor Viagem
+	 * @brief fun√ß√£o construtor Viagem
 	 * @param dia - data
 	 * @param horaIn - hora inicio
 	 * @param horaOut - hora fim
@@ -52,127 +52,128 @@ public:
 	Viagem(Data dia, Hora horaIn, Hora horaOut, Percurso p1, float c);
 
 	/**
-	 * @brief função destrutora de viagem
+	 * @brief fun√ß√£o destrutora de viagem
 	 */
 	~Viagem();
 
 	/**
-	 * @brief função para obter data
+	 * @brief fun√ß√£o para obter data
 	 * @return data
 	 */
 	Data getData() const;
 
 	/**
-	 * @brief função que actualiza data
+	 * @brief fun√ß√£o que actualiza data
 	 * @param data - data
 	 */
 	void setData(int d, int m, int a);
 
 	/**
-	 * @brief função para obter hora de inicio
+	 * @brief fun√ß√£o para obter hora de inicio
 	 * @return hora de inicio
 	 */
 	Hora getHoraIn() const;
 
 	/**
-	 * @brief função que actualiza hora de inicio
+	 * @brief fun√ß√£o que actualiza hora de inicio
 	 * @param hora - hora de inicio
 	 */
 	void setHoraIn(Hora hora);
 
 	/**
-	 * @brief função para obter hora de fim
+	 * @brief fun√ß√£o para obter hora de fim
 	 * @return hora de fim
 	 */
 	Hora getHoraOut() const;
 
 	/**
-	 * @brief função que actualiza hora de fim
+	 * @brief fun√ß√£o que actualiza hora de fim
 	 * @param hora - hora de fim
 	 */
 	void setHoraOut(Hora hora);
 
 	/**
-	 * @brief função para obter partida
+	 * @brief fun√ß√£o para obter partida
 	 * @return partida
 	 */
 	string getPartida() const;
 
 	/**
-	 * @brief função que actualiza partida
+	 * @brief fun√ß√£o que actualiza partida
 	 * @param localP - local partida
 	 * @param dist1 - distancia
 	 */
 	void setPartida(string localP, int dist1);
 
 	/**
-	 * @brief função para obter destino
+	 * @brief fun√ß√£o para obter destino
 	 * @return destino
 	 */
 	string getDestino() const;
 
 	/**
-	 * @brief função que actualiza partida
+	 * @brief fun√ß√£o que actualiza partida
 	 * @param localD - local destino
 	 * @param dist2 - distancia
 	 */
 	void setDestino(string localD, int dist2);
 
 	/**
-	 * @brief função que calcula a hora final da viagem
+	 * @brief fun√ß√£o que calcula a hora final da viagem
 	 * @return hora final
 	 */
 	float horaFinal();
 
 	/**
-	 * @brief função que calcula o custo da viagem
+	 * @brief fun√ß√£o que calcula o custo da viagem
 	 * @return custo
 	 */
 	float pagarViagem();
 
 	/**
-	 * @brief função para obter custo viagem
+	 * @brief fun√ß√£o para obter custo viagem
 	 * @return custo viagem
 	 */
 	float getCustoViagem() const;
 
 	/**
-	 * @brief função para obter o cliente associado a viagem
+	 * @brief fun√ß√£o para obter o cliente associado a viagem
 	 * @return cliente que fez a viagem
 	 */
 	string getCliente() const;
 
 	/**
-	 * @brief função que calcula custo viagem com desconto
+	 * @brief fun√ß√£o que calcula custo viagem com desconto
 	 * @param per - percentagem
 	 */
 	void modificaCusto(float per);
 
 	/**
-	 * @brief função para obter percurso
+	 * @brief fun√ß√£o para obter percurso
 	 * @return percurso
 	 */
 	Percurso getDeslocacao();
+    /**
+     * @brief funcao que permite comparar duas viagens atraves do operador menor
+     * @return bool indicando true se a viagem for menor com aquela a que est· a ser comparada
+     */
+    bool operator <(const Viagem v);
 
 	/**
-	 * @brief função para imprimir detalhes viagem com formatação especifica
+	 * @brief fun√ß√£o para imprimir detalhes viagem com formata√ß√£o especifica
 	 * @return string viagem
 	 */
 	string toString();
 
+
 	/**
-	 * @brief função operador<< impressão para detalhes viagem com formatação especifica
+	 * @brief fun√ß√£o operador<< impress√£o para detalhes viagem com formata√ß√£o especifica
 	 * @param os - ostream
 	 * @param v - viagem
 	 * @return string viagem
 	 */
 	friend ostream & operator <<(ostream & os, Viagem &v);
 
-	/**
-	 * @brief funcao que permite comparar duas viagens atraves do operador menor
-	 * @return bool indicando true se a viagem for menor com aquela a que est� a ser comparada
-	 */
-	bool operator <(const Viagem v);
 };
 
 #endif /* SRC_VIAGEM_H_ */

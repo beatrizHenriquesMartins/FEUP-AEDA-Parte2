@@ -34,49 +34,49 @@ public:
 	Data(int d, int m, int a);
 
 	/**
-	 * @brief função para obter dia
+	 * @brief funÃâ€o para obter dia
 	 * @return dia
 	 */
 	int getDia() const;
 
 	/**
-	 * @brief função para obter mes
+	 * @brief funÃâ€o para obter mes
 	 * @return mes
 	 */
 	int getMes() const;
 
 	/**
-	 * @brief função para obter ano
+	 * @brief funÃâ€o para obter ano
 	 * @return ano
 	 */
 	int getAno() const;
 
 	/**
-	 * @brief função que actualiza dia
+	 * @brief funÃâ€o que actualiza dia
 	 * @param d- dia
 	 */
 	void setDia(int d);
 
 	/**
-	 * @brief função que actualiza mes
+	 * @brief funÃâ€o que actualiza mes
 	 * @param m - mes
 	 */
 	void setMes(int m);
 
 	/**
-	 * @brief função que actualiza ano
+	 * @brief funÃâ€o que actualiza ano
 	 * @param a - ano
 	 */
 	void setAno(int a);
 
 	/**
-	 * @brief função para imprimir data com formatação especifica
+	 * @brief funÃâ€o para imprimir data com formataÃâ€o especifica
 	 * @return string data
 	 */
 	string toString();
 
 	/**
-	 * @brief função operador<< impressão para data com formatação especifica
+	 * @brief funÃâ€o operador<< impressâ€o para data com formataÃâ€o especifica
 	 * @param os - ostream
 	 * @param d -data
 	 * @return string data
@@ -85,7 +85,7 @@ public:
 
 	/**
 	 * @brief funcao que permite comparar duas datas atraves do operador menor
-	 * @return bool indicando true se a data for menor com aquela a que está a ser comparada
+	 * @return bool indicando true se a data for menor com aquela a que estÂ· a ser comparada
 	 */
 	bool operator <(const Data d);
 };
@@ -93,7 +93,7 @@ public:
 class DataInvalida {
 public:
 	/**
-	 * @brief função classe excessão
+	 * @brief funÃâ€o classe excessâ€o
 	 */
 	void dataErrada() {
 		cout << "Data invalida" << endl;

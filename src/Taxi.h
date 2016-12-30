@@ -41,7 +41,8 @@ public:
 	 * @param horI - hora inicio
 	 * @param horO - hora final
 	 */
-	Taxi(int n, float r, Hora horI, Hora horO);
+	//Rodas
+	Taxi(int n, float r, Hora horI, Hora horO, float dis);
 
 	/**
 	 * @brief função destrutora de taxi
@@ -99,6 +100,11 @@ public:
 
 	bool operator <(const Taxi t);
 };
+
+bool operator <(const Taxi* t1, const Taxi* t2) {
+	return t1->getdispo() > t2->getdispo();
+
+}
 
 class TaxisIndisponiveis {
 	string razao;
