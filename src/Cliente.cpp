@@ -154,7 +154,8 @@ void Cliente::resetMes() {
 
 float Cliente::giveMonthlyPromotion(float p) {
 	return 1;
-}  //funcao vazia, seria implementada nas subclasses
+}  //funcao vazia, sera implementada nas subclasses
+
 
 float Cliente::fimdoMes() {
 	float n = 0;
@@ -187,7 +188,7 @@ string Cliente::mostrarCliente() {
 }
 
 bool Cliente::isParticular() {
-
+	return true;
 }
 
 void Cliente::mostrarViagens() {  //

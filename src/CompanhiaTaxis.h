@@ -53,7 +53,7 @@ private:
 	//////
 	tabCli inativos;
 	BST<Viagem> viagens;
-	priority_queue<Taxi> taxis;
+	priority_queue<Taxi*> taxis;
 	/////
 
 public:
@@ -63,11 +63,11 @@ public:
 	string getNome();
 	float getCapital();
 	vector<Cliente *> getClientes() const;
-	priority_queue<Taxi> getTaxis() const;
+	priority_queue<Taxi*> getTaxis() const;
 	vector<Percurso*> getPercursos() const;
 	tabCli getInativos() const; //hash
 
-	void setTaxis(priority_queue<Taxi> t);
+	void setTaxis(priority_queue<Taxi*> t);
 	void setPercursos(vector<Percurso*> p);
 	void setClientes(vector<Cliente*> c);
 

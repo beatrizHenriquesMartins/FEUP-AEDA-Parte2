@@ -250,7 +250,7 @@ void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 		int n;
 		string lixo;
 
-		priority_queue<Taxi> aux;
+		priority_queue<Taxi*> aux;
 		file >> n;
 		getline(file, lixo, '\n');
 
@@ -266,6 +266,8 @@ void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 			string hf;
 			string rentf;
 			float rent;
+			string dispof;
+			float dispo;
 
 			getline(ss, lixo, 'o');
 			getline(ss, idf, ';');
@@ -276,11 +278,14 @@ void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 			getline(ss, lixo, ':');
 			getline(ss, hi, 'e');
 			getline(ss, lixo, 's');
-			getline(ss, hf);
+			getline(ss, hf, ';');
+			getline(ss, lixo, ':');
+			getline(ss, dispof, ';');
+			dispo = atoi(dispof.c_str());
 
 			Hora horaIn = stringToHora(hi);
 			Hora horaF = stringToHora(hf);
-			Taxi t(id, rent, horaIn, horaF);
+			Taxi *t = new Taxi(id, rent, horaIn, horaF, dispo);
 			aux.push(t);
 		}
 		comp.setTaxis(aux);
@@ -539,18 +544,18 @@ void Menu::escreverFicheiroTaxis(CompanhiaTaxis &comp) {
 		return;
 	ofstream file("Taxis.txt");
 
-	priority_queue<Taxi> vt = comp.getTaxis();
+	priority_queue<Taxi*> vt = comp.getTaxis();
 
 	file << vt.size() << endl;
 
 	while (!vt.empty()) {
+		Taxi t = *(vt.top());
 		file << vt.top() << endl;
 		vt.pop();
 	}
 
 	file.close();
 }
-
 void Menu::escreverFicheiroClientesViagensNaoPagasMensais(
 		CompanhiaTaxis &comp) {
 	if (comp.getClientes().size() == 0)
@@ -767,7 +772,7 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 				<< setw(5) << " "
 				<< "6. Ver viagens do mes atual de cliente especifico" << endl
 				<< setw(5) << " "
-				<< "7. Ver viagens não pagas do mes actual de cliente especifico"
+				<< "7. Ver viagens nao pagas do mes actual de cliente especifico"
 				<< endl << setw(5) << " " << "8. Voltar ao Menu da Companhia"
 				<< endl;
 
@@ -810,7 +815,7 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 				break;
 			}
 			case 8: {
-				//menuCompanhia(comp);
+				menuCompanhia(comp);
 				return;
 			}
 			default:
@@ -903,6 +908,7 @@ void Menu::menuRemoverCliente(CompanhiaTaxis &comp) {
 	menuClientes(comp);
 }
 
+//ESTA FUNCAO NAO ESTA BEM
 void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 	int id;
 	int distancia;
@@ -1175,8 +1181,7 @@ void Menu::menuVerCapital(CompanhiaTaxis &comp) {
 void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
 	string nome;
 	int t;
-
-	cout << "|Prestar Serviço Ocasional|" << endl << endl;
+	cout << "|Prestar Servico Ocasional|" << endl << endl;
 
 	cin.ignore();
 	cout << setw(5) << " " << "Nome: ";
@@ -1206,34 +1211,6 @@ void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
 		if (cin.fail())
 			throw ErroInput();
 
-		cout << "Digite as horas a que a viagem comeca:" << endl << "Horas ";
-		cin >> hi;
-		if (cin.fail())
-			throw ErroInput();
-		cout << " Minutos: ";
-		cin >> mi;
-		if (cin.fail())
-			throw ErroInput();
-		cout << " Segundos: ";
-		cin >> si;
-		if (cin.fail())
-			throw ErroInput();
-		Hora h1(hi, mi, si);
-
-		cout << "Digite o dia em que a viagem ocorre: Dia ";
-		cin >> dia;
-		if (cin.fail())
-			throw ErroInput();
-		cout << " Mes: ";
-		cin >> mes;
-		if (cin.fail())
-			throw ErroInput();
-		cout << " Ano: ";
-		cin >> ano;
-		if (cin.fail())
-			throw ErroInput();
-		Data d1(dia, mes, ano);
-
 		int erro = 1;
 		while (erro) {
 			try {
@@ -1255,7 +1232,7 @@ void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
 			}
 		}
 
-		comp.fazerViagemOcasional(d1, h1,
+		comp.fazerViagemOcasional(Data(), Hora(),
 				Percurso(localPartida, localDestino, distancia));
 
 	} catch (ErroInput &e) {
@@ -1293,6 +1270,11 @@ void Menu::menuAplicarDescontoMensal(CompanhiaTaxis &comp) {
 	desconto = true;
 	cout << "Percentagem de desconto:(entre 0 e 1): ";
 	cin >> percentagem;
+	if (percentagem >= 1 || percentagem <= 0) {
+		desconto = false;
+		percentagem = 1;
+		cout << "Desconto invalido" << endl;
+	}
 	menuCompanhia(comp);
 }
 
@@ -1328,7 +1310,7 @@ void Menu::menuTaxis(CompanhiaTaxis &comp) {
 			}
 
 			case 4: {
-				//menuCompanhia(comp);
+				menuCompanhia(comp);
 				return;
 			}
 			default:
@@ -1351,7 +1333,7 @@ void Menu::menuComprarTaxi(CompanhiaTaxis &comp) {
 	cout << "|Comprar Taxi|" << endl << endl;
 
 	cout << "Digite a hora inicial na qual o Taxi esta disponivel:" << endl
-			<< "Horas ";
+			<< "Horas: ";
 	cin >> hi;
 	if (cin.fail())
 		throw ErroInput();
@@ -1364,7 +1346,7 @@ void Menu::menuComprarTaxi(CompanhiaTaxis &comp) {
 	if (cin.fail())
 		throw ErroInput();
 
-	cout << "E a final:" << endl << "Horas ";
+	cout << "E a final:" << endl << "Horas: ";
 	cin >> hf;
 	if (cin.fail())
 		throw ErroInput();
@@ -1382,6 +1364,7 @@ void Menu::menuComprarTaxi(CompanhiaTaxis &comp) {
 	menuTaxis(comp);
 }
 
+//Rodas
 void Menu::menuRemoverTaxi(CompanhiaTaxis &comp) {
 	int n;
 
@@ -1391,16 +1374,12 @@ void Menu::menuRemoverTaxi(CompanhiaTaxis &comp) {
 	cout << "Nr do taxi que quer remover: ";
 	cin >> n;
 
-	bool rem = comp.removeTaxi(n);
-	if (rem) {
-		cout << "Taxi removido" << endl;
-	} else {
-		cout << "Taxi nao encontrado para remover" << endl;
-	}
+	comp.removeTaxi(n);
 
 	menuTaxis(comp);
 }
 
+//Rodas
 void Menu::menuVerTaxi(CompanhiaTaxis &comp) {
 	int id;
 	int i;
@@ -1417,14 +1396,9 @@ void Menu::menuVerTaxi(CompanhiaTaxis &comp) {
 		e.alertaErro();
 	}
 
-	i = comp.procuraTaxi(id);
-	if (i == -1) {
-		cout << "Taxi numero " << id << " nao existe" << endl;
-		break;
-	}
-	vector<Taxi> vC = comp.getTaxisTotais();
+	Taxi* t = comp.procuraTaxi(id);
 
-	cout << vC[i] << endl;
+	cout << *t << endl;
 	menuTaxis(comp);
 }
 
