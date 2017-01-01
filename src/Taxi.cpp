@@ -70,8 +70,8 @@ ostream & operator <<(ostream & os, Taxi t) {
 
 	os << "Taxi numero " << t.getNumeroTaxi() << " ; "
 			<< " Rentabilidade Atual: " << t.getRentabilidade() << " ; "
-			<< " Horario entre: " << t.getHoraIn() << " e as "
-			<< t.getHoraOff() << " ; " << "Disponibilidade: " << t.getdispo();
+			<< " Horario entre: " << t.getHoraIn() << " e as " << t.getHoraOff()
+			<< " ; " << "Disponibilidade: " << t.getdispo();
 	return os;
 }
 
@@ -89,4 +89,6 @@ bool Taxi::operator <(const Taxi t) {
 	return dispo > t.getdispo();
 
 }
+
+
 

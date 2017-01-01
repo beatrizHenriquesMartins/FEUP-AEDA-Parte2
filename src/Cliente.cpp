@@ -152,10 +152,10 @@ void Cliente::resetMes() {
 	viagensNaoPagas = v; //
 }
 
-//Rodas
 float Cliente::giveMonthlyPromotion(float p) {
 	return 1;
 }  //funcao vazia, sera implementada nas subclasses
+
 
 float Cliente::fimdoMes() {
 	float n = 0;
@@ -187,7 +187,6 @@ string Cliente::mostrarCliente() {
 	return ss.str();
 }
 
-//Rodas
 bool Cliente::isParticular() {
 	return true;
 }
@@ -317,6 +316,7 @@ string Empresa::mostrarCliente() {
 			<< " Nr funcionarios: " << numFuncionarios;
 	return ss.str();
 }
+
 
 bool Empresa::isParticular() {
 	return false;

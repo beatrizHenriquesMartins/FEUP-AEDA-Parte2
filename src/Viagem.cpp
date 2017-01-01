@@ -5,8 +5,7 @@
  *      Author: Diogo Pereira
  */
 
-//Rodas
-#include "viagem.h"
+#include "Viagem.h"
 #include "Data.h"
 #include "Percurso.h"
 

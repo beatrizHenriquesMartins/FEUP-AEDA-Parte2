@@ -7,7 +7,6 @@
 
 #include "Menu.h"
 
-
 static bool desconto = false;
 static float percentagem = 1;
 
@@ -124,7 +123,6 @@ void Menu::lerFicheiroClienteEmpresas(CompanhiaTaxis &comp) {
 		while (getline(fileE, line)) {
 
 			stringstream ss;
-
 			string ids;
 			int id;
 			string nome;
@@ -245,7 +243,6 @@ void Menu::lerFicheiroViagens(CompanhiaTaxis &comp) {
 	}
 }
 
-///Rodas
 void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 	ifstream file("Taxis.txt");
 
@@ -542,7 +539,6 @@ void Menu::escreverFicheiroClientesViagens(CompanhiaTaxis &comp) {
 	file.close();
 }
 
-/////
 void Menu::escreverFicheiroTaxis(CompanhiaTaxis &comp) {
 	if (comp.getTaxis().size() == 0)
 		return;
@@ -560,7 +556,6 @@ void Menu::escreverFicheiroTaxis(CompanhiaTaxis &comp) {
 
 	file.close();
 }
-
 void Menu::escreverFicheiroClientesViagensNaoPagasMensais(
 		CompanhiaTaxis &comp) {
 	if (comp.getClientes().size() == 0)
@@ -778,9 +773,10 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 				<< "6. Ver viagens do mes atual de cliente especifico" << endl
 				<< setw(5) << " "
 				<< "7. Ver viagens nao pagas do mes actual de cliente especifico"
-				<< endl << setw(5) << " " << "8. Voltar ao Menu da Companhia"
+				<< endl << setw(5) << " " << "8. Alterar informacao de Cliente"
+				<< endl << setw(5) << " " << "9. Voltar ao Menu da Companhia"
 				<< endl;
-		//Rodas (alterei o nao)
+//MUDEI
 		int opC;
 		try {
 			cout << setw(5) << " " << "op: ";
@@ -820,7 +816,11 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 				break;
 			}
 			case 8: {
-				menuCompanhia(comp);  //Rodas
+
+				break;
+			}
+			case 9: {
+				menuCompanhia(comp);
 				return;
 			}
 			default:
@@ -913,8 +913,9 @@ void Menu::menuRemoverCliente(CompanhiaTaxis &comp) {
 	menuClientes(comp);
 }
 
+//MUDEI
 //ESTA FUNCAO NAO ESTA BEM
-void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
+void Menu::menuMarcarViagem(CompanhiaTaxis &comp) {
 	int id;
 	int distancia;
 	int hi;
@@ -984,35 +985,35 @@ void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 			throw ErroInput();
 		}
 
-		Cliente* c;
-		c->setID(id);
+		/*Cliente* c;
+		 c->setID(id);
 
-		if (comp.procuraCliente(id) == -1
-				&& comp.getInativos().find(*c) == comp.getInativos().end())
-			throw ClienteInexistente(id);
+		 if (comp.procuraCliente(id) == -1
+		 && comp.getInativos().find(c) == comp.getInativos().end())
+		 throw ClienteInexistente(id);
 
-		if (comp.getInativos().find(*c) != comp.getInativos().end()) {
-			Cliente*cliente = comp.getInativos().find(*c);
-			if (cliente->isParticular() == true) {
-				string n = cliente->getNomeC();
-				string m = cliente->getMorada();
-				string e = cliente->getEmail();
-				int nT = cliente->getNumeroTelemovel();
-				int nif = cliente->getNIF();
-				string c = cliente->getCusto();
-				comp.adicionaClienteParticular(n, m, e, nT, nif, c);
-			} else {
-				string n = cliente->getNomeC();
-				string m = cliente->getMorada();
-				string e = cliente->getEmail();
-				int nT = cliente->getNumeroTelemovel();
-				int nif = cliente->getNIF();
-				string c = cliente->getCusto();
-				int nF = cliente->getNfunc();
-				comp.adicionaClienteEmpresa(n, m, e, nT, nif, c, nF);
-			}
-			comp.removeClienteTabela(*cliente);
-		}
+		 if (comp.getInativos().find(c) != comp.getInativos().end()) {
+		 Cliente*cliente = comp.getInativos().find(c);
+		 if (cliente->isParticular() == true) {
+		 string n = cliente->getNomeC();
+		 string m = cliente->getMorada();
+		 string e = cliente->getEmail();
+		 int nT = cliente->getNumeroTelemovel();
+		 int nif = cliente->getNIF();
+		 string c = cliente->getCusto();
+		 comp.adicionaClienteParticular(n, m, e, nT, nif, c);
+		 } else {
+		 string n = cliente->getNomeC();
+		 string m = cliente->getMorada();
+		 string e = cliente->getEmail();
+		 int nT = cliente->getNumeroTelemovel();
+		 int nif = cliente->getNIF();
+		 string c = cliente->getCusto();
+		 int nF = cliente->getNfunc();
+		 comp.adicionaClienteEmpresa(n, m, e, nT, nif, c, nF);
+		 }
+		 comp.removeClienteTabela(cliente);
+		 }*/
 
 		int opPag;
 		string tipoPag;
@@ -1045,7 +1046,7 @@ void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 
 		comp.fazerViagemCliente(id, d1, h1,
 				Percurso(localPartida, localDestino, distancia), desconto,
-				percentagem);
+				percentagem, tipoPag);
 	} catch (ErroInput &e) {
 		e.alertaErro();
 	} catch (ClienteInexistente &c) {
@@ -1058,6 +1059,128 @@ void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 		d.dataErrada();
 	}
 
+	comp.resetTabelasClientes();
+	comp.criarTabelasClientes();
+	menuClientes(comp);
+}
+
+void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
+	int id;
+	int distancia;
+	int hi;
+	int mi;
+	int si;
+	int dia;
+	int mes;
+	int ano;
+	string localPartida;
+	string localDestino;
+
+	cout << "|Marcar Viagem|" << endl << endl;
+
+	try {
+		cout << "Qual e o local de origem da viagem? ";
+		cin >> localPartida;
+		if (cin.fail())
+			throw ErroInput();
+		cout << "E de destino? ";
+		cin >> localDestino;
+		if (cin.fail())
+			throw ErroInput();
+		cout << "Distancia entre locais: ";
+		cin >> distancia;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000);
+			break;
+			//throw ErroInput();
+		}
+
+		comp.mostrarClientesPorID();
+		cout << "ID do cliente que quer fazer uma viagem: ";
+		cin >> id;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000);
+			throw ErroInput();
+		}
+
+		/*Cliente* c;
+		 c->setID(id);
+
+		 if (comp.procuraCliente(id) == -1
+		 && comp.getInativos().find(c) == comp.getInativos().end())
+		 throw ClienteInexistente(id);
+
+		 if (comp.getInativos().find(c) != comp.getInativos().end()) {
+		 Cliente*cliente = comp.getInativos().find(c);
+		 if (cliente->isParticular() == true) {
+		 string n = cliente->getNomeC();
+		 string m = cliente->getMorada();
+		 string e = cliente->getEmail();
+		 int nT = cliente->getNumeroTelemovel();
+		 int nif = cliente->getNIF();
+		 string c = cliente->getCusto();
+		 comp.adicionaClienteParticular(n, m, e, nT, nif, c);
+		 } else {
+		 string n = cliente->getNomeC();
+		 string m = cliente->getMorada();
+		 string e = cliente->getEmail();
+		 int nT = cliente->getNumeroTelemovel();
+		 int nif = cliente->getNIF();
+		 string c = cliente->getCusto();
+		 int nF = cliente->getNfunc();
+		 comp.adicionaClienteEmpresa(n, m, e, nT, nif, c, nF);
+		 }
+		 comp.removeClienteTabela(cliente);
+		 }*/
+
+		int opPag;
+		string tipoPag;
+
+		cout << "Tipo de Pagamento: " << endl << "1. Numerario" << endl
+				<< "2. Multibanco" << "3. Cartao Credito" << endl
+				<< "4. Fim do mes" << endl << "Op: ";
+		cin >> opPag;
+
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000);
+			throw ErroInput();
+		}
+
+		switch (opPag) {
+		case 1: {
+			tipoPag = "numerario";
+		}
+		case 2: {
+			tipoPag = "multibanco";
+		}
+		case 3: {
+			tipoPag = "credito";
+		}
+		case 4: {
+			tipoPag = "fim_do_mes";
+		}
+		}
+
+		comp.fazerViagemCliente(id, Data(), Hora(),
+				Percurso(localPartida, localDestino, distancia), desconto,
+				percentagem, tipoPag);
+	} catch (ErroInput &e) {
+		e.alertaErro();
+	} catch (ClienteInexistente &c) {
+		cout << "Cliente numero " << c.getID() << " nao existe" << endl;
+	} catch (TaxisIndisponiveis &t) {
+		cout << t.getRazao() << endl;
+	} catch (HoraInvalida &h) {
+		cout << h.getRazao() << endl;
+	} catch (DataInvalida &d) {
+		d.dataErrada();
+	}
+
+	comp.resetTabelasClientes();
+	comp.criarTabelasClientes();
 	menuClientes(comp);
 }
 
@@ -1159,7 +1282,6 @@ void Menu::menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp) {
 			throw ErroInput();
 	} catch (ErroInput &e) {
 		e.alertaErro();
-		break;
 	}
 
 	i = comp.procuraCliente(id);
@@ -1175,6 +1297,67 @@ void Menu::menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp) {
 	menuClientes(comp);
 }
 
+//MUDEI
+void Menu::menuMudarCliente(CompanhiaTaxis &comp) {
+	int id;
+	int i;
+
+	cout << "|Alterar Cliente|" << endl << endl;
+
+	try {
+		cout << "ID do cliente que quer mudar: ";
+		cin >> id;
+		if (cin.fail())
+			throw ErroInput();
+	} catch (ErroInput &e) {
+		e.alertaErro();
+		break;
+	}
+
+	i = comp.procuraCliente(id);
+	if (i == -1) {
+		cout << "Cliente numero " << id << " nao existe" << endl;
+		break;
+	}
+
+	vector<Cliente*> vC = comp.getClientes();
+
+	string resposta;
+	cout << vC[i]->mostrarCliente() << endl;
+
+	cout << "Mudar NIF?(sim/nao) ";
+	cin >> resposta;
+	if (resposta == "sim") {
+		int nif;
+		vC[i]->setNIF(nif);
+	}
+
+	cout << "Mudar morada?(sim/nao) ";
+	cin >> resposta;
+	if (resposta == "sim") {
+		string morada;
+		vC[i]->setMorada(morada);
+	}
+
+	cout << "Mudar email?(sim/nao) ";
+	cin >> resposta;
+	if (resposta == "sim") {
+		string mail;
+		vC[i]->setEmail(mail);
+	}
+
+	cout << "Mudar numero de telemovel?(sim/nao) ";
+	cin >> resposta;
+	if (resposta == "sim") {
+		int num;
+		vC[i]->setNumeroTelemovel(num);
+	}
+
+	comp.resetTabelasClientes();
+	comp.criarTabelasClientes();
+	menuClientes(comp);
+}
+
 void Menu::menuVerCapital(CompanhiaTaxis &comp) {
 	cout << "|Ver Capital|" << endl << endl;
 
@@ -1183,24 +1366,17 @@ void Menu::menuVerCapital(CompanhiaTaxis &comp) {
 	menuCompanhia(comp);
 }
 
-
-//Rodas
 void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
 	string nome;
 	int t;
-		cout << "|Prestar Servico Ocasional|" << endl << endl;
+	cout << "|Prestar Servico Ocasional|" << endl << endl;
 
 	cin.ignore();
 	cout << setw(5) << " " << "Nome: ";
 	getline(cin, nome);
 
 	int distancia;
-	int hi;
-	int mi;
-	int si;
-	int dia;
-	int mes;
-	int ano;
+
 	string localPartida;
 	string localDestino;
 
@@ -1217,7 +1393,6 @@ void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
 		cin >> distancia;
 		if (cin.fail())
 			throw ErroInput();
-
 
 		int erro = 1;
 		while (erro) {
@@ -1240,7 +1415,8 @@ void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
 			}
 		}
 
-		comp.fazerViagemOcasional(Data(), Hora(), Percurso(localPartida, localDestino, distancia));
+		comp.fazerViagemOcasional(Data(), Hora(),
+				Percurso(localPartida, localDestino, distancia));
 
 	} catch (ErroInput &e) {
 		e.alertaErro();
@@ -1271,18 +1447,16 @@ void Menu::menuMostrarTodosTaxis(CompanhiaTaxis &comp) {
 	menuCompanhia(comp);
 }
 
-//Rodas
 void Menu::menuAplicarDescontoMensal(CompanhiaTaxis &comp) {
 	cout << "|Aplicar Desconto Mensal|" << endl << endl;
 
 	desconto = true;
 	cout << "Percentagem de desconto:(entre 0 e 1): ";
 	cin >> percentagem;
-	if(percentagem>=1 || percentagem<=0)
-	{
+	if (percentagem >= 1 || percentagem <= 0) {
 		desconto = false;
 		percentagem = 1;
-		cout<< "Desconto invalido" << endl;
+		cout << "Desconto invalido" << endl;
 	}
 	menuCompanhia(comp);
 }
@@ -1319,7 +1493,7 @@ void Menu::menuTaxis(CompanhiaTaxis &comp) {
 			}
 
 			case 4: {
-				menuCompanhia(comp);   //Rodas
+				menuCompanhia(comp);
 				return;
 			}
 			default:
@@ -1331,7 +1505,6 @@ void Menu::menuTaxis(CompanhiaTaxis &comp) {
 	}
 }
 
-//Rodas
 void Menu::menuComprarTaxi(CompanhiaTaxis &comp) {
 	int hi;
 	int mi;
