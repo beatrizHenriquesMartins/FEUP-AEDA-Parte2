@@ -10,6 +10,11 @@
 
 #include <vector>
 
+bool operator <(Taxi* t1, Taxi* t2) {
+	return t1->getdispo() > t2->getdispo();
+
+}
+
 CompanhiaTaxis::CompanhiaTaxis() {
 	this->capital = 0;
 	Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0));
@@ -46,6 +51,11 @@ vector<Percurso*> CompanhiaTaxis::getPercursos() const {
 
 tabCli CompanhiaTaxis::getInativos() const {
 	return this->inativos;
+}
+
+//MUDEI
+tabCli CompanhiaTaxis::getAtivos() const {
+	return this->ativos;
 }
 
 void CompanhiaTaxis::setTaxis(priority_queue<Taxi*> t) {
@@ -135,7 +145,12 @@ bool CompanhiaTaxis::removeCliente(int id) {
 	return true;
 }
 
-void CompanhiaTaxis::removeClienteTabela(Cliente* c) {
+//MUDEI
+void CompanhiaTaxis::removeClienteInativo(Cliente* c) {
+	this->inativos.erase(inativos.find(c), inativos.end()); //erasing by range
+}
+
+void CompanhiaTaxis::removeClienteAtivo(Cliente* c) {
 	this->inativos.erase(inativos.find(c), inativos.end()); //erasing by range
 }
 
@@ -151,7 +166,7 @@ Taxi* CompanhiaTaxis::procuraTaxi(int n) const {
 		Taxi t = *(aux.top());
 
 		if (t.getNumeroTaxi() == n) {
-			return t;
+			return aux.top();
 		}
 
 		aux.pop();
@@ -266,10 +281,10 @@ void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 	throw ClienteInexistente(id);
 }
 
-//Rodas
+//MUDEI
 void CompanhiaTaxis::cobrarPagamentoMensal() {
-	resetTabelaClientes(); //
-	criarTabelaClientes(); //
+	resetTabelasClientes(); //
+	criarTabelasClientes(); //
 
 	for (unsigned int i = 0; i < clientes.size(); i++) {
 		if (clientes[i]->getCusto().getTipo() == "fim_do_mes")
@@ -379,36 +394,20 @@ void CompanhiaTaxis::concaClientes(vector<Cliente*> c) {
 	clientes.insert(clientes.end(), c.begin(), c.end());
 }
 
-void CompanhiaTaxis::criarTabelaClientes() {
-	vector<Cliente*> aux;
+//MUDEI
+void CompanhiaTaxis::criarTabelasClientes() {
 
 	for (unsigned int i = 0; i < clientes.size(); i++) {
-		if (clientes[i]->getViagensMensais().size() == 0) {
+		if (clientes[i]->getViagensMensais().size() == 0)
 			this->inativos.insert(clientes[i]);
-			aux.push_back(clientes[i]);
-		}
-	}
-
-	for (unsigned int k = 0; k < aux.size(); k++) {
-		/*for (unsigned int j = 0; j < clientes.size(); j++) {
-		 if (aux[k]->getID() == clientes[j]->getID()
-		 && aux[k]->getNIF() == clientes[j]->getNIF()
-		 && aux[k]->getMorada() == clientes[j]->getMorada()
-		 && aux[k]->getMorada() == clientes[j]->getMorada()
-		 && aux[k]->getEmail() == clientes[j]->getEmail()
-		 && aux[k]->getNumeroTelemovel()
-		 == clientes[j]->getNumeroTelemovel()
-		 && aux[k]->getNomeC() == clientes[j]->getNomeC()) {
-		 clientes.erase(clientes.begin() + j);
-		 break;
-		 }
-		 }*/
-		this->removeCliente(aux[k]->getID());
+		else
+			this->ativos.insert(clientes[i]);
 	}
 }
 
-void CompanhiaTaxis::resetTabelaClientes() {
+void CompanhiaTaxis::resetTabelasClientes() {
 	inativos.clear();
+	ativos.clear();
 }
 
 /*
@@ -425,7 +424,7 @@ void CompanhiaTaxis::resetTabelaClientes() {
  }
  */
 
-//////BST////////77
+//////BST////////
 BST<Viagem> CompanhiaTaxis::getViagens() {
 	return this->viagens;
 }

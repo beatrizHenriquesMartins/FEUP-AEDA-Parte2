@@ -91,8 +91,4 @@ bool Taxi::operator <(const Taxi t) {
 }
 
 
-bool operator <(const Taxi* t1, const Taxi* t2) {
-	return t1->getdispo() > t2->getdispo();
-
-}
 

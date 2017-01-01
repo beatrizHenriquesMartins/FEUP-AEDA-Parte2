@@ -54,10 +54,13 @@ public:
 	void menuNovoCliente(CompanhiaTaxis &comp);
 	void menuRemoverCliente(CompanhiaTaxis &comp);
 	void menuFazerViagem(CompanhiaTaxis &comp);
+	void menuMarcarViagem(CompanhiaTaxis &comp);
 	void menuVerCliente(CompanhiaTaxis &comp);
 	void menuVerHistoricoCliente(CompanhiaTaxis &comp);
 	void menuViagensMensaisClientes(CompanhiaTaxis &comp);
 	void menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp);
+	//MUDEI
+	void menuMudarCliente(CompanhiaTaxis &comp);
 
 	void menuVerCapital(CompanhiaTaxis &comp);
 	void menuPrestarServicoOcasional(CompanhiaTaxis &comp);

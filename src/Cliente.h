@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
 #include "Pagamento.h"
 #include "Percurso.h"
 #include "viagem.h"

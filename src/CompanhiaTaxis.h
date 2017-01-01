@@ -15,7 +15,6 @@
 #include <queue>
 #include <algorithm>
 
-//#include "Taxi.h"
 #include "Taxi.h"
 #include "sequentialSearch.h"
 #include "BST.h"
@@ -52,6 +51,7 @@ private:
 	vector<Percurso*> percursosDisponiveis;
 	//////
 	tabCli inativos;
+	tabCli ativos;
 	BST<Viagem> viagens;
 	priority_queue<Taxi*> taxis;
 	/////
@@ -66,6 +66,8 @@ public:
 	priority_queue<Taxi*> getTaxis() const;
 	vector<Percurso*> getPercursos() const;
 	tabCli getInativos() const; //hash
+	//MUDEI
+	tabCli getAtivos() const; //hash
 
 	void setTaxis(priority_queue<Taxi*> t);
 	void setPercursos(vector<Percurso*> p);
@@ -79,9 +81,11 @@ public:
 	void adicionaClienteEmpresa(string nome, string morada, string email,
 			int nT, int nif, string tipoPagamento, int numFuncionarios);
 
-	bool removeTaxi(int n);
+	void removeTaxi(int n);
 	bool removeCliente(int id);
-	void removeClienteTabela(Cliente c); //hash
+	//MUDEI
+	void removeClienteInativo(Cliente* c); //hash
+	void removeClienteAtivo(Cliente* c); //hash
 
 	Taxi* procuraTaxi(int n) const;
 	int procuraCliente(int id) const;
@@ -100,8 +104,9 @@ public:
 
 	void concaClientes(vector<Cliente*> c);
 
-	void criarTabelaClientes(); //hash
-	void resetTabelaClientes(); //hash
+	//MUDEI
+	void criarTabelasClientes(); //hash
+	void resetTabelasClientes(); //hash
 
 	BST<Viagem> getViagens(); //BST
 	void addViagemBST(Viagem &v); //BST

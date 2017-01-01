@@ -317,6 +317,7 @@ string Empresa::mostrarCliente() {
 	return ss.str();
 }
 
+
 bool Empresa::isParticular() {
 	return false;
 }
