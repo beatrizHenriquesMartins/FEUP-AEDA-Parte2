@@ -6,24 +6,29 @@
  */
 
 #include "Viagem.h"
+
 #include "Data.h"
 #include "Percurso.h"
 
-Viagem::Viagem(Data dia, Hora horaIn, Percurso p1) {
+//MUDEI 2
+Viagem::Viagem(Data dia, Hora horaIn, Percurso p1, string cli) {
 	this->data = dia;
 	this->horaIn = horaIn;
 	this->deslocacao = p1;
 	this->pago = false;
 	this->custo = 0;
+	this->cliente = cli;
 }
 
-Viagem::Viagem(Data dia, Hora horaIn, Hora horaOut, Percurso p1, float c) {
+//MUDEI 2
+Viagem::Viagem(Data dia, Hora horaIn, Hora horaOut, Percurso p1, float c, string cli) {
 	this->data = dia;
 	this->horaIn = horaIn;
 	this->horaOut = horaOut;
 	this->deslocacao = p1;
 	this->pago = true;
 	this->custo = c;
+	this->cliente = cli;
 }
 
 Viagem::~Viagem() {
@@ -113,7 +118,9 @@ void Viagem::modificaCusto(float per) {
 	custo = custo * per;
 }
 
-bool Viagem::operator <(const Viagem v) {
+//MUDEI 2
+
+/*bool Viagem::operator <(const Viagem v) {
 
 	if (this->getCliente() < v.getCliente()) {
 		return true;
@@ -124,13 +131,26 @@ bool Viagem::operator <(const Viagem v) {
 	}
 
 	return false;
+}*/
+bool operator <(const Viagem v1, Viagem v2) {
+
+	if (v1.getCliente() < v2.getCliente()) {
+		return true;
+	} else if (v1.getCliente() == v2.getCliente()
+			&& v1.getData() < v2.getData()) {
+
+		return true;
+	}
+
+	return false;
 }
+
 
 string Viagem::toString() {
 	stringstream ss;
 	ss << "Data: " << this->getData().toString() << " Hora Inicial: " << horaIn
 			<< " Hora Final: " << horaOut << " " << deslocacao.toString()
-			<< " Custo: " << this->getCustoViagem() << " Nome: "
+			<< " Custo: " << this->getCustoViagem() << " Cliente: "
 			<< this->getCliente();
 	return ss.str();
 }
@@ -139,6 +159,6 @@ ostream & operator<<(ostream & os, Viagem &v) {
 	os << "Data: " << v.getData().toString() << " Hora Inicial: "
 			<< v.getHoraIn() << " Hora Final: " << v.getHoraOut() << " "
 			<< v.getDeslocacao().toString() << " Custo: " << v.getCustoViagem()
-			<< " Nome: " << v.getCliente();
+			<< " Cliente: " << v.getCliente();
 	return os;
 }

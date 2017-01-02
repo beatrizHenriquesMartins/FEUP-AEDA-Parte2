@@ -165,6 +165,7 @@ const Comparable & BST<Comparable>::elementAt(BinaryNode<Comparable> *t) const {
 		return t->element;
 }
 
+
 template<class Comparable>
 void BST<Comparable>::insert(const Comparable & x,
 		BinaryNode<Comparable> * & t) const {

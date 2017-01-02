@@ -17,7 +17,9 @@ Data::Data() {
 
 	dia = ltm->tm_mday;
 	mes = ltm->tm_mon;
-	ano = ltm->tm_year;
+	ano = ltm->tm_year+1900;
+
+	cout<<mes<<" : " <<ano<<endl;
 
 }
 

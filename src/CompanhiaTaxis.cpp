@@ -10,22 +10,20 @@
 
 #include <vector>
 
-bool operator <(Taxi* t1, Taxi* t2) {
-	return t1->getdispo() > t2->getdispo();
-
-}
-
-CompanhiaTaxis::CompanhiaTaxis() {
+//MUDEI 2
+CompanhiaTaxis::CompanhiaTaxis():viagens(Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem")) {
 	this->capital = 0;
-	Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0));
-	BST<Viagem> viagens(null);
+	//Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
+	//BST<Viagem> viagens(null);
 }
 
-CompanhiaTaxis::CompanhiaTaxis(string n, float c) {
+
+//MUDEI 2
+CompanhiaTaxis::CompanhiaTaxis(string n, float c):viagens(Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem")) {
 	this->nome = n;
 	this->capital = c;
-	Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0));
-	BST<Viagem> viagens(null);
+	//Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
+	//BST<Viagem> viagens(null);
 }
 
 string CompanhiaTaxis::getNome() {
@@ -40,7 +38,7 @@ vector<Cliente *> CompanhiaTaxis::getClientes() const {
 	return clientes;
 }
 
-priority_queue<Taxi*> CompanhiaTaxis::getTaxis() const {
+priority_queue<Taxipointer> CompanhiaTaxis::getTaxis() const {
 	return taxis;
 }
 
@@ -58,7 +56,7 @@ tabCli CompanhiaTaxis::getAtivos() const {
 	return this->ativos;
 }
 
-void CompanhiaTaxis::setTaxis(priority_queue<Taxi*> t) {
+void CompanhiaTaxis::setTaxis(priority_queue<Taxipointer> t) {
 	taxis = t;
 }
 
@@ -77,7 +75,8 @@ void CompanhiaTaxis::somaCapital(float n) {
 void CompanhiaTaxis::adicionaTaxi(Hora horI, Hora horO) {
 	Taxi* t = new Taxi(horI, horO);
 	capital -= 500;
-	taxis.push(t);
+	Taxipointer ta(t);
+	taxis.push(ta);
 }
 
 void CompanhiaTaxis::adicionaClienteParticular(string nome, string morada,
@@ -102,12 +101,12 @@ void CompanhiaTaxis::removeTaxi(int n) {
 
 	capital += t->getRentabilidade();
 
-	priority_queue<Taxi*> aux;
+	priority_queue<Taxipointer> aux;
 
 	while (!taxis.empty()) {
 
-		Taxi ta = *taxis.top();
-
+		Taxipointer t = taxis.top();
+		Taxi ta = *(t.getTaxipointer());
 		if (ta.getNumeroTaxi() == n) {
 
 			taxis.pop();
@@ -159,14 +158,15 @@ Taxi* CompanhiaTaxis::procuraTaxi(int n) const {
 		throw TaxisIndisponiveis("Nao existem taxis");
 	}
 
-	priority_queue<Taxi*> aux = taxis;
+	priority_queue<Taxipointer> aux = taxis;
 
 	while (!aux.empty()) {
 
-		Taxi t = *(aux.top());
+		Taxipointer ta = (aux.top());
+		Taxi t= *(ta.getTaxipointer());
 
 		if (t.getNumeroTaxi() == n) {
-			return aux.top();
+			return ta.getTaxipointer();
 		}
 
 		aux.pop();
@@ -203,9 +203,10 @@ int CompanhiaTaxis::ultimoIDcliente() {
 	return clientes[ind]->getID() + 1;
 }
 
-void CompanhiaTaxis::fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1) {
+//MUDEI 2
+void CompanhiaTaxis::fazerViagemOcasional(string cli, Data dia, Hora horaIn, Percurso p1) {
 
-	Viagem v(dia, horaIn, p1);
+	Viagem v(dia, horaIn, p1, cli);
 	v.horaFinal();
 
 	Taxi* t = this->proximoTaxi(v);
@@ -213,19 +214,21 @@ void CompanhiaTaxis::fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1) {
 	t->changeDispo(v.horaFinal());
 
 	t->setRentabilidade(v.pagarViagem());
-	taxis.push(t);
+	Taxipointer ta(t);
+	taxis.push(ta);
 
 	this->addViagemBST(v);
 }
 
-//Rodas
+//MUDEI 2
 void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 		Percurso p1, bool disc, float per, string tipoPag) {
-	Viagem v(dia, horaIn, p1);
-	v.horaFinal();
-	v.pagarViagem();
+
 	for (unsigned int j = 0; j < clientes.size(); j++) {
 		if (clientes[j]->getID() == id) {
+			Viagem v(dia, horaIn, p1, clientes[j]->getNomeC());
+				v.horaFinal();
+				v.pagarViagem();
 
 			Taxi* t = this->proximoTaxi(v);
 
@@ -236,7 +239,7 @@ void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 			clientes[j]->aumentaPontos();
 			clientes[j]->addViagemMensal(v);
 			if (clientes[j]->getCusto().getTipo() == "fim_do_mes") {
-				clientes[j]->addViagemMensalFimDoMes(v);
+				//clientes[j]->addViagemMensalFimDoMes(v);
 				if (clientes[j]->getPontos() > 50) {
 					clientes[j]->resetPontos();
 					taxis.push(t);
@@ -293,18 +296,20 @@ void CompanhiaTaxis::cobrarPagamentoMensal() {
 		clientes[i]->resetMes();
 	}
 
-	priority_queue<Taxi*> aux;
+	priority_queue<Taxipointer> aux;
 
 	while (!taxis.empty()) {
 
-		Taxi t = *taxis.top();
+		Taxipointer to = taxis.top();
+		Taxi t = *(to.getTaxipointer());
 
 		capital += t.getRentabilidade();
 		float n = -1 * (t.getRentabilidade());
 		t.setRentabilidade(n);
 		Taxi* ta = new Taxi(t.getNumeroTaxi(), t.getRentabilidade(),
 				t.getHoraIn(), t.getHoraOff(), t.getdispo());
-		aux.push(ta);
+		Taxipointer tax(ta);
+		aux.push(tax);
 		taxis.pop();
 	}
 
@@ -377,11 +382,12 @@ void CompanhiaTaxis::mostrarTaxis() {
 		throw TaxisIndisponiveis("Nao existem taxis");
 	}
 
-	priority_queue<Taxi*> aux = taxis;
+	priority_queue<Taxipointer> aux = taxis;
 
 	while (!aux.empty()) {
 
-		Taxi t = *(aux.top());
+		Taxipointer ta = aux.top();
+		Taxi t = *(ta.getTaxipointer());
 
 		cout << t << endl;
 
@@ -444,11 +450,12 @@ void CompanhiaTaxis::mostrarViagensBST() {
 Taxi* CompanhiaTaxis::proximoTaxi(Viagem v) {
 
 	Taxi *res;
-	priority_queue<Taxi*> aux;
+	priority_queue<Taxipointer> aux;
 
 	while (!taxis.empty()) {
 
-		Taxi t = *(taxis.top());
+		Taxipointer ta = taxis.top();
+		Taxi t = *(ta.getTaxipointer());
 
 		if (t.inHorario(v.getHoraIn(), v.getHoraOut())) {
 

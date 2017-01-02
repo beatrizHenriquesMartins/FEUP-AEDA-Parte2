@@ -91,15 +91,66 @@ public:
 	 * @param t -taxi
 	 * @return string taxi
 	 */
-
 	friend ostream & operator <<(ostream & os, Taxi t);
 
+	/**
+	 * @brief função para obter a disponibilidade do taxi
+	 * @return float dispo - disponibilidade
+	 */
 	float getdispo() const;
 
+	/**
+	 * @brief função que permite mudar a disponibilidade do Taxi
+	 * @param float n - valor
+	 */
 	void changeDispo(float n);
 
+	/**
+	 * @brief operador menor
+	 * @param t - Taxi
+	 * @return bool, true se o taxi tiver rendimentos menores do que o outro, false se se verificar o ontrário
+	 */
 	bool operator <(const Taxi t);
+
 };
+
+class Taxipointer {
+	Taxi* tp;
+public:
+	/**
+	 * @brief contrutor classe de pointer para Taxi
+	 * @param t - Taxi* que lhe deu origem
+	 */
+	Taxipointer(Taxi* t){
+		tp= t;
+	}
+	;
+
+
+	/**
+	 * @brief função para obter um Taxi* atrav�s da classe Taxipointer
+	 * @return tp -Taxi*
+	 */
+
+	Taxi* getTaxipointer(){
+			return tp;
+		}
+		;
+
+	/**
+	 * @brief operador menor
+	 * @param ta - Taxipointer
+	 * @return bool, true se o taxi apontado por Taxipointer tiver rendimentos menores do que o outro, false se se verificar o ontrário
+	 */
+	bool operator <(Taxipointer ta)
+	{
+
+		Taxi* comp= ta.getTaxipointer();
+		return tp->getdispo() < comp->getdispo();
+
+	}
+};
+
 
 
 class TaxisIndisponiveis {
