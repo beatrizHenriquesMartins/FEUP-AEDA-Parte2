@@ -11,19 +11,19 @@
 #include <vector>
 
 //MUDEI 2
-CompanhiaTaxis::CompanhiaTaxis() {
+CompanhiaTaxis::CompanhiaTaxis():viagens(Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem")) {
 	this->capital = 0;
-	Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
-	BST<Viagem> viagens(null);
+	//Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
+	//BST<Viagem> viagens(null);
 }
 
 
 //MUDEI 2
-CompanhiaTaxis::CompanhiaTaxis(string n, float c) {
+CompanhiaTaxis::CompanhiaTaxis(string n, float c):viagens(Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem")) {
 	this->nome = n;
 	this->capital = c;
-	Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
-	BST<Viagem> viagens(null);
+	//Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
+	//BST<Viagem> viagens(null);
 }
 
 string CompanhiaTaxis::getNome() {
@@ -38,7 +38,7 @@ vector<Cliente *> CompanhiaTaxis::getClientes() const {
 	return clientes;
 }
 
-priority_queue<Taxi*> CompanhiaTaxis::getTaxis() const {
+priority_queue<Taxipointer> CompanhiaTaxis::getTaxis() const {
 	return taxis;
 }
 
@@ -56,7 +56,7 @@ tabCli CompanhiaTaxis::getAtivos() const {
 	return this->ativos;
 }
 
-void CompanhiaTaxis::setTaxis(priority_queue<Taxi*> t) {
+void CompanhiaTaxis::setTaxis(priority_queue<Taxipointer> t) {
 	taxis = t;
 }
 
@@ -75,7 +75,8 @@ void CompanhiaTaxis::somaCapital(float n) {
 void CompanhiaTaxis::adicionaTaxi(Hora horI, Hora horO) {
 	Taxi* t = new Taxi(horI, horO);
 	capital -= 500;
-	taxis.push(t);
+	Taxipointer ta(t);
+	taxis.push(ta);
 }
 
 void CompanhiaTaxis::adicionaClienteParticular(string nome, string morada,
@@ -100,12 +101,12 @@ void CompanhiaTaxis::removeTaxi(int n) {
 
 	capital += t->getRentabilidade();
 
-	priority_queue<Taxi*> aux;
+	priority_queue<Taxipointer> aux;
 
 	while (!taxis.empty()) {
 
-		Taxi ta = *taxis.top();
-
+		Taxipointer t = taxis.top();
+		Taxi ta = *(t.getTaxipointer());
 		if (ta.getNumeroTaxi() == n) {
 
 			taxis.pop();
@@ -157,14 +158,15 @@ Taxi* CompanhiaTaxis::procuraTaxi(int n) const {
 		throw TaxisIndisponiveis("Nao existem taxis");
 	}
 
-	priority_queue<Taxi*> aux = taxis;
+	priority_queue<Taxipointer> aux = taxis;
 
 	while (!aux.empty()) {
 
-		Taxi t = *(aux.top());
+		Taxipointer ta = (aux.top());
+		Taxi t= *(ta.getTaxipointer());
 
 		if (t.getNumeroTaxi() == n) {
-			return aux.top();
+			return ta.getTaxipointer();
 		}
 
 		aux.pop();
@@ -212,7 +214,8 @@ void CompanhiaTaxis::fazerViagemOcasional(string cli, Data dia, Hora horaIn, Per
 	t->changeDispo(v.horaFinal());
 
 	t->setRentabilidade(v.pagarViagem());
-	taxis.push(t);
+	Taxipointer ta(t);
+	taxis.push(ta);
 
 	this->addViagemBST(v);
 }
@@ -293,18 +296,20 @@ void CompanhiaTaxis::cobrarPagamentoMensal() {
 		clientes[i]->resetMes();
 	}
 
-	priority_queue<Taxi*> aux;
+	priority_queue<Taxipointer> aux;
 
 	while (!taxis.empty()) {
 
-		Taxi t = *taxis.top();
+		Taxipointer to = taxis.top();
+		Taxi t = *(to.getTaxipointer());
 
 		capital += t.getRentabilidade();
 		float n = -1 * (t.getRentabilidade());
 		t.setRentabilidade(n);
 		Taxi* ta = new Taxi(t.getNumeroTaxi(), t.getRentabilidade(),
 				t.getHoraIn(), t.getHoraOff(), t.getdispo());
-		aux.push(ta);
+		Taxipointer tax(ta);
+		aux.push(tax);
 		taxis.pop();
 	}
 
@@ -377,11 +382,12 @@ void CompanhiaTaxis::mostrarTaxis() {
 		throw TaxisIndisponiveis("Nao existem taxis");
 	}
 
-	priority_queue<Taxi*> aux = taxis;
+	priority_queue<Taxipointer> aux = taxis;
 
 	while (!aux.empty()) {
 
-		Taxi t = *(aux.top());
+		Taxipointer ta = aux.top();
+		Taxi t = *(ta.getTaxipointer());
 
 		cout << t << endl;
 
@@ -444,11 +450,12 @@ void CompanhiaTaxis::mostrarViagensBST() {
 Taxi* CompanhiaTaxis::proximoTaxi(Viagem v) {
 
 	Taxi *res;
-	priority_queue<Taxi*> aux;
+	priority_queue<Taxipointer> aux;
 
 	while (!taxis.empty()) {
 
-		Taxi t = *(taxis.top());
+		Taxipointer ta = taxis.top();
+		Taxi t = *(ta.getTaxipointer());
 
 		if (t.inHorario(v.getHoraIn(), v.getHoraOut())) {
 

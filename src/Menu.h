@@ -39,7 +39,7 @@ public:
 	void escreverFicheiroClientesViagens(CompanhiaTaxis &comp);
 	void escreverFicheiroComp(CompanhiaTaxis &comp);
 	void escreverFicheiroTaxis(CompanhiaTaxis &comp);
-	void escreverFicheiroClientesViagensNaoPagasMensais(CompanhiaTaxis &comp);
+	//void escreverFicheiroClientesViagensNaoPagasMensais(CompanhiaTaxis &comp);
 
 	void menuInicio(CompanhiaTaxis &comp);
 
@@ -58,7 +58,7 @@ public:
 	void menuVerCliente(CompanhiaTaxis &comp);
 	void menuVerHistoricoCliente(CompanhiaTaxis &comp);
 	void menuViagensMensaisClientes(CompanhiaTaxis &comp);
-	void menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp);
+	//void menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp);
 	//MUDEI
 	void menuMudarCliente(CompanhiaTaxis &comp);
 

@@ -223,7 +223,7 @@ void Menu::lerFicheiroViagens(CompanhiaTaxis &comp) {
 			getline(ss, distf, ':');
 			dist = atoi(distf.c_str());
 			getline(ss, lixo, ':');
-			getline(ss, custof);
+			getline(ss, custof, ':');
 			custo = atoi(custof.c_str());
 			getline(ss, lixo, ':');
 			getline(ss, cliente);
@@ -252,11 +252,13 @@ void Menu::lerFicheiroViagens(CompanhiaTaxis &comp) {
 void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 	ifstream file("Taxis.txt");
 
+
+
 	if (file.is_open()) {
 		int n;
 		string lixo;
 
-		priority_queue<Taxi*> aux;
+		priority_queue<Taxipointer> aux;
 		file >> n;
 		getline(file, lixo, '\n');
 
@@ -292,7 +294,9 @@ void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 			Hora horaIn = stringToHora(hi);
 			Hora horaF = stringToHora(hf);
 			Taxi *t = new Taxi(id, rent, horaIn, horaF, dispo);
-			aux.push(t);
+			Taxipointer ta(t);
+			aux.push(ta);
+
 		}
 		comp.setTaxis(aux);
 
@@ -302,71 +306,71 @@ void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 }
 
 /*void Menu::lerFicheiroViagensNaoPagasMensais(CompanhiaTaxis &comp) {
-	ifstream file("viagensNaoPagasClientes.txt");
+ ifstream file("viagensNaoPagasClientes.txt");
 
-	if (file.is_open()) {
-		int n;
-		string lixo;
-		vector<int> idAux;
-		vector<Viagem> aux;
-		file >> n;
-		getline(file, lixo, '\n');
+ if (file.is_open()) {
+ int n;
+ string lixo;
+ vector<int> idAux;
+ vector<Viagem> aux;
+ file >> n;
+ getline(file, lixo, '\n');
 
-		string line;
-		while (getline(file, line)) {
+ string line;
+ while (getline(file, line)) {
 
-			stringstream ss;
-			ss << line;
+ stringstream ss;
+ ss << line;
 
-			string idf;
-			int id;
-			string data;
-			string hi;
-			string hf;
-			string part;
-			string dest;
-			string distf;
-			int dist;
-			string custof;
-			float custo;
+ string idf;
+ int id;
+ string data;
+ string hi;
+ string hf;
+ string part;
+ string dest;
+ string distf;
+ int dist;
+ string custof;
+ float custo;
 
-			ss << line;
-			getline(ss, idf, ';');
-			id = atoi(idf.c_str());
-			getline(ss, data, ';');
-			getline(ss, lixo, ':');
-			getline(ss, hi, ';');
-			getline(ss, lixo, ':');
-			getline(ss, hf, ';');
-			getline(ss, lixo, ':');
-			getline(ss, part, '-');
-			getline(ss, dest, 'D');
-			getline(ss, lixo, ':');
-			getline(ss, distf, ':');
-			dist = atoi(distf.c_str());
-			getline(ss, lixo, ':');
-			getline(ss, custof);
-			custo = atoi(custof.c_str());
+ ss << line;
+ getline(ss, idf, ';');
+ id = atoi(idf.c_str());
+ getline(ss, data, ';');
+ getline(ss, lixo, ':');
+ getline(ss, hi, ';');
+ getline(ss, lixo, ':');
+ getline(ss, hf, ';');
+ getline(ss, lixo, ':');
+ getline(ss, part, '-');
+ getline(ss, dest, 'D');
+ getline(ss, lixo, ':');
+ getline(ss, distf, ':');
+ dist = atoi(distf.c_str());
+ getline(ss, lixo, ':');
+ getline(ss, custof);
+ custo = atoi(custof.c_str());
 
-			Data d = stringToData(data);
-			Hora horaIn = stringToHora(hi);
-			Hora horaF = stringToHora(hf);
-			Percurso p = Percurso(part, dest, dist);
-			Viagem v(d, horaIn, horaF, p, custo);
-			idAux.push_back(id);
-			aux.push_back(v);
-		}
+ Data d = stringToData(data);
+ Hora horaIn = stringToHora(hi);
+ Hora horaF = stringToHora(hf);
+ Percurso p = Percurso(part, dest, dist);
+ Viagem v(d, horaIn, horaF, p, custo);
+ idAux.push_back(id);
+ aux.push_back(v);
+ }
 
-		for (unsigned int i = 0; i < idAux.size(); i++) {
-			int index = comp.procuraCliente(idAux[i]);
-			if (index == 0) {
-				comp.getClientes()[index]->addViagemMensalFimDoMes(aux[i]);
-			}
-		}
-	} else {
-		cout << endl << "Erro Viagens Cientes" << endl;
-	}
-}*/
+ for (unsigned int i = 0; i < idAux.size(); i++) {
+ int index = comp.procuraCliente(idAux[i]);
+ if (index == 0) {
+ comp.getClientes()[index]->addViagemMensalFimDoMes(aux[i]);
+ }
+ }
+ } else {
+ cout << endl << "Erro Viagens Cientes" << endl;
+ }
+ }*/
 
 Data Menu::stringToData(string &s) {
 	int d;
@@ -532,11 +536,14 @@ void Menu::escreverFicheiroClientesViagens(CompanhiaTaxis &comp) {
 						comp.getClientes()[i]->getHistoricoViagens()[j].getDeslocacao().getDistancia();
 				float custo =
 						comp.getClientes()[i]->getHistoricoViagens()[j].getCustoViagem();
+				string cli =
+						comp.getClientes()[i]->getHistoricoViagens()[j].getCliente();
 				file << id << " ; " << data.toString() << " ; "
 						<< "Hora inicial: " << hi.toString() << " ; "
 						<< "Hora final: " << hf.toString() << " ; "
 						<< "Percurso: " << part << "-" << dest << " Distancia: "
-						<< dist << " ; " << "Custo: " << custo << endl;
+						<< dist << " ; " << "Custo: " << custo << " ; "
+						<< "Cliente: " << cli << endl;
 
 			}
 		}
@@ -550,13 +557,15 @@ void Menu::escreverFicheiroTaxis(CompanhiaTaxis &comp) {
 		return;
 	ofstream file("Taxis.txt");
 
-	priority_queue<Taxi*> vt = comp.getTaxis();
+	priority_queue<Taxipointer> vt = comp.getTaxis();
 
 	file << vt.size() << endl;
 
 	while (!vt.empty()) {
-		Taxi t = *(vt.top());
-		file << vt.top() << endl;
+
+		Taxipointer ta = vt.top();
+		Taxi t = *(ta.getTaxipointer());
+		file << t << endl;
 		vt.pop();
 	}
 
@@ -564,54 +573,54 @@ void Menu::escreverFicheiroTaxis(CompanhiaTaxis &comp) {
 }
 
 /*void Menu::escreverFicheiroClientesViagensNaoPagasMensais(
-		CompanhiaTaxis &comp) {
-	if (comp.getClientes().size() == 0)
-		return;
+ CompanhiaTaxis &comp) {
+ if (comp.getClientes().size() == 0)
+ return;
 
-	ofstream file("viagensNaoPagasClientes.txt");
+ ofstream file("viagensNaoPagasClientes.txt");
 
-	int total = 0;
+ int total = 0;
 
-	for (unsigned int i = 0; i < comp.getClientes().size(); i++) {
-		if (comp.getClientes()[i]->getViagensNaoPagas().size() != 0) {
-			total = total + comp.getClientes()[i]->getViagensNaoPagas().size();
-		}
-	}
+ for (unsigned int i = 0; i < comp.getClientes().size(); i++) {
+ if (comp.getClientes()[i]->getViagensNaoPagas().size() != 0) {
+ total = total + comp.getClientes()[i]->getViagensNaoPagas().size();
+ }
+ }
 
-	file << total << endl;
+ file << total << endl;
 
-	for (unsigned int i = 0; i < comp.getClientes().size(); i++) {
-		if (comp.getClientes()[i]->getViagensNaoPagas().size() != 0) {
-			for (unsigned int j = 0;
-					j < comp.getClientes()[i]->getViagensNaoPagas().size();
-					j++) {
-				int id = comp.getClientes()[i]->getID();
-				Data data =
-						comp.getClientes()[i]->getViagensNaoPagas()[j].getData();
-				Hora hi =
-						comp.getClientes()[i]->getViagensNaoPagas()[j].getHoraIn();
-				Hora hf =
-						comp.getClientes()[i]->getViagensNaoPagas()[j].getHoraOut();
-				string part =
-						comp.getClientes()[i]->getViagensNaoPagas()[j].getPartida();
-				string dest =
-						comp.getClientes()[i]->getViagensNaoPagas()[j].getDestino();
-				int dist =
-						comp.getClientes()[i]->getViagensNaoPagas()[j].getDeslocacao().getDistancia();
-				float custo =
-						comp.getClientes()[i]->getViagensNaoPagas()[j].getCustoViagem();
-				file << id << " ; " << data.toString() << " ; "
-						<< "Hora inicial: " << hi.toString() << " ; "
-						<< "Hora final: " << hf.toString() << " ; "
-						<< "Percurso: " << part << "-" << dest << " Distancia: "
-						<< dist << " ; " << "Custo: " << custo << endl;
+ for (unsigned int i = 0; i < comp.getClientes().size(); i++) {
+ if (comp.getClientes()[i]->getViagensNaoPagas().size() != 0) {
+ for (unsigned int j = 0;
+ j < comp.getClientes()[i]->getViagensNaoPagas().size();
+ j++) {
+ int id = comp.getClientes()[i]->getID();
+ Data data =
+ comp.getClientes()[i]->getViagensNaoPagas()[j].getData();
+ Hora hi =
+ comp.getClientes()[i]->getViagensNaoPagas()[j].getHoraIn();
+ Hora hf =
+ comp.getClientes()[i]->getViagensNaoPagas()[j].getHoraOut();
+ string part =
+ comp.getClientes()[i]->getViagensNaoPagas()[j].getPartida();
+ string dest =
+ comp.getClientes()[i]->getViagensNaoPagas()[j].getDestino();
+ int dist =
+ comp.getClientes()[i]->getViagensNaoPagas()[j].getDeslocacao().getDistancia();
+ float custo =
+ comp.getClientes()[i]->getViagensNaoPagas()[j].getCustoViagem();
+ file << id << " ; " << data.toString() << " ; "
+ << "Hora inicial: " << hi.toString() << " ; "
+ << "Hora final: " << hf.toString() << " ; "
+ << "Percurso: " << part << "-" << dest << " Distancia: "
+ << dist << " ; " << "Custo: " << custo << endl;
 
-			}
-		}
-	}
+ }
+ }
+ }
 
-	file.close();
-}*/
+ file.close();
+ }*/
 
 void Menu::menuInicio(CompanhiaTaxis &comp) {
 	while (1) {
@@ -633,13 +642,14 @@ void Menu::menuInicio(CompanhiaTaxis &comp) {
 
 			if (op == 1) {
 				menuEmp(comp);
+				menuCompanhia(comp);
 			} else if (op == 2) {
 				escreverFicheiroClientesParticulares(comp);
 				escreverFicheiroClientesEmpresa(comp);
 				escreverFicheiroClientesViagens(comp);
 				escreverFicheiroComp(comp);
 				escreverFicheiroTaxis(comp);
-				escreverFicheiroClientesViagensNaoPagasMensais(comp);
+				//escreverFicheiroClientesViagensNaoPagasMensais(comp);
 				cout << endl << "Terminou" << endl;
 				return;
 			}
@@ -662,13 +672,14 @@ void Menu::menuInicio(CompanhiaTaxis &comp) {
 void Menu::menuEmp(CompanhiaTaxis &comp) {
 
 	lerFicheiroClienteParticular(comp);
+	cout << "leu ficheiro clientes" << endl;
 	lerFicheiroClienteEmpresas(comp);
+	cout << "leu ficheiro clientes emp " << endl;
 	lerFicheiroViagens(comp);
 	lerFicheiroTaxis(comp);
-	lerFicheiroViagensNaoPagasMensais(comp);
+	//lerFicheiroViagensNaoPagasMensais(comp);
 	//lerFicheiroPercurso(comp);
 
-	menuCompanhia(comp);
 }
 
 void Menu::menuCompanhia(CompanhiaTaxis &comp) {
@@ -749,8 +760,9 @@ void Menu::menuCompanhia(CompanhiaTaxis &comp) {
 		} catch (OpcaoErrada &x) {
 			x.alertaErro();
 		} catch (ErroInput &e) {
-
 			e.alertaErro();
+		} catch (TaxisIndisponiveis &t) {
+			cout << t.getRazao() << endl;
 		}
 	}
 }
@@ -758,13 +770,13 @@ void Menu::menuCompanhia(CompanhiaTaxis &comp) {
 void Menu::menuNomeCompanhia(CompanhiaTaxis &comp) {
 	cout << "|Nome Companhia|" << endl << endl;
 	cout << comp.getNome() << endl;
-	menuCompanhia(comp);
+
 }
 
 void Menu::menuVerClientesPorID(CompanhiaTaxis &comp) {
 	cout << "|Mostrar Clientes Por ID|" << endl << endl;
 	comp.mostrarClientesPorID();
-	menuCompanhia(comp);
+
 }
 
 void Menu::menuClientes(CompanhiaTaxis &comp) {
@@ -778,11 +790,9 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 				<< "5. Ver historico de viagens de cliente especifico" << endl
 				<< setw(5) << " "
 				<< "6. Ver viagens do mes atual de cliente especifico" << endl
-				<< setw(5) << " "
-				<< "7. Ver viagens nao pagas do mes actual de cliente especifico"
-				<< endl << setw(5) << " " << "8. Alterar informacao de Cliente"
-				<< endl << setw(5) << " " << "9. Voltar ao Menu da Companhia"
-				<< endl;
+				<< setw(5) << " " << "7. Marcar uma viagem" << endl << setw(5)
+				<< " " << "8. Alterar informacao de Cliente" << endl << setw(5)
+				<< " " << "9. Voltar ao Menu da Companhia" << endl;
 //MUDEI
 		int opC;
 		try {
@@ -819,15 +829,15 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 				break;
 			}
 			case 7: {
-				menuViagensMensaisNaoPagasClientes(comp);
+				menuMarcarViagem(comp);
+				//menuViagensMensaisNaoPagasClientes(comp);
 				break;
 			}
 			case 8: {
-
+				menuMudarCliente(comp);
 				break;
 			}
 			case 9: {
-				menuCompanhia(comp);
 				return;
 			}
 			default:
@@ -835,6 +845,8 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 			}
 		} catch (OpcaoErrada &x) {
 			x.alertaErro();
+		}catch (TaxisIndisponiveis &t) {
+			cout << t.getRazao() << endl;
 		}
 	}
 }
@@ -930,7 +942,6 @@ void Menu::menuNovoCliente(CompanhiaTaxis &comp) {
 				NIF, t);
 	}
 
-	menuClientes(comp);
 }
 
 void Menu::menuRemoverCliente(CompanhiaTaxis &comp) {
@@ -951,7 +962,6 @@ void Menu::menuRemoverCliente(CompanhiaTaxis &comp) {
 		cout << "Cliente nao encontrado para remover" << endl;
 	}
 
-	menuClientes(comp);
 }
 
 //MUDEI 2
@@ -1102,7 +1112,7 @@ void Menu::menuMarcarViagem(CompanhiaTaxis &comp) {
 
 	comp.resetTabelasClientes();
 	comp.criarTabelasClientes();
-	menuClientes(comp);
+
 }
 
 //MUDEI 2
@@ -1223,7 +1233,7 @@ void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 
 	comp.resetTabelasClientes();
 	comp.criarTabelasClientes();
-	menuClientes(comp);
+
 }
 
 void Menu::menuVerCliente(CompanhiaTaxis &comp) {
@@ -1239,20 +1249,20 @@ void Menu::menuVerCliente(CompanhiaTaxis &comp) {
 			throw ErroInput();
 	} catch (ErroInput &e) {
 		e.alertaErro();
-		break;
+
 	}
 
 	i = comp.procuraCliente(id);
 	if (i == -1) {
 		cout << "Cliente numero " << id << " nao existe" << endl;
-		break;
+
 	}
 
 	vector<Cliente*> vC = comp.getClientes();
 
 	cout << vC[i]->mostrarCliente() << endl;
 
-	menuClientes(comp);
+
 }
 
 void Menu::menuVerHistoricoCliente(CompanhiaTaxis &comp) {
@@ -1268,19 +1278,19 @@ void Menu::menuVerHistoricoCliente(CompanhiaTaxis &comp) {
 			throw ErroInput();
 	} catch (ErroInput &e) {
 		e.alertaErro();
-		break;
+
 	}
 
 	i = comp.procuraCliente(id);
 	if (i == -1) {
 		cout << "Cliente numero " << id << " nao existe" << endl;
-		break;
+
 	}
 	vector<Cliente*> vC = comp.getClientes();
 
 	vC[i]->mostrarViagens();
 
-	menuClientes(comp);
+
 }
 
 void Menu::menuViagensMensaisClientes(CompanhiaTaxis &comp) {
@@ -1296,48 +1306,47 @@ void Menu::menuViagensMensaisClientes(CompanhiaTaxis &comp) {
 			throw ErroInput();
 	} catch (ErroInput &e) {
 		e.alertaErro();
-		break;
+
 	}
 
 	i = comp.procuraCliente(id);
 	if (i == -1) {
 		cout << "Cliente numero " << id << " nao existe" << endl;
-		break;
+
 	}
 	vector<Cliente*> vC = comp.getClientes();
 
 	vC[i]->mostrarViagensmensais();
 
-	menuClientes(comp);
 }
 
 /*void Menu::menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp) {
-	int id;
-	int i;
+ int id;
+ int i;
 
-	cout << "|Viagens Mensais Nao Pagas Clientes|" << endl << endl;
+ cout << "|Viagens Mensais Nao Pagas Clientes|" << endl << endl;
 
-	try {
-		cout << "ID do cliente que quer ver: ";
-		cin >> id;
-		if (cin.fail())
-			throw ErroInput();
-	} catch (ErroInput &e) {
-		e.alertaErro();
-	}
+ try {
+ cout << "ID do cliente que quer ver: ";
+ cin >> id;
+ if (cin.fail())
+ throw ErroInput();
+ } catch (ErroInput &e) {
+ e.alertaErro();
+ }
 
-	i = comp.procuraCliente(id);
-	if (i == -1) {
-		cout << endl << "Cliente numero " << id << " nao existe" << endl;
-		break;
-	}
-	cout << endl;
-	vector<Cliente*> vC = comp.getClientes();
+ i = comp.procuraCliente(id);
+ if (i == -1) {
+ cout << endl << "Cliente numero " << id << " nao existe" << endl;
+ break;
+ }
+ cout << endl;
+ vector<Cliente*> vC = comp.getClientes();
 
-	vC[i]->mostrarViagensNaoPagas();
+ vC[i]->mostrarViagensNaoPagas();
 
-	menuClientes(comp);
-}*/
+ menuClientes(comp);
+ }*/
 
 //MUDEI
 void Menu::menuMudarCliente(CompanhiaTaxis &comp) {
@@ -1353,13 +1362,13 @@ void Menu::menuMudarCliente(CompanhiaTaxis &comp) {
 			throw ErroInput();
 	} catch (ErroInput &e) {
 		e.alertaErro();
-		break;
+
 	}
 
 	i = comp.procuraCliente(id);
 	if (i == -1) {
 		cout << "Cliente numero " << id << " nao existe" << endl;
-		break;
+
 	}
 
 	vector<Cliente*> vC = comp.getClientes();
@@ -1371,6 +1380,8 @@ void Menu::menuMudarCliente(CompanhiaTaxis &comp) {
 	cin >> resposta;
 	if (resposta == "sim") {
 		int nif;
+		cout << "NIF: ";
+		cin >> nif;
 		vC[i]->setNIF(nif);
 	}
 
@@ -1378,6 +1389,8 @@ void Menu::menuMudarCliente(CompanhiaTaxis &comp) {
 	cin >> resposta;
 	if (resposta == "sim") {
 		string morada;
+		cout << "Morada: ";
+		cin >> morada;
 		vC[i]->setMorada(morada);
 	}
 
@@ -1385,6 +1398,8 @@ void Menu::menuMudarCliente(CompanhiaTaxis &comp) {
 	cin >> resposta;
 	if (resposta == "sim") {
 		string mail;
+		cout << "Email: ";
+		cin >> mail;
 		vC[i]->setEmail(mail);
 	}
 
@@ -1392,12 +1407,14 @@ void Menu::menuMudarCliente(CompanhiaTaxis &comp) {
 	cin >> resposta;
 	if (resposta == "sim") {
 		int num;
+		cout << "Num de Telemovel: ";
+		cin >> num;
 		vC[i]->setNumeroTelemovel(num);
 	}
 
 	comp.resetTabelasClientes();
 	comp.criarTabelasClientes();
-	menuClientes(comp);
+
 }
 
 void Menu::menuVerCapital(CompanhiaTaxis &comp) {
@@ -1405,7 +1422,7 @@ void Menu::menuVerCapital(CompanhiaTaxis &comp) {
 
 	cout << "Capital: " << comp.getCapital() << endl;
 
-	menuCompanhia(comp);
+
 }
 
 void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
@@ -1470,7 +1487,7 @@ void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
 		d.dataErrada();
 	}
 
-	menuCompanhia(comp);
+
 }
 
 void Menu::menuListaClientesMaisLucrativos(CompanhiaTaxis &comp) {
@@ -1478,7 +1495,7 @@ void Menu::menuListaClientesMaisLucrativos(CompanhiaTaxis &comp) {
 
 	comp.mostrarClientesPorCapital();
 
-	menuCompanhia(comp);
+
 }
 
 void Menu::menuMostrarTodosTaxis(CompanhiaTaxis &comp) {
@@ -1486,7 +1503,6 @@ void Menu::menuMostrarTodosTaxis(CompanhiaTaxis &comp) {
 
 	comp.mostrarTaxis();
 
-	menuCompanhia(comp);
 }
 
 void Menu::menuAplicarDescontoMensal(CompanhiaTaxis &comp) {
@@ -1500,7 +1516,7 @@ void Menu::menuAplicarDescontoMensal(CompanhiaTaxis &comp) {
 		percentagem = 1;
 		cout << "Desconto invalido" << endl;
 	}
-	menuCompanhia(comp);
+
 }
 
 void Menu::menuTaxis(CompanhiaTaxis &comp) {
@@ -1535,7 +1551,6 @@ void Menu::menuTaxis(CompanhiaTaxis &comp) {
 			}
 
 			case 4: {
-				menuCompanhia(comp);
 				return;
 			}
 			default:
@@ -1543,6 +1558,8 @@ void Menu::menuTaxis(CompanhiaTaxis &comp) {
 			}
 		} catch (OpcaoErrada &x) {
 			x.alertaErro();
+		} catch (TaxisIndisponiveis &t) {
+			cout << t.getRazao() << endl;
 		}
 	}
 }
@@ -1586,7 +1603,7 @@ void Menu::menuComprarTaxi(CompanhiaTaxis &comp) {
 
 	comp.adicionaTaxi(Hora(hi, mi, si), Hora(hf, mf, sf));
 
-	menuTaxis(comp);
+
 }
 
 //Rodas
@@ -1601,13 +1618,13 @@ void Menu::menuRemoverTaxi(CompanhiaTaxis &comp) {
 
 	comp.removeTaxi(n);
 
-	menuTaxis(comp);
+
 }
 
 //Rodas
 void Menu::menuVerTaxi(CompanhiaTaxis &comp) {
+
 	int id;
-	int i;
 
 	cout << "|Ver Taxi|" << endl << endl;
 
@@ -1624,7 +1641,7 @@ void Menu::menuVerTaxi(CompanhiaTaxis &comp) {
 	Taxi* t = comp.procuraTaxi(id);
 
 	cout << *t << endl;
-	menuTaxis(comp);
+
 }
 
 void Menu::menuCobrarPagamentosMensais(CompanhiaTaxis &comp) {
@@ -1633,12 +1650,11 @@ void Menu::menuCobrarPagamentosMensais(CompanhiaTaxis &comp) {
 	comp.cobrarPagamentoMensal();
 	desconto = false;
 	percentagem = 1;
-	menuCompanhia(comp);
 }
 
 void Menu::menuViagensRealizadas(CompanhiaTaxis &comp) {
 	cout << "|Viagens Realizadas|" << endl << endl;
 	comp.mostrarViagensBST();
 	cout << endl;
-	menuCompanhia(comp);
+
 }

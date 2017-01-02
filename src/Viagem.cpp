@@ -150,7 +150,7 @@ string Viagem::toString() {
 	stringstream ss;
 	ss << "Data: " << this->getData().toString() << " Hora Inicial: " << horaIn
 			<< " Hora Final: " << horaOut << " " << deslocacao.toString()
-			<< " Custo: " << this->getCustoViagem() << " Nome: "
+			<< " Custo: " << this->getCustoViagem() << " Cliente: "
 			<< this->getCliente();
 	return ss.str();
 }

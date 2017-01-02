@@ -16,8 +16,9 @@ Data::Data() {
 	tm *ltm = localtime(&now);
 
 	dia = ltm->tm_mday;
-	mes = ltm->tm_mon;
-	ano = ltm->tm_year;
+	mes = ltm->tm_mon+1;
+	ano = ltm->tm_year+1900;
+
 
 }
 

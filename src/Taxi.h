@@ -114,6 +114,44 @@ public:
 
 };
 
+class Taxipointer {
+	Taxi* tp;
+public:
+	/**
+	 * @brief contrutor classe de pointer para Taxi
+	 * @param t - Taxi* que lhe deu origem
+	 */
+	Taxipointer(Taxi* t){
+		tp= t;
+	}
+	;
+
+
+	/**
+	 * @brief função para obter um Taxi* atrav�s da classe Taxipointer
+	 * @return tp -Taxi*
+	 */
+
+	 Taxi* getTaxipointer()const {
+			return tp;
+		}
+		;
+
+	/**
+	 * @brief operador menor
+	 * @param ta - Taxipointer
+	 * @return bool, true se o taxi apontado por Taxipointer tiver rendimentos menores do que o outro, false se se verificar o ontrário
+	 */
+	bool operator <(const Taxipointer & t2) const
+	{
+
+		return tp->getdispo() > t2.getTaxipointer()->getdispo();
+
+	}
+};
+
+
+
 
 class TaxisIndisponiveis {
 	string razao;

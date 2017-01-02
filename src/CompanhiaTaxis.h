@@ -45,10 +45,10 @@ typedef unordered_set<Cliente*, HashCli, EqualCli> tabCli;
 typedef unordered_set<Cliente*, HashCli, EqualCli>::iterator itTabCli;
 
 //MUDEI 2
-bool compTaxipointer(Taxi* t1, Taxi* t2) {
+/*bool compTaxipointer(Taxi* t1, Taxi* t2) {
 	return t1->getdispo() > t2->getdispo();
 
-}
+}*/
 
 class CompanhiaTaxis {
 private:
@@ -60,7 +60,7 @@ private:
 	tabCli inativos;
 	tabCli ativos;
 	BST<Viagem> viagens;
-	priority_queue<Taxi*> taxis;
+	priority_queue<Taxipointer> taxis;
 	/////
 
 public:
@@ -99,7 +99,7 @@ public:
 	 * @brief função para obter a lista de taaxis
 	 * @return retorna um apontador para a priority_queue de taxis
 	 */
-	priority_queue<Taxi*> getTaxis() const;
+	priority_queue<Taxipointer> getTaxis() const;
 
 	/**
 	 * @brief função para obter lista de percursos
@@ -124,7 +124,7 @@ public:
 	 * @brief função que actualiza a lista de taxis
 	 * @param t - taxis
 	 */
-	void setTaxis(priority_queue<Taxi*> t);
+	void setTaxis(priority_queue<Taxipointer> t);
 
 	/**
 	 * @brief função que actualiza a lista de percursos
