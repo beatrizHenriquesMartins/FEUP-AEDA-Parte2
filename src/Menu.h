@@ -50,7 +50,9 @@ public:
 	void menuVerClientesPorID(CompanhiaTaxis &comp);
 	void menuViagensRealizadas(CompanhiaTaxis &comp);
 
+	//NEON M U D E I
 	void menuClientes(CompanhiaTaxis &comp);
+	//
 	void menuNovoCliente(CompanhiaTaxis &comp);
 	void menuRemoverCliente(CompanhiaTaxis &comp);
 	void menuFazerViagem(CompanhiaTaxis &comp);
@@ -61,6 +63,9 @@ public:
 	//void menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp);
 	//MUDEI
 	void menuMudarCliente(CompanhiaTaxis &comp);
+	//NEON
+	void menuMostrarClientesInativos(CompanhiaTaxis &comp);
+	void menuMostrarClientesAtivos(CompanhiaTaxis &comp);
 
 	void menuVerCapital(CompanhiaTaxis &comp);
 	void menuPrestarServicoOcasional(CompanhiaTaxis &comp);

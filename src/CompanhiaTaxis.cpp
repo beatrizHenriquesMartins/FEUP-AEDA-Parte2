@@ -11,15 +11,20 @@
 #include <vector>
 
 //MUDEI 2
-CompanhiaTaxis::CompanhiaTaxis():viagens(Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem")) {
+CompanhiaTaxis::CompanhiaTaxis() :
+		viagens(
+				Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0),
+						"Ninguem")) {
 	this->capital = 0;
 	//Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
 	//BST<Viagem> viagens(null);
 }
 
-
 //MUDEI 2
-CompanhiaTaxis::CompanhiaTaxis(string n, float c):viagens(Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem")) {
+CompanhiaTaxis::CompanhiaTaxis(string n, float c) :
+		viagens(
+				Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0),
+						"Ninguem")) {
 	this->nome = n;
 	this->capital = c;
 	//Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
@@ -163,7 +168,7 @@ Taxi* CompanhiaTaxis::procuraTaxi(int n) const {
 	while (!aux.empty()) {
 
 		Taxipointer ta = (aux.top());
-		Taxi t= *(ta.getTaxipointer());
+		Taxi t = *(ta.getTaxipointer());
 
 		if (t.getNumeroTaxi() == n) {
 			return ta.getTaxipointer();
@@ -204,7 +209,8 @@ int CompanhiaTaxis::ultimoIDcliente() {
 }
 
 //MUDEI 2
-void CompanhiaTaxis::fazerViagemOcasional(string cli, Data dia, Hora horaIn, Percurso p1) {
+void CompanhiaTaxis::fazerViagemOcasional(string cli, Data dia, Hora horaIn,
+		Percurso p1) {
 
 	Viagem v(dia, horaIn, p1, cli);
 	v.horaFinal();
@@ -227,8 +233,8 @@ void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 	for (unsigned int j = 0; j < clientes.size(); j++) {
 		if (clientes[j]->getID() == id) {
 			Viagem v(dia, horaIn, p1, clientes[j]->getNomeC());
-				v.horaFinal();
-				v.pagarViagem();
+			v.horaFinal();
+			v.pagarViagem();
 
 			Taxi* t = this->proximoTaxi(v);
 
@@ -444,6 +450,22 @@ void CompanhiaTaxis::mostrarViagensBST() {
 	while (!it.isAtEnd()) {
 		cout << it.retrieve() << endl;
 		it.advance();
+	}
+}
+
+//NEON
+void CompanhiaTaxis::mostrarInativos() {
+	for (tabCli::iterator itB = inativos.begin(); itB != inativos.end();
+			itB++) {
+		cout << (*itB)->mostrarCliente() << endl;
+	}
+}
+
+//NEON
+void CompanhiaTaxis::mostrarAtivos() {
+	for (tabCli::iterator itB = ativos.begin(); itB != ativos.end();
+			itB++) {
+		cout << (*itB)->mostrarCliente() << endl;
 	}
 }
 

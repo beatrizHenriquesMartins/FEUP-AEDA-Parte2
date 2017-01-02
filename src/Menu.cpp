@@ -252,8 +252,6 @@ void Menu::lerFicheiroViagens(CompanhiaTaxis &comp) {
 void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 	ifstream file("Taxis.txt");
 
-
-
 	if (file.is_open()) {
 		int n;
 		string lixo;
@@ -792,8 +790,12 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 				<< "6. Ver viagens do mes atual de cliente especifico" << endl
 				<< setw(5) << " " << "7. Marcar uma viagem" << endl << setw(5)
 				<< " " << "8. Alterar informacao de Cliente" << endl << setw(5)
-				<< " " << "9. Voltar ao Menu da Companhia" << endl;
+				<< " " << "9. Ver Clientes Inativos" << endl << setw(5) << " "
+				<< "10. Ver Clientes Ativos" << endl << setw(5) << " "
+				<< "11. Voltar ao Menu da Companhia" << endl;
+		//linhas 793 794 795
 //MUDEI
+		//+NEON M U D E I
 		int opC;
 		try {
 			cout << setw(5) << " " << "op: ";
@@ -837,7 +839,18 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 				menuMudarCliente(comp);
 				break;
 			}
+				//NEON
 			case 9: {
+				menuMostrarClientesInativos(comp);
+				break;
+			}
+				//NEON
+			case 10: {
+				menuMostrarClientesAtivos(comp);
+				break;
+			}
+				//NEON
+			case 11: {
 				return;
 			}
 			default:
@@ -845,7 +858,7 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 			}
 		} catch (OpcaoErrada &x) {
 			x.alertaErro();
-		}catch (TaxisIndisponiveis &t) {
+		} catch (TaxisIndisponiveis &t) {
 			cout << t.getRazao() << endl;
 		}
 	}
@@ -1262,7 +1275,6 @@ void Menu::menuVerCliente(CompanhiaTaxis &comp) {
 
 	cout << vC[i]->mostrarCliente() << endl;
 
-
 }
 
 void Menu::menuVerHistoricoCliente(CompanhiaTaxis &comp) {
@@ -1289,7 +1301,6 @@ void Menu::menuVerHistoricoCliente(CompanhiaTaxis &comp) {
 	vector<Cliente*> vC = comp.getClientes();
 
 	vC[i]->mostrarViagens();
-
 
 }
 
@@ -1417,11 +1428,24 @@ void Menu::menuMudarCliente(CompanhiaTaxis &comp) {
 
 }
 
+//NEON
+void Menu::menuMostrarClientesInativos(CompanhiaTaxis &comp) {
+	cout << "|Mostrar Clientes Inativos|" << endl << endl;
+	comp.mostrarInativos();
+	//menuClientes(comp);
+}
+
+//NEON
+void Menu::menuMostrarClientesAtivos(CompanhiaTaxis &comp) {
+	cout << "|Mostrar Clientes Ativos|" << endl << endl;
+	comp.mostrarAtivos();
+	//menuClientes(comp);
+}
+
 void Menu::menuVerCapital(CompanhiaTaxis &comp) {
 	cout << "|Ver Capital|" << endl << endl;
 
 	cout << "Capital: " << comp.getCapital() << endl;
-
 
 }
 
@@ -1487,14 +1511,12 @@ void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
 		d.dataErrada();
 	}
 
-
 }
 
 void Menu::menuListaClientesMaisLucrativos(CompanhiaTaxis &comp) {
 	cout << "|Lista Clientes Mais Lucrativos|" << endl << endl;
 
 	comp.mostrarClientesPorCapital();
-
 
 }
 
@@ -1603,7 +1625,6 @@ void Menu::menuComprarTaxi(CompanhiaTaxis &comp) {
 
 	comp.adicionaTaxi(Hora(hi, mi, si), Hora(hf, mf, sf));
 
-
 }
 
 //Rodas
@@ -1617,7 +1638,6 @@ void Menu::menuRemoverTaxi(CompanhiaTaxis &comp) {
 	cin >> n;
 
 	comp.removeTaxi(n);
-
 
 }
 
