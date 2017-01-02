@@ -162,10 +162,6 @@ float Cliente::giveMonthlyPromotion(float p) {
 
 float Cliente::fimdoMes() {
 	float n = 0;
-	/*for (unsigned int i = 0; i < viagensMensais.size(); i++) {
-	 viagensMensais[i].pagarViagem();
-	 n += viagensMensais[i].getCustoViagem();
-	 }*/
 
 	for (unsigned int i = 0; i < viagensMensais.size(); i++) {
 		viagensMensais[i].pagarViagem();

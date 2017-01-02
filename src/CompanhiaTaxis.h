@@ -19,6 +19,7 @@
 #include "sequentialSearch.h"
 #include "BST.h"
 #include "Cliente.h"
+#include "Viagem.h"
 
 using namespace std;
 
@@ -42,6 +43,12 @@ struct HashCli {
 
 typedef unordered_set<Cliente*, HashCli, EqualCli> tabCli;
 typedef unordered_set<Cliente*, HashCli, EqualCli>::iterator itTabCli;
+
+//MUDEI 2
+bool compTaxipointer(Taxi* t1, Taxi* t2) {
+	return t1->getdispo() > t2->getdispo();
+
+}
 
 class CompanhiaTaxis {
 private:
@@ -92,9 +99,10 @@ public:
 
 	int ultimoIDcliente();
 
-	void fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1);
+	//MUDEI 2
+	void fazerViagemOcasional(string cli, Data dia, Hora horaIn, Percurso p1);
 	void fazerViagemCliente(int id, Data dia, Hora horaIn, Percurso p1,
-			bool disc, float per);
+			bool disc, float per, string tipoPag);
 
 	void cobrarPagamentoMensal();
 
@@ -111,6 +119,7 @@ public:
 	BST<Viagem> getViagens(); //BST
 	void addViagemBST(Viagem &v); //BST
 	void mostrarViagensBST(); //BST
+
 
 	/**
 	 * @brief função que nos permite ter o taxi mais disponivel dentro do Horario da Viagem passada como argumento

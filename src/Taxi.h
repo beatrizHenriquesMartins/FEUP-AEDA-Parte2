@@ -98,7 +98,9 @@ public:
 
 	void changeDispo(float n);
 
+
 	bool operator <(const Taxi t);
+
 };
 
 

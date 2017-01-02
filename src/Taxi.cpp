@@ -84,11 +84,13 @@ void Taxi::changeDispo(float n) {
 
 }
 
+
 bool Taxi::operator <(const Taxi t) {
 
 	return dispo > t.getdispo();
 
 }
+
 
 
 

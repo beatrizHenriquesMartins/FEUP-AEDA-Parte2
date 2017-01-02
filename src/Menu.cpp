@@ -6,6 +6,8 @@
  */
 
 #include "Menu.h"
+//MUDEI 2
+#include "Taxi.h"
 
 static bool desconto = false;
 static float percentagem = 1;
@@ -175,6 +177,7 @@ void Menu::lerFicheiroClienteEmpresas(CompanhiaTaxis &comp) {
 	}
 }
 
+//MUDEI 2
 void Menu::lerFicheiroViagens(CompanhiaTaxis &comp) {
 	ifstream file("viagens_clientes.txt");
 
@@ -203,6 +206,7 @@ void Menu::lerFicheiroViagens(CompanhiaTaxis &comp) {
 			int dist;
 			string custof;
 			float custo;
+			string cliente;
 
 			ss << line;
 			getline(ss, idf, ';');
@@ -221,12 +225,14 @@ void Menu::lerFicheiroViagens(CompanhiaTaxis &comp) {
 			getline(ss, lixo, ':');
 			getline(ss, custof);
 			custo = atoi(custof.c_str());
+			getline(ss, lixo, ':');
+			getline(ss, cliente);
 
 			Data d = stringToData(data);
 			Hora horaIn = stringToHora(hi);
 			Hora horaF = stringToHora(hf);
 			Percurso p = Percurso(part, dest, dist);
-			Viagem v(d, horaIn, horaF, p, custo);
+			Viagem v(d, horaIn, horaF, p, custo, cliente);
 			idAux.push_back(id);
 			aux.push_back(v);
 		}
@@ -295,7 +301,7 @@ void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 	}
 }
 
-void Menu::lerFicheiroViagensNaoPagasMensais(CompanhiaTaxis &comp) {
+/*void Menu::lerFicheiroViagensNaoPagasMensais(CompanhiaTaxis &comp) {
 	ifstream file("viagensNaoPagasClientes.txt");
 
 	if (file.is_open()) {
@@ -360,7 +366,7 @@ void Menu::lerFicheiroViagensNaoPagasMensais(CompanhiaTaxis &comp) {
 	} else {
 		cout << endl << "Erro Viagens Cientes" << endl;
 	}
-}
+}*/
 
 Data Menu::stringToData(string &s) {
 	int d;
@@ -556,7 +562,8 @@ void Menu::escreverFicheiroTaxis(CompanhiaTaxis &comp) {
 
 	file.close();
 }
-void Menu::escreverFicheiroClientesViagensNaoPagasMensais(
+
+/*void Menu::escreverFicheiroClientesViagensNaoPagasMensais(
 		CompanhiaTaxis &comp) {
 	if (comp.getClientes().size() == 0)
 		return;
@@ -604,7 +611,7 @@ void Menu::escreverFicheiroClientesViagensNaoPagasMensais(
 	}
 
 	file.close();
-}
+}*/
 
 void Menu::menuInicio(CompanhiaTaxis &comp) {
 	while (1) {
@@ -947,7 +954,7 @@ void Menu::menuRemoverCliente(CompanhiaTaxis &comp) {
 	menuClientes(comp);
 }
 
-//MUDEI
+//MUDEI 2
 //ESTA FUNCAO NAO ESTA BEM
 void Menu::menuMarcarViagem(CompanhiaTaxis &comp) {
 	int id;
@@ -977,7 +984,7 @@ void Menu::menuMarcarViagem(CompanhiaTaxis &comp) {
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(1000);
-			break;
+
 			//throw ErroInput();
 		}
 		cout << "Digite as horas a que a viagem comeca:" << endl << "Horas ";
@@ -1049,40 +1056,38 @@ void Menu::menuMarcarViagem(CompanhiaTaxis &comp) {
 		 comp.removeClienteTabela(cliente);
 		 }*/
 
-		/*
-		 int opPag;
-		 string tipoPag;
+		int opPag;
+		string tipoPag;
 
-		 cout << "Tipo de Pagamento: " << endl << "1. Numerario" << endl
-		 << "2. Multibanco" << "3. Cartao Credito" << endl
-		 << "4. Fim do mes" << endl << "Op: ";
-		 cin >> opPag;
+		cout << "Tipo de Pagamento: " << endl << "1. Numerario" << endl
+				<< "2. Multibanco" << "3. Cartao Credito" << endl
+				<< "4. Fim do mes" << endl << "Op: ";
+		cin >> opPag;
 
-		 if (cin.fail()) {
-		 cin.clear();
-		 cin.ignore(1000);
-		 throw ErroInput();
-		 }
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000);
+			throw ErroInput();
+		}
 
-		 switch (opPag) {
-		 case 1: {
-		 tipoPag = "numerario";
-		 }
-		 case 2: {
-		 tipoPag = "multibanco";
-		 }
-		 case 3: {
-		 tipoPag = "credito";
-		 }
-		 case 4: {
-		 tipoPag = "fim_do_mes";
-		 }
-		 }
-		 */
+		switch (opPag) {
+		case 1: {
+			tipoPag = "numerario";
+		}
+		case 2: {
+			tipoPag = "multibanco";
+		}
+		case 3: {
+			tipoPag = "credito";
+		}
+		case 4: {
+			tipoPag = "fim_do_mes";
+		}
+		}
 
 		comp.fazerViagemCliente(id, d1, h1,
 				Percurso(localPartida, localDestino, distancia), desconto,
-				percentagem);
+				percentagem, tipoPag);
 	} catch (ErroInput &e) {
 		e.alertaErro();
 	} catch (ClienteInexistente &c) {
@@ -1100,6 +1105,7 @@ void Menu::menuMarcarViagem(CompanhiaTaxis &comp) {
 	menuClientes(comp);
 }
 
+//MUDEI 2
 void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 	int id;
 	int distancia;
@@ -1128,7 +1134,7 @@ void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(1000);
-			break;
+
 			//throw ErroInput();
 		}
 
@@ -1202,7 +1208,7 @@ void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 
 		comp.fazerViagemCliente(id, Data(), Hora(),
 				Percurso(localPartida, localDestino, distancia), desconto,
-				percentagem);
+				percentagem, tipoPag);
 	} catch (ErroInput &e) {
 		e.alertaErro();
 	} catch (ClienteInexistente &c) {
@@ -1305,7 +1311,7 @@ void Menu::menuViagensMensaisClientes(CompanhiaTaxis &comp) {
 	menuClientes(comp);
 }
 
-void Menu::menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp) {
+/*void Menu::menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp) {
 	int id;
 	int i;
 
@@ -1331,7 +1337,7 @@ void Menu::menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp) {
 	vC[i]->mostrarViagensNaoPagas();
 
 	menuClientes(comp);
-}
+}*/
 
 //MUDEI
 void Menu::menuMudarCliente(CompanhiaTaxis &comp) {
@@ -1451,7 +1457,7 @@ void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
 			}
 		}
 
-		comp.fazerViagemOcasional(Data(), Hora(),
+		comp.fazerViagemOcasional(nome, Data(), Hora(),
 				Percurso(localPartida, localDestino, distancia));
 
 	} catch (ErroInput &e) {

@@ -10,21 +10,19 @@
 
 #include <vector>
 
-bool operator <(Taxi* t1, Taxi* t2) {
-	return t1->getdispo() > t2->getdispo();
-
-}
-
+//MUDEI 2
 CompanhiaTaxis::CompanhiaTaxis() {
 	this->capital = 0;
-	Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0));
+	Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
 	BST<Viagem> viagens(null);
 }
 
+
+//MUDEI 2
 CompanhiaTaxis::CompanhiaTaxis(string n, float c) {
 	this->nome = n;
 	this->capital = c;
-	Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0));
+	Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
 	BST<Viagem> viagens(null);
 }
 
@@ -203,9 +201,10 @@ int CompanhiaTaxis::ultimoIDcliente() {
 	return clientes[ind]->getID() + 1;
 }
 
-void CompanhiaTaxis::fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1) {
+//MUDEI 2
+void CompanhiaTaxis::fazerViagemOcasional(string cli, Data dia, Hora horaIn, Percurso p1) {
 
-	Viagem v(dia, horaIn, p1);
+	Viagem v(dia, horaIn, p1, cli);
 	v.horaFinal();
 
 	Taxi* t = this->proximoTaxi(v);
@@ -218,14 +217,15 @@ void CompanhiaTaxis::fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1) {
 	this->addViagemBST(v);
 }
 
-//Rodas
+//MUDEI 2
 void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
-		Percurso p1, bool disc, float per) {
-	Viagem v(dia, horaIn, p1);
-	v.horaFinal();
-	v.pagarViagem();
+		Percurso p1, bool disc, float per, string tipoPag) {
+
 	for (unsigned int j = 0; j < clientes.size(); j++) {
 		if (clientes[j]->getID() == id) {
+			Viagem v(dia, horaIn, p1, clientes[j]->getNomeC());
+				v.horaFinal();
+				v.pagarViagem();
 
 			Taxi* t = this->proximoTaxi(v);
 
