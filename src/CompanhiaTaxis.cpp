@@ -220,7 +220,7 @@ void CompanhiaTaxis::fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1) {
 
 //Rodas
 void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
-		Percurso p1, bool disc, float per, string tipoPag) {
+		Percurso p1, bool disc, float per) {
 	Viagem v(dia, horaIn, p1);
 	v.horaFinal();
 	v.pagarViagem();
@@ -236,7 +236,7 @@ void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 			clientes[j]->aumentaPontos();
 			clientes[j]->addViagemMensal(v);
 			if (clientes[j]->getCusto().getTipo() == "fim_do_mes") {
-				clientes[j]->addViagemMensalFimDoMes(v);
+				//clientes[j]->addViagemMensalFimDoMes(v);
 				if (clientes[j]->getPontos() > 50) {
 					clientes[j]->resetPontos();
 					taxis.push(t);

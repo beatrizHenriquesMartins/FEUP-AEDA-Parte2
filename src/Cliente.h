@@ -46,7 +46,7 @@ protected:
 	int numeroTelemovel;
 	vector<Viagem> historicoViagens;
 	vector<Viagem> viagensMensais;
-	vector<Viagem> viagensNaoPagas;
+	//vector<Viagem> viagensNaoPagas;
 	int cartaoPontos;
 
 public:
@@ -66,7 +66,7 @@ public:
 	string getEmail() const;
 	vector<Viagem> getHistoricoViagens() const;
 	vector<Viagem> getViagensMensais() const; //
-	vector<Viagem> getViagensNaoPagas() const; //
+	//vector<Viagem> getViagensNaoPagas() const; //
 	int getNumeroTelemovel() const;
 	int getPontos();
 
@@ -81,7 +81,7 @@ public:
 
 	void addViagemMensal(Viagem v);
 	void addViagemHistorico(Viagem v);
-	void addViagemMensalFimDoMes(Viagem v); //
+	//void addViagemMensalFimDoMes(Viagem v); //
 
 	void resetMes(); //
 
@@ -95,7 +95,7 @@ public:
 
 	void mostrarViagens(); //
 	void mostrarViagensmensais(); //
-	void mostrarViagensNaoPagas(); //
+	//void mostrarViagensNaoPagas(); //
 
 	bool operator <(Cliente c2);
 };

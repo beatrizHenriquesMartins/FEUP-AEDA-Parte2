@@ -875,8 +875,42 @@ void Menu::menuNovoCliente(CompanhiaTaxis &comp) {
 	cin >> numeroTelemovel;
 
 	int erro = 1;
-	//
-	t = "Mensal";
+
+	while (erro) {
+		cout << setw(5) << " " << "Tipo de pagamento: " << endl;
+		cout << "Escolher entre:" << endl;
+		cout << "1: Numerario  " << "2: Multibanco  " << "3: Credito  "
+				<< "4: Mensal" << endl;
+		cin >> op;
+
+		if (cin.fail())
+			throw OpcaoErrada();
+
+		switch (op) {
+		case 1: {
+			t = "numerario";
+			erro = 0;
+			break;
+		}
+		case 2: {
+			t = "multibanco";
+			erro = 0;
+			break;
+		}
+		case 3: {
+			t = "credito";
+			erro = 0;
+			break;
+		}
+		case 4: {
+			t = "fim_do_mes";
+			erro = 0;
+			break;
+		}
+		default:
+			throw OpcaoErrada();
+		}
+	}
 
 	if (emp == 1) {
 		int num_func;
@@ -1015,38 +1049,40 @@ void Menu::menuMarcarViagem(CompanhiaTaxis &comp) {
 		 comp.removeClienteTabela(cliente);
 		 }*/
 
-		int opPag;
-		string tipoPag;
+		/*
+		 int opPag;
+		 string tipoPag;
 
-		cout << "Tipo de Pagamento: " << endl << "1. Numerario" << endl
-				<< "2. Multibanco" << "3. Cartao Credito" << endl
-				<< "4. Fim do mes" << endl << "Op: ";
-		cin >> opPag;
+		 cout << "Tipo de Pagamento: " << endl << "1. Numerario" << endl
+		 << "2. Multibanco" << "3. Cartao Credito" << endl
+		 << "4. Fim do mes" << endl << "Op: ";
+		 cin >> opPag;
 
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(1000);
-			throw ErroInput();
-		}
+		 if (cin.fail()) {
+		 cin.clear();
+		 cin.ignore(1000);
+		 throw ErroInput();
+		 }
 
-		switch (opPag) {
-		case 1: {
-			tipoPag = "numerario";
-		}
-		case 2: {
-			tipoPag = "multibanco";
-		}
-		case 3: {
-			tipoPag = "credito";
-		}
-		case 4: {
-			tipoPag = "fim_do_mes";
-		}
-		}
+		 switch (opPag) {
+		 case 1: {
+		 tipoPag = "numerario";
+		 }
+		 case 2: {
+		 tipoPag = "multibanco";
+		 }
+		 case 3: {
+		 tipoPag = "credito";
+		 }
+		 case 4: {
+		 tipoPag = "fim_do_mes";
+		 }
+		 }
+		 */
 
 		comp.fazerViagemCliente(id, d1, h1,
 				Percurso(localPartida, localDestino, distancia), desconto,
-				percentagem, tipoPag);
+				percentagem);
 	} catch (ErroInput &e) {
 		e.alertaErro();
 	} catch (ClienteInexistente &c) {
@@ -1166,7 +1202,7 @@ void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 
 		comp.fazerViagemCliente(id, Data(), Hora(),
 				Percurso(localPartida, localDestino, distancia), desconto,
-				percentagem, tipoPag);
+				percentagem);
 	} catch (ErroInput &e) {
 		e.alertaErro();
 	} catch (ClienteInexistente &c) {

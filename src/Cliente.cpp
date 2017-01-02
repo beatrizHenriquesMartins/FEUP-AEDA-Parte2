@@ -91,9 +91,11 @@ vector<Viagem> Cliente::getViagensMensais() const {
 	return this->viagensMensais;
 }
 
-vector<Viagem> Cliente::getViagensNaoPagas() const {
-	return this->viagensNaoPagas;
-}
+/*
+ vector<Viagem> Cliente::getViagensNaoPagas() const {
+ return this->viagensNaoPagas;
+ }
+ */
 
 int Cliente::getNumeroTelemovel() const {
 	return numeroTelemovel;
@@ -140,22 +142,23 @@ void Cliente::addViagemHistorico(Viagem v) {
 	historicoViagens.push_back(v);
 }
 
-void Cliente::addViagemMensalFimDoMes(Viagem v) {
-	viagensNaoPagas.push_back(v);
-}
+/*
+ void Cliente::addViagemMensalFimDoMes(Viagem v) {
+ viagensNaoPagas.push_back(v);
+ }
+ */
 
 void Cliente::resetMes() {
 	vector<Viagem> v;
 
 	viagensMensais = v;
 
-	viagensNaoPagas = v; //
+	//viagensNaoPagas = v; //
 }
 
 float Cliente::giveMonthlyPromotion(float p) {
 	return 1;
 }  //funcao vazia, sera implementada nas subclasses
-
 
 float Cliente::fimdoMes() {
 	float n = 0;
@@ -164,9 +167,9 @@ float Cliente::fimdoMes() {
 	 n += viagensMensais[i].getCustoViagem();
 	 }*/
 
-	for (unsigned int i = 0; i < viagensNaoPagas.size(); i++) {
-		viagensNaoPagas[i].pagarViagem();
-		n += viagensNaoPagas[i].getCustoViagem();
+	for (unsigned int i = 0; i < viagensMensais.size(); i++) {
+		viagensMensais[i].pagarViagem();
+		n += viagensMensais[i].getCustoViagem();
 	}
 
 	n = n * 1.02;
@@ -205,12 +208,14 @@ void Cliente::mostrarViagensmensais() {  //
 	}
 }
 
-void Cliente::mostrarViagensNaoPagas() {
-	for (unsigned int i = 0; i < viagensNaoPagas.size(); i++) {
-		cout << "Viagem " << i + 1 << endl << viagensNaoPagas[i].toString()
-				<< endl;
-	}
-}
+/*
+ void Cliente::mostrarViagensNaoPagas() {
+ for (unsigned int i = 0; i < viagensNaoPagas.size(); i++) {
+ cout << "Viagem " << i + 1 << endl << viagensNaoPagas[i].toString()
+ << endl;
+ }
+ }
+ */
 
 bool Cliente::operator <(Cliente c2) {
 	if (this->custo.getTotal() < c2.getCusto().getTotal())
@@ -316,7 +321,6 @@ string Empresa::mostrarCliente() {
 			<< " Nr funcionarios: " << numFuncionarios;
 	return ss.str();
 }
-
 
 bool Empresa::isParticular() {
 	return false;

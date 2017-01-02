@@ -94,7 +94,7 @@ public:
 
 	void fazerViagemOcasional(Data dia, Hora horaIn, Percurso p1);
 	void fazerViagemCliente(int id, Data dia, Hora horaIn, Percurso p1,
-			bool disc, float per, string tipoPag);
+			bool disc, float per);
 
 	void cobrarPagamentoMensal();
 
