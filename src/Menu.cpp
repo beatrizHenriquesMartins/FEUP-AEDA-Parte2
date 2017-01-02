@@ -1200,35 +1200,40 @@ void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 		 comp.removeClienteTabela(cliente);
 		 }*/
 
-		int opPag;
+		//NEON
+		//int opPag;
 		string tipoPag;
 
-		cout << "Tipo de Pagamento: " << endl << "1. Numerario" << endl
-				<< "2. Multibanco" << "3. Cartao Credito" << endl
-				<< "4. Fim do mes" << endl << "Op: ";
-		cin >> opPag;
-
+		//NEON
+		/*
+		 cout << "Tipo de Pagamento: " << endl << "1. Numerario" << endl
+		 << "2. Multibanco" << "3. Cartao Credito" << endl
+		 << "4. Fim do mes" << endl << "Op: ";
+		 cin >> opPag;
+		 */
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(1000);
 			throw ErroInput();
 		}
 
-		switch (opPag) {
-		case 1: {
-			tipoPag = "numerario";
-		}
-		case 2: {
-			tipoPag = "multibanco";
-		}
-		case 3: {
-			tipoPag = "credito";
-		}
-		case 4: {
-			tipoPag = "fim_do_mes";
-		}
-		}
-
+		//NEON
+		/*
+		 switch (opPag) {
+		 case 1: {
+		 tipoPag = "numerario";
+		 }
+		 case 2: {
+		 tipoPag = "multibanco";
+		 }
+		 case 3: {
+		 tipoPag = "credito";
+		 }
+		 case 4: {
+		 tipoPag = "fim_do_mes";
+		 }
+		 }
+		 */
 		comp.fazerViagemCliente(id, Data(), Hora(),
 				Percurso(localPartida, localDestino, distancia), desconto,
 				percentagem, tipoPag);
