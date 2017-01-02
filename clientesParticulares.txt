@@ -1,8 +1,8 @@
 7
-1 ;   Diogo Pereira   ;   Rua Chaos do Monte, Vilar de Andorinho   ;   diogopeixotopereira@gmail.com   ; 934533870 ; 270564373 ; 20 ; numerario ; 5
-2 ;   Beatriz de Henriques Martins   ;   Rua Padre Arnaldo Rebelo 122, Maia   ;   beatrizhenriquesmartins@gmail.com   ; 964533870 ; 265533627 ; 25 ; multibanco ; 7
-3 ;   Pedro Silva   ;   Rua D.Afonso II 71, Alfena   ;   pedronogueirasilva5@gmail.com   ; 964533870 ; 271133445 ; 3 ; numerario ; 2
-4 ;   Pedro Dias   ;   Rua D.Sancho 35, Ermesinde   ;   pedrodias@gmail.com   ; 964577870 ; 277833445 ; 20 ; numerario ; 45
-5 ;   Joao Dias   ;   Rua Andor, Porto   ;   pokemon4@gmail.com   ; 914533870 ; 268594454 ; 2 ; credito ; 20
-6 ;   Ricardo Leite   ;   Rua do Sarilho 244, Matosinhos   ;   ricardoleite@live.com   ; 964533456 ; 293333445 ; 40 ; multibanco ; 5
-7 ;   Maria Pombinho   ;   Rua Alberto 70, Areosa   ;   pombinho@hotmail.com   ; 927533870 ; 201199445 ; 2.5 ; fim_do_mes ; 10
+1 ; Diogo Pereira ; Rua Chaos do Monte, Vilar de Andorinho ; diogopeixotopereira@gmail.com ; 934533870 ; 270564373 ; 20 ; numerario ; 5
+2 ; Beatriz de Henriques Martins ; Rua Padre Arnaldo Rebelo 122, Maia ; beatrizhenriquesmartins@gmail.com ; 964533870 ; 265533627 ; 25 ; multibanco ; 7
+3 ; Pedro Silva ; Rua D.Afonso II 71, Alfena ; pedronogueirasilva5@gmail.com ; 964533870 ; 271133445 ; 3 ; numerario ; 2
+4 ; Pedro Dias ; Rua D.Sancho 35, Ermesinde ; pedrodias@gmail.com ; 964577870 ; 277833445 ; 20 ; numerario ; 45
+5 ; Joao Dias ; Rua Andor, Porto ; pokemon4@gmail.com ; 914533870 ; 268594454 ; 2 ; credito ; 20
+6 ; Ricardo Leite ; Rua do Sarilho 244, Matosinhos ; ricardoleite@live.com ; 964533456 ; 293333445 ; 40 ; multibanco ; 5
+7 ; Maria Pombinho ; Rua Alberto 70, Areosa ; pombinho@hotmail.com ; 927533870 ; 201199445 ; 2 ; fim_do_mes ; 10
