@@ -132,7 +132,7 @@ public:
 	 * @return tp -Taxi*
 	 */
 
-	Taxi* getTaxipointer(){
+	 Taxi* getTaxipointer()const {
 			return tp;
 		}
 		;
@@ -142,14 +142,14 @@ public:
 	 * @param ta - Taxipointer
 	 * @return bool, true se o taxi apontado por Taxipointer tiver rendimentos menores do que o outro, false se se verificar o ontrário
 	 */
-	bool operator <(Taxipointer ta)
+	bool operator <(const Taxipointer & t2) const
 	{
 
-		Taxi* comp= ta.getTaxipointer();
-		return tp->getdispo() < comp->getdispo();
+		return tp->getdispo() > t2.getTaxipointer()->getdispo();
 
 	}
 };
+
 
 
 

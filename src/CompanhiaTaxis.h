@@ -46,9 +46,9 @@ typedef unordered_set<Cliente*, HashCli, EqualCli>::iterator itTabCli;
 
 //MUDEI 2
 /*bool compTaxipointer(Taxi* t1, Taxi* t2) {
-	return t1->getdispo() > t2->getdispo();
+ return t1->getdispo() > t2->getdispo();
 
-}*/
+ }*/
 
 class CompanhiaTaxis {
 private:
@@ -59,7 +59,8 @@ private:
 	//////
 	tabCli inativos;
 	tabCli ativos;
-	BST<Viagem> viagens;
+	BST<Viagem> viagens;  //dos clientes, neste caso
+	BST<Viagem> viagens_ocasionais;
 	priority_queue<Taxipointer> taxis;
 	/////
 
@@ -163,7 +164,7 @@ public:
 	void adicionaClienteParticular(string nome, string morada, string email,
 			int nT, int nif, string tipoPagamento);
 
-			/**
+	/**
 	 * @brief função que adiciona um cliente empresa à lista de clientes
 	 * @param nome
 	 * @param morada
@@ -176,7 +177,7 @@ public:
 	void adicionaClienteEmpresa(string nome, string morada, string email,
 			int nT, int nif, string tipoPagamento, int numFuncionarios);
 
-			/**
+	/**
 	 * @brief função para eliminar taxi
 	 * @param id - id taxi
 	 */
@@ -190,9 +191,9 @@ public:
 
 	//MUDEI
 	/**
-		 * @brief função para remover o cliente inativo da lista de cientes inativos da compania
-		 * @param Cliente* c - cliente
-		 */
+	 * @brief função para remover o cliente inativo da lista de cientes inativos da compania
+	 * @param Cliente* c - cliente
+	 */
 	void removeClienteInativo(Cliente* c); //hash
 
 	/**
@@ -241,7 +242,7 @@ public:
 	void fazerViagemCliente(int id, Data dia, Hora horaIn, Percurso p1,
 			bool disc, float per, string tipoPag);
 
-			/**
+	/**
 	 * @brief função que calcula o valor total de todos os cliente que querem pagar no final do mês
 	 */
 	void cobrarPagamentoMensal();
@@ -279,22 +280,38 @@ public:
 	void resetTabelasClientes(); //hash
 
 	/**
-	 * @brief função para obter a àrvore binária de viagens
+	 * @brief função para obter a àrvore binária de viagens de clientes
 	 * @return retornar a arvore binaria de viagens
 	 */
 	BST<Viagem> getViagens(); //BST
 
 	/**
-	 * @brief função para adicionar uma viagem à árvore binária de viagens
+	 * @brief função para adicionar uma viagem à árvore binária de viagens de clientes
 	 * @param v - Viagem
 	 */
 	void addViagemBST(Viagem &v); //BST
 
 	/**
-	 * @brief função para imprimir as viagens guardadas na árvore binária de viagens
+	 * @brief função para imprimir as viagens guardadas na árvore binária de viagens de clientes
 	 */
 	void mostrarViagensBST(); //BST
 
+	/**
+	 * @brief função para obter a àrvore binária de viagens de ocasionais
+	 * @return retornar a arvore binaria de viagens
+	 */
+	BST<Viagem> getViagensOcasionais(); //BST
+
+	/**
+	 * @brief função para adicionar uma viagem à árvore binária de viagens de ocasionais
+	 * @param v - Viagem
+	 */
+	void addViagemBSTOcasionais(Viagem &v); //BST
+
+	/**
+	 * @brief função para imprimir as viagens guardadas na árvore binária de viagens de ocasionais
+	 */
+	void mostrarViagensBSTOcasionais(); //BST
 
 	/**
 	 * @brief função que nos permite ter o taxi mais disponivel dentro do Horario da Viagem passada como argumento
