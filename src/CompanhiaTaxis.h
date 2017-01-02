@@ -64,60 +64,235 @@ private:
 	/////
 
 public:
+
+	/**
+	 * @brief construtor companhia de taxis vazio
+	 */
 	CompanhiaTaxis();
+
+	/**
+	 * @brief construtor companhia de taxis
+	 * @param n - nome companhia
+	 * @param c - capital companhia
+	 */
 	CompanhiaTaxis(string n, float c);
 
+	/**
+	 * @brief função para obter nome
+	 * @return nome
+	 */
 	string getNome();
+
+	/**
+	 * @brief função para obter capital companhia
+	 * @return companhia
+	 */
 	float getCapital();
+
+	/**
+	 * @brief função para obter lista de clientes
+	 * @return vector de clientes
+	 */
 	vector<Cliente *> getClientes() const;
+
+	/**
+	 * @brief função para obter a lista de taaxis
+	 * @return retorna um apontador para a priority_queue de taxis
+	 */
 	priority_queue<Taxi*> getTaxis() const;
+
+	/**
+	 * @brief função para obter lista de percursos
+	 * @return vector de percursos
+	 */
 	vector<Percurso*> getPercursos() const;
+
+	/**
+	 * @brief função para obter a lista de clientes inativos
+	 * @return retorna uma tabela de dispersão para os clientes inativos
+	 */
 	tabCli getInativos() const; //hash
+
 	//MUDEI
+	/**
+	 * @brief função para obter a lista de clientes activos da empresa
+	 * @return retorna uma tabela de dispersão para os clientes activos da companhia de taxis
+	 */
 	tabCli getAtivos() const; //hash
 
+	/**
+	 * @brief função que actualiza a lista de taxis
+	 * @param t - taxis
+	 */
 	void setTaxis(priority_queue<Taxi*> t);
+
+	/**
+	 * @brief função que actualiza a lista de percursos
+	 * @param p - percurso
+	 */
 	void setPercursos(vector<Percurso*> p);
+
+	/**
+	 * @brief função que actualiza a lista de clientes
+	 * @param c - cliente
+	 */
 	void setClientes(vector<Cliente*> c);
 
+	/**
+	 * @brief função que acumula custo de novas viagens ao capital já acumulado
+	 * @param n - custo
+	 */
 	void somaCapital(float n);
 
+	/**
+	 * @brief função para adicionar taxi à lista de taxis
+	 * @param horI - hora inicio
+	 * @param horO - hora fim
+	 */
 	void adicionaTaxi(Hora horI, Hora horO);
+
+	/**
+	 * @brief função que adiciona um cliente particular à lista de clientes
+	 * @param nome
+	 * @param morada
+	 * @param email
+	 * @param nT - número de telemóvel
+	 * @param nif - número fiscal
+	 * @param tipoPagamento - modo pagamento
+	 */
 	void adicionaClienteParticular(string nome, string morada, string email,
 			int nT, int nif, string tipoPagamento);
+
+			/**
+	 * @brief função que adiciona um cliente empresa à lista de clientes
+	 * @param nome
+	 * @param morada
+	 * @param email
+	 * @param nT - número de telemóvel
+	 * @param nif - número fiscal
+	 * @param tipoPagamento - modo pagamento
+	 * @param numFuncionarios - número de funcionários
+	 */
 	void adicionaClienteEmpresa(string nome, string morada, string email,
 			int nT, int nif, string tipoPagamento, int numFuncionarios);
 
+			/**
+	 * @brief função para eliminar taxi
+	 * @param id - id taxi
+	 */
 	void removeTaxi(int n);
+
+	/**
+	 * @brief função para eliminar cliente
+	 * @param id - id cliente
+	 */
 	bool removeCliente(int id);
+
 	//MUDEI
+	/**
+		 * @brief função para remover o cliente inativo da lista de cientes inativos da compania
+		 * @param Cliente* c - cliente
+		 */
 	void removeClienteInativo(Cliente* c); //hash
+
+	/**
+	 * @brief função para remover cliente da lista de clientes activos da empresa
+	 * @param Cliente* c - cliente
+	 */
 	void removeClienteAtivo(Cliente* c); //hash
 
+	/**
+	 * @brief função para procurar taxi
+	 * @param id - id taxi
+	 * @return retorna um apontador para taxi
+	 */
 	Taxi* procuraTaxi(int n) const;
+
+	/**
+	 * @brief função para procurar cliente
+	 * @param id - id cliente
+	 */
 	int procuraCliente(int id) const;
 
+	/**
+	 * @brief função para ultimo id da lista de clientes
+	 * @return último id
+	 */
 	int ultimoIDcliente();
 
 	//MUDEI 2
+	/**
+	 * @brief função cria uma viagem de ocasinal
+	 * @param dia - data
+	 * @param horaIn - hora de inicio
+	 * @param p1 -percurso
+	 */
 	void fazerViagemOcasional(string cli, Data dia, Hora horaIn, Percurso p1);
+
+	/**
+	 * @brief função cria uma viagem de cliente
+	 * @param id - id cliente
+	 * @param dia - data
+	 * @param horaIn - hora de inicio
+	 * @param p1 -percurso
+	 * @param disc - desconto
+	 * @param per - percentagem de desconto
+	 */
 	void fazerViagemCliente(int id, Data dia, Hora horaIn, Percurso p1,
 			bool disc, float per, string tipoPag);
 
+			/**
+	 * @brief função que calcula o valor total de todos os cliente que querem pagar no final do mês
+	 */
 	void cobrarPagamentoMensal();
 
+	/**
+	 * @brief função que imprime todos os clientes por ordem descrescente de total gasto em viagens
+	 */
 	void mostrarClientesPorCapital();
+
+	/**
+	 * @brief função que imprime todos os clientes por ordem crescente de id
+	 */
 	void mostrarClientesPorID();
+
+	/**
+	 * @brief função que imprime todos os taxis da companhia
+	 */
 	void mostrarTaxis();
 
+	/**
+	 * @brief função usada para concatenar 2 vectores de clientes
+	 * @param c - vector de cliente
+	 */
 	void concaClientes(vector<Cliente*> c);
 
 	//MUDEI
+	/**
+	 * @brief função para criar a tabela de dispersão de clientes activos e inativos
+	 */
 	void criarTabelasClientes(); //hash
+
+	/**
+	 * @brief função para colocar as tabelas de dispersão vazias
+	 */
 	void resetTabelasClientes(); //hash
 
+	/**
+	 * @brief função para obter a àrvore binária de viagens
+	 * @return retornar a arvore binaria de viagens
+	 */
 	BST<Viagem> getViagens(); //BST
+
+	/**
+	 * @brief função para adicionar uma viagem à árvore binária de viagens
+	 * @param v - Viagem
+	 */
 	void addViagemBST(Viagem &v); //BST
+
+	/**
+	 * @brief função para imprimir as viagens guardadas na árvore binária de viagens
+	 */
 	void mostrarViagensBST(); //BST
 
 

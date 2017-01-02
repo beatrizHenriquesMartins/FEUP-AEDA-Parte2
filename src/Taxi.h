@@ -91,14 +91,25 @@ public:
 	 * @param t -taxi
 	 * @return string taxi
 	 */
-
 	friend ostream & operator <<(ostream & os, Taxi t);
 
+	/**
+	 * @brief função para obter a disponibilidade do taxi
+	 * @return float dispo - disponibilidade
+	 */
 	float getdispo() const;
 
+	/**
+	 * @brief função que permite mudar a disponibilidade do Taxi
+	 * @param float n - valor
+	 */
 	void changeDispo(float n);
 
-
+	/**
+	 * @brief operador menor
+	 * @param t - Taxi
+	 * @return bool, true se o taxi tiver rendimentos menores do que o outro, false se se verificar o ontrário
+	 */
 	bool operator <(const Taxi t);
 
 };

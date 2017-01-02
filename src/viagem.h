@@ -153,6 +153,7 @@ public:
 	 * @return percurso
 	 */
 	Percurso getDeslocacao();
+
     /**
      * @brief funcao que permite comparar duas viagens atraves do operador menor
      * @return bool indicando true se a viagem for menor com aquela a que est· a ser comparada
@@ -178,6 +179,12 @@ public:
 };
 
 //MUDEI 2
+/**
+ * @brief operador < para saber qual o maior e o menor viagem
+ * @param v1 - viagem
+ * @param v2 - viagem
+ * @return bool, true se v1 menor do que v2 e false se v2 maior do que v1
+ */
 bool operator <(const Viagem v1, Viagem v2);
 
 #endif /* SRC_VIAGEM_H_ */
