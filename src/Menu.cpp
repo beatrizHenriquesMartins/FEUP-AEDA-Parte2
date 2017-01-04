@@ -178,7 +178,7 @@ void Menu::lerFicheiroClienteEmpresas(CompanhiaTaxis &comp) {
 }
 
 //MUDEI 2
-void Menu::lerFicheiroViagens(CompanhiaTaxis &comp) {
+void Menu::lerFicheiroViagensClientes(CompanhiaTaxis &comp) {
 	ifstream file("viagens_clientes.txt");
 
 	if (file.is_open()) {
@@ -220,13 +220,13 @@ void Menu::lerFicheiroViagens(CompanhiaTaxis &comp) {
 			getline(ss, part, '-');
 			getline(ss, dest, 'D');
 			getline(ss, lixo, ':');
-			getline(ss, distf, ':');
+			getline(ss, distf, ';');
 			dist = atoi(distf.c_str());
 			getline(ss, lixo, ':');
-			getline(ss, custof, ':');
+			getline(ss, custof, ';');
 			custo = atoi(custof.c_str());
 			getline(ss, lixo, ':');
-			getline(ss, cliente);
+			getline(ss, cliente, ';');
 
 			Data d = stringToData(data);
 			Hora horaIn = stringToHora(hi);
@@ -235,15 +235,69 @@ void Menu::lerFicheiroViagens(CompanhiaTaxis &comp) {
 			Viagem v(d, horaIn, horaF, p, custo, cliente);
 			idAux.push_back(id);
 			aux.push_back(v);
+			comp.addViagemBST(v); // BST
 		}
 
 		for (unsigned int i = 0; i < idAux.size(); i++) {
 			int index = comp.procuraCliente(idAux[i]);
 			if (index == 0) {
 				comp.getClientes()[index]->addViagemHistorico(aux[i]);
-				comp.addViagemBST(aux[i]); // BST
+				//comp.addViagemBST(aux[i]);
 			}
 		}
+	} else {
+		cout << endl << "Erro Viagens Cientes" << endl;
+	}
+}
+
+void Menu::lerFicheiroViagensOcasionais(CompanhiaTaxis &comp) {
+	ifstream file("viagens_ocasionais.txt");
+
+	if (file.is_open()) {
+		string lixo;
+		string line;
+		while (getline(file, line)) {
+
+			stringstream ss;
+			ss << line;
+
+			string data;
+			string hi;
+			string hf;
+			string part;
+			string dest;
+			string distf;
+			int dist;
+			string custof;
+			float custo;
+			string cliente;
+
+			ss << line;
+			getline(ss, data, ';');
+			getline(ss, lixo, ':');
+			getline(ss, hi, ';');
+			getline(ss, lixo, ':');
+			getline(ss, hf, ';');
+			getline(ss, lixo, ':');
+			getline(ss, part, '-');
+			getline(ss, dest, 'D');
+			getline(ss, lixo, ':');
+			getline(ss, distf, ';');
+			dist = atoi(distf.c_str());
+			getline(ss, lixo, ':');
+			getline(ss, custof, ';');
+			custo = atoi(custof.c_str());
+			getline(ss, lixo, ':');
+			getline(ss, cliente, ';');
+
+			Data d = stringToData(data);
+			Hora horaIn = stringToHora(hi);
+			Hora horaF = stringToHora(hf);
+			Percurso p = Percurso(part, dest, dist);
+			Viagem v(d, horaIn, horaF, p, custo, cliente);
+			comp.addViagemBSTOcasionais(v); // BST
+		}
+
 	} else {
 		cout << endl << "Erro Viagens Cientes" << endl;
 	}
@@ -303,7 +357,7 @@ void Menu::lerFicheiroTaxis(CompanhiaTaxis &comp) {
 	}
 }
 
-/*void Menu::lerFicheiroViagensNaoPagasMensais(CompanhiaTaxis &comp) {
+/*void Menu::lerFicheiroViagensClientesNaoPagasMensais(CompanhiaTaxis &comp) {
  ifstream file("viagensNaoPagasClientes.txt");
 
  if (file.is_open()) {
@@ -541,10 +595,34 @@ void Menu::escreverFicheiroClientesViagens(CompanhiaTaxis &comp) {
 						<< "Hora final: " << hf.toString() << " ; "
 						<< "Percurso: " << part << "-" << dest << " Distancia: "
 						<< dist << " ; " << "Custo: " << custo << " ; "
-						<< "Cliente: " << cli << endl;
+						<< "Cliente: " << cli << " ;" << endl;
 
 			}
 		}
+	}
+
+	file.close();
+}
+
+void Menu::escreverFicheiroOcasionaisViagens(CompanhiaTaxis &comp) {
+
+	if (comp.getViagensOcasionais().isEmpty())
+		return;
+
+	ofstream file("viagens_ocasionais.txt");
+
+	BSTItrIn<Viagem> it(comp.getViagensOcasionais());
+	while (!it.isAtEnd()) {
+		Viagem v = it.retrieve();
+		file << v.getData().toString() << " ; " << "Hora inicial: "
+				<< v.getHoraIn().toString() << " ; " << "Hora final: "
+				<< v.getHoraOut().toString() << " ; " << "Percurso: "
+				<< v.getDeslocacao().getLocalPartida() << "-"
+				<< v.getDeslocacao().getLocalDestino() << " Distancia: "
+				<< v.getDeslocacao().getDistancia() << " ; " << "Custo: "
+				<< v.getCustoViagem() << " ; " << "Cliente: " << v.getCliente()
+				<< " ;" << endl;
+		it.advance();
 	}
 
 	file.close();
@@ -621,6 +699,7 @@ void Menu::escreverFicheiroTaxis(CompanhiaTaxis &comp) {
  }*/
 
 void Menu::menuInicio(CompanhiaTaxis &comp) {
+	menuEmp(comp);
 	while (1) {
 		cout << "||Menu||" << endl << setw(5) << " " << "Bem vindo" << endl
 				<< setw(5) << " " << "1. Entrar" << endl << setw(5) << " "
@@ -639,15 +718,8 @@ void Menu::menuInicio(CompanhiaTaxis &comp) {
 				throw OpcaoErrada();
 
 			if (op == 1) {
-				menuEmp(comp);
 				menuCompanhia(comp);
 			} else if (op == 2) {
-				escreverFicheiroClientesParticulares(comp);
-				escreverFicheiroClientesEmpresa(comp);
-				escreverFicheiroClientesViagens(comp);
-				escreverFicheiroComp(comp);
-				escreverFicheiroTaxis(comp);
-				//escreverFicheiroClientesViagensNaoPagasMensais(comp);
 				cout << endl << "Terminou" << endl;
 				return;
 			}
@@ -670,13 +742,10 @@ void Menu::menuInicio(CompanhiaTaxis &comp) {
 void Menu::menuEmp(CompanhiaTaxis &comp) {
 
 	lerFicheiroClienteParticular(comp);
-	cout << "leu ficheiro clientes" << endl;
 	lerFicheiroClienteEmpresas(comp);
-	cout << "leu ficheiro clientes emp " << endl;
-	lerFicheiroViagens(comp);
+	lerFicheiroViagensClientes(comp);
+	lerFicheiroViagensOcasionais(comp);
 	lerFicheiroTaxis(comp);
-	//lerFicheiroViagensNaoPagasMensais(comp);
-	//lerFicheiroPercurso(comp);
 
 }
 
@@ -695,7 +764,11 @@ void Menu::menuCompanhia(CompanhiaTaxis &comp) {
 				<< setw(5) << " " << "9. Gestao de Taxis " << endl << setw(5)
 				<< " " << "10. Cobrar pagamentos mensais" << endl << setw(5)
 				<< " " << "11. Mostrar viagens da Companhia" << endl << setw(5)
-				<< " " << "12. Sair" << endl;
+				<< " " << "12. Mostrar viagens dos Clientes" << endl << setw(5)
+				<< " " << "13. Mostrar viagens dos Ocasionais" << endl
+				<< setw(5) << " " << "14. Mostrar clientes inativos" << endl
+				<< setw(5) << " " << "15. Mostrar clientes ativos" << endl
+				<< setw(5) << " " << "16. Sair" << endl;
 		int opC;
 
 		try {
@@ -750,6 +823,30 @@ void Menu::menuCompanhia(CompanhiaTaxis &comp) {
 				break;
 			}
 			case 12: {
+				menuViagensCliRealizadas(comp);
+				break;
+			}
+			case 13: {
+				menuViagensOcaRealizadas(comp);
+				break;
+			}
+			case 14: {
+				menuMostrarClientesInativos(comp);
+				break;
+			}
+
+			case 15: {
+				menuMostrarClientesAtivos(comp);
+				break;
+			}
+
+			case 16: {
+				escreverFicheiroClientesParticulares(comp);
+				escreverFicheiroClientesEmpresa(comp);
+				escreverFicheiroClientesViagens(comp);
+				escreverFicheiroOcasionaisViagens(comp);
+				escreverFicheiroComp(comp);
+				escreverFicheiroTaxis(comp);
 				return;
 			}
 			default:
@@ -790,12 +887,8 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 				<< "6. Ver viagens do mes atual de cliente especifico" << endl
 				<< setw(5) << " " << "7. Marcar uma viagem" << endl << setw(5)
 				<< " " << "8. Alterar informacao de Cliente" << endl << setw(5)
-				<< " " << "9. Ver Clientes Inativos" << endl << setw(5) << " "
-				<< "10. Ver Clientes Ativos" << endl << setw(5) << " "
-				<< "11. Voltar ao Menu da Companhia" << endl;
-		//linhas 793 794 795
+				<< " " << "9. Voltar ao Menu da Companhia" << endl;
 //MUDEI
-		//+NEON M U D E I
 		int opC;
 		try {
 			cout << setw(5) << " " << "op: ";
@@ -839,18 +932,7 @@ void Menu::menuClientes(CompanhiaTaxis &comp) {
 				menuMudarCliente(comp);
 				break;
 			}
-				//NEON
 			case 9: {
-				menuMostrarClientesInativos(comp);
-				break;
-			}
-				//NEON
-			case 10: {
-				menuMostrarClientesAtivos(comp);
-				break;
-			}
-				//NEON
-			case 11: {
 				return;
 			}
 			default:
@@ -1049,68 +1131,9 @@ void Menu::menuMarcarViagem(CompanhiaTaxis &comp) {
 			throw ErroInput();
 		}
 
-		/*Cliente* c;
-		 c->setID(id);
-
-		 if (comp.procuraCliente(id) == -1
-		 && comp.getInativos().find(c) == comp.getInativos().end())
-		 throw ClienteInexistente(id);
-
-		 if (comp.getInativos().find(c) != comp.getInativos().end()) {
-		 Cliente*cliente = comp.getInativos().find(c);
-		 if (cliente->isParticular() == true) {
-		 string n = cliente->getNomeC();
-		 string m = cliente->getMorada();
-		 string e = cliente->getEmail();
-		 int nT = cliente->getNumeroTelemovel();
-		 int nif = cliente->getNIF();
-		 string c = cliente->getCusto();
-		 comp.adicionaClienteParticular(n, m, e, nT, nif, c);
-		 } else {
-		 string n = cliente->getNomeC();
-		 string m = cliente->getMorada();
-		 string e = cliente->getEmail();
-		 int nT = cliente->getNumeroTelemovel();
-		 int nif = cliente->getNIF();
-		 string c = cliente->getCusto();
-		 int nF = cliente->getNfunc();
-		 comp.adicionaClienteEmpresa(n, m, e, nT, nif, c, nF);
-		 }
-		 comp.removeClienteTabela(cliente);
-		 }*/
-
-		int opPag;
-		string tipoPag;
-
-		cout << "Tipo de Pagamento: " << endl << "1. Numerario" << endl
-				<< "2. Multibanco" << "3. Cartao Credito" << endl
-				<< "4. Fim do mes" << endl << "Op: ";
-		cin >> opPag;
-
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(1000);
-			throw ErroInput();
-		}
-
-		switch (opPag) {
-		case 1: {
-			tipoPag = "numerario";
-		}
-		case 2: {
-			tipoPag = "multibanco";
-		}
-		case 3: {
-			tipoPag = "credito";
-		}
-		case 4: {
-			tipoPag = "fim_do_mes";
-		}
-		}
-
 		comp.fazerViagemCliente(id, d1, h1,
 				Percurso(localPartida, localDestino, distancia), desconto,
-				percentagem, tipoPag);
+				percentagem);
 	} catch (ErroInput &e) {
 		e.alertaErro();
 	} catch (ClienteInexistente &c) {
@@ -1132,12 +1155,6 @@ void Menu::menuMarcarViagem(CompanhiaTaxis &comp) {
 void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 	int id;
 	int distancia;
-	int hi;
-	int mi;
-	int si;
-	int dia;
-	int mes;
-	int ano;
 	string localPartida;
 	string localDestino;
 
@@ -1170,73 +1187,9 @@ void Menu::menuFazerViagem(CompanhiaTaxis &comp) {
 			throw ErroInput();
 		}
 
-		/*Cliente* c;
-		 c->setID(id);
-
-		 if (comp.procuraCliente(id) == -1
-		 && comp.getInativos().find(c) == comp.getInativos().end())
-		 throw ClienteInexistente(id);
-
-		 if (comp.getInativos().find(c) != comp.getInativos().end()) {
-		 Cliente*cliente = comp.getInativos().find(c);
-		 if (cliente->isParticular() == true) {
-		 string n = cliente->getNomeC();
-		 string m = cliente->getMorada();
-		 string e = cliente->getEmail();
-		 int nT = cliente->getNumeroTelemovel();
-		 int nif = cliente->getNIF();
-		 string c = cliente->getCusto();
-		 comp.adicionaClienteParticular(n, m, e, nT, nif, c);
-		 } else {
-		 string n = cliente->getNomeC();
-		 string m = cliente->getMorada();
-		 string e = cliente->getEmail();
-		 int nT = cliente->getNumeroTelemovel();
-		 int nif = cliente->getNIF();
-		 string c = cliente->getCusto();
-		 int nF = cliente->getNfunc();
-		 comp.adicionaClienteEmpresa(n, m, e, nT, nif, c, nF);
-		 }
-		 comp.removeClienteTabela(cliente);
-		 }*/
-
-		//NEON
-		//int opPag;
-		string tipoPag;
-
-		//NEON
-		/*
-		 cout << "Tipo de Pagamento: " << endl << "1. Numerario" << endl
-		 << "2. Multibanco" << "3. Cartao Credito" << endl
-		 << "4. Fim do mes" << endl << "Op: ";
-		 cin >> opPag;
-		 */
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(1000);
-			throw ErroInput();
-		}
-
-		//NEON
-		/*
-		 switch (opPag) {
-		 case 1: {
-		 tipoPag = "numerario";
-		 }
-		 case 2: {
-		 tipoPag = "multibanco";
-		 }
-		 case 3: {
-		 tipoPag = "credito";
-		 }
-		 case 4: {
-		 tipoPag = "fim_do_mes";
-		 }
-		 }
-		 */
 		comp.fazerViagemCliente(id, Data(), Hora(),
 				Percurso(localPartida, localDestino, distancia), desconto,
-				percentagem, tipoPag);
+				percentagem);
 	} catch (ErroInput &e) {
 		e.alertaErro();
 	} catch (ClienteInexistente &c) {
@@ -1286,7 +1239,7 @@ void Menu::menuVerHistoricoCliente(CompanhiaTaxis &comp) {
 	int id;
 	int i;
 
-	cout << "|Ver Histoico Cliente|" << endl << endl;
+	cout << "|Ver Historico Cliente|" << endl << endl;
 
 	try {
 		cout << "ID do cliente que quer ver: ";
@@ -1433,20 +1386,6 @@ void Menu::menuMudarCliente(CompanhiaTaxis &comp) {
 
 }
 
-//NEON
-void Menu::menuMostrarClientesInativos(CompanhiaTaxis &comp) {
-	cout << "|Mostrar Clientes Inativos|" << endl << endl;
-	comp.mostrarInativos();
-	//menuClientes(comp);
-}
-
-//NEON
-void Menu::menuMostrarClientesAtivos(CompanhiaTaxis &comp) {
-	cout << "|Mostrar Clientes Ativos|" << endl << endl;
-	comp.mostrarAtivos();
-	//menuClientes(comp);
-}
-
 void Menu::menuVerCapital(CompanhiaTaxis &comp) {
 	cout << "|Ver Capital|" << endl << endl;
 
@@ -1503,8 +1442,22 @@ void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
 			}
 		}
 
-		comp.fazerViagemOcasional(nome, Data(), Hora(),
-				Percurso(localPartida, localDestino, distancia));
+		Viagem v(Data(), Hora(),
+				Percurso(localPartida, localDestino, distancia), nome);
+
+		Taxi* t = comp.proximoTaxi(v);
+
+		t->changeDispo(v.horaFinal());
+
+		t->setRentabilidade(v.pagarViagem());
+		Taxipointer ta(t);
+		comp.adicionaTaxis(ta);
+
+		//comp.somaCapital(v.pagarViagem());
+
+		comp.addViagemBSTOcasionais(v);
+		/*comp.fazerViagemOcasional(nome, Data(), Hora(),
+		 Percurso(localPartida, localDestino, distancia));*/
 
 	} catch (ErroInput &e) {
 		e.alertaErro();
@@ -1552,7 +1505,7 @@ void Menu::menuTaxis(CompanhiaTaxis &comp) {
 		cout << endl << "||Taxis" << endl << setw(5) << " "
 				<< "1. Compra de Taxi" << endl << setw(5) << " "
 				<< "2. Remover Taxi" << endl << setw(5) << " "
-				<< "3. Ver Taxi especifico" << " " << endl
+				<< "3. Ver Taxi especifico" << endl << setw(5) << " "
 				<< "4. Voltar ao Menu da Companhia" << endl;
 
 		int opC;
@@ -1670,7 +1623,7 @@ void Menu::menuVerTaxi(CompanhiaTaxis &comp) {
 }
 
 void Menu::menuCobrarPagamentosMensais(CompanhiaTaxis &comp) {
-	cout << "|Cobrar Pagementos Mensais|" << endl << endl;
+	cout << "|Cobrar Pagamentos Mensais|" << endl << endl;
 
 	comp.cobrarPagamentoMensal();
 	desconto = false;
@@ -1681,5 +1634,34 @@ void Menu::menuViagensRealizadas(CompanhiaTaxis &comp) {
 	cout << "|Viagens Realizadas|" << endl << endl;
 	comp.mostrarViagensBST();
 	cout << endl;
+	comp.mostrarViagensBSTOcasionais();
+	cout << endl;
 
 }
+
+void Menu::menuViagensCliRealizadas(CompanhiaTaxis &comp) {
+	cout << "|Viagens Realizadas por Clientes|" << endl << endl;
+	comp.mostrarViagensBST();
+	cout << endl;
+
+}
+
+void Menu::menuViagensOcaRealizadas(CompanhiaTaxis &comp) {
+	cout << "|Viagens Realizadas por Ocasionais|" << endl << endl;
+	comp.mostrarViagensBSTOcasionais();
+	cout << endl;
+
+}
+
+void Menu::menuMostrarClientesInativos(CompanhiaTaxis &comp) {
+	cout << "|Mostrar Clientes Inativos|" << endl << endl;
+	comp.mostrarInativos();
+
+}
+
+void Menu::menuMostrarClientesAtivos(CompanhiaTaxis &comp) {
+	cout << "|Mostrar Clientes Ativos|" << endl << endl;
+	comp.mostrarAtivos();
+
+}
+

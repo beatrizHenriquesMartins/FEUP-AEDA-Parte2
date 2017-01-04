@@ -30,7 +30,8 @@ Taxi::Taxi(int n, float r, Hora horI, Hora horO, float dis) {
 	horaOff = horO;
 	rentabilidade = r;
 	numeroTaxi = n;
-	ultinumeroTaxi = ++n;
+	if(n>ultinumeroTaxi)
+		ultinumeroTaxi = ++n;
 	dispo = dis;
 }
 

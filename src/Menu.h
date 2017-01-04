@@ -27,9 +27,10 @@ public:
 
 	void lerFicheiroClienteParticular(CompanhiaTaxis &comp);
 	void lerFicheiroClienteEmpresas(CompanhiaTaxis &comp);
-	void lerFicheiroViagens(CompanhiaTaxis &comp);
+	void lerFicheiroViagensClientes(CompanhiaTaxis &comp);
+	void lerFicheiroViagensOcasionais(CompanhiaTaxis &comp);
 	void lerFicheiroTaxis(CompanhiaTaxis &comp);
-	void lerFicheiroViagensNaoPagasMensais(CompanhiaTaxis &comp);
+
 
 	Data stringToData(string &s);
 	Hora stringToHora(string &s);
@@ -37,9 +38,9 @@ public:
 	void escreverFicheiroClientesParticulares(CompanhiaTaxis &comp);
 	void escreverFicheiroClientesEmpresa(CompanhiaTaxis &comp);
 	void escreverFicheiroClientesViagens(CompanhiaTaxis &comp);
+	void escreverFicheiroOcasionaisViagens(CompanhiaTaxis &comp);
 	void escreverFicheiroComp(CompanhiaTaxis &comp);
 	void escreverFicheiroTaxis(CompanhiaTaxis &comp);
-	//void escreverFicheiroClientesViagensNaoPagasMensais(CompanhiaTaxis &comp);
 
 	void menuInicio(CompanhiaTaxis &comp);
 
@@ -49,23 +50,19 @@ public:
 	void menuNomeCompanhia(CompanhiaTaxis &comp);
 	void menuVerClientesPorID(CompanhiaTaxis &comp);
 	void menuViagensRealizadas(CompanhiaTaxis &comp);
+	void menuViagensCliRealizadas(CompanhiaTaxis &comp);
+	void menuViagensOcaRealizadas(CompanhiaTaxis &comp);
 
-	//NEON M U D E I
 	void menuClientes(CompanhiaTaxis &comp);
-	//
 	void menuNovoCliente(CompanhiaTaxis &comp);
 	void menuRemoverCliente(CompanhiaTaxis &comp);
-	void menuFazerViagem(CompanhiaTaxis &comp); //NEON
+	void menuFazerViagem(CompanhiaTaxis &comp);
 	void menuMarcarViagem(CompanhiaTaxis &comp);
 	void menuVerCliente(CompanhiaTaxis &comp);
 	void menuVerHistoricoCliente(CompanhiaTaxis &comp);
 	void menuViagensMensaisClientes(CompanhiaTaxis &comp);
-	//void menuViagensMensaisNaoPagasClientes(CompanhiaTaxis &comp);
-	//MUDEI
+
 	void menuMudarCliente(CompanhiaTaxis &comp);
-	//NEON
-	void menuMostrarClientesInativos(CompanhiaTaxis &comp);
-	void menuMostrarClientesAtivos(CompanhiaTaxis &comp);
 
 	void menuVerCapital(CompanhiaTaxis &comp);
 	void menuPrestarServicoOcasional(CompanhiaTaxis &comp);
@@ -79,6 +76,8 @@ public:
 	void menuVerTaxi(CompanhiaTaxis &comp);
 
 	void menuCobrarPagamentosMensais(CompanhiaTaxis &comp);
+	void menuMostrarClientesInativos(CompanhiaTaxis &comp);
+	void menuMostrarClientesAtivos(CompanhiaTaxis &comp);
 
 };
 

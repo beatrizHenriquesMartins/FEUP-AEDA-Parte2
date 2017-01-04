@@ -59,7 +59,8 @@ private:
 	//////
 	tabCli inativos;
 	tabCli ativos;
-	BST<Viagem> viagens;
+	BST<Viagem> viagens;  //dos clientes, neste caso
+	BST<Viagem> viagens_ocasionais;
 	priority_queue<Taxipointer> taxis;
 	/////
 
@@ -239,7 +240,7 @@ public:
 	 * @param per - percentagem de desconto
 	 */
 	void fazerViagemCliente(int id, Data dia, Hora horaIn, Percurso p1,
-			bool disc, float per, string tipoPag);
+			bool disc, float per);
 
 	/**
 	 * @brief função que calcula o valor total de todos os cliente que querem pagar no final do mês
@@ -279,33 +280,38 @@ public:
 	void resetTabelasClientes(); //hash
 
 	/**
-	 * @brief função para obter a àrvore binária de viagens
+	 * @brief função para obter a àrvore binária de viagens de clientes
 	 * @return retornar a arvore binaria de viagens
 	 */
 	BST<Viagem> getViagens(); //BST
 
 	/**
-	 * @brief função para adicionar uma viagem à árvore binária de viagens
+	 * @brief função para adicionar uma viagem à árvore binária de viagens de clientes
 	 * @param v - Viagem
 	 */
 	void addViagemBST(Viagem &v); //BST
 
 	/**
-	 * @brief função para imprimir as viagens guardadas na árvore binária de viagens
+	 * @brief função para imprimir as viagens guardadas na árvore binária de viagens de clientes
 	 */
 	void mostrarViagensBST(); //BST
 
-	//NEON
 	/**
-	 * @brief função para imprimir todos os clientes inativos e respectivos dados
+	 * @brief função para obter a àrvore binária de viagens de ocasionais
+	 * @return retornar a arvore binaria de viagens
 	 */
-	void mostrarInativos();
+	BST<Viagem> getViagensOcasionais(); //BST
 
-	//NEON
 	/**
-	 * @brief função para imprimir todos os clientes ativos e respectivos dados
+	 * @brief função para adicionar uma viagem à árvore binária de viagens de ocasionais
+	 * @param v - Viagem
 	 */
-	void mostrarAtivos();
+	void addViagemBSTOcasionais(Viagem &v); //BST
+
+	/**
+	 * @brief função para imprimir as viagens guardadas na árvore binária de viagens de ocasionais
+	 */
+	void mostrarViagensBSTOcasionais(); //BST
 
 	/**
 	 * @brief função que nos permite ter o taxi mais disponivel dentro do Horario da Viagem passada como argumento
@@ -313,7 +319,20 @@ public:
 	 */
 	Taxi* proximoTaxi(Viagem v);
 
-	//bool verficaClienteTabela(int id);
+	/**
+	 * @brief função para imprimir todos os clientes inativos e respectivos dados
+	 */
+	void mostrarInativos();
+
+	/**
+	 * @brief função para imprimir todos os clientes ativos e respectivos dados
+	 */
+	void mostrarAtivos();
+
+	/**
+	* @brief função para adicionar taxis usando um Taxipointer como argumento
+	*/
+	void adicionaTaxis(Taxipointer ta);
 };
 
 #endif /* COMPANHIATAXIS_H_ */

@@ -14,21 +14,21 @@
 CompanhiaTaxis::CompanhiaTaxis() :
 		viagens(
 				Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0),
+						"Ninguem")), viagens_ocasionais(
+				Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0),
 						"Ninguem")) {
 	this->capital = 0;
-	//Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
-	//BST<Viagem> viagens(null);
 }
 
 //MUDEI 2
 CompanhiaTaxis::CompanhiaTaxis(string n, float c) :
 		viagens(
 				Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0),
+						"Ninguem")), viagens_ocasionais(
+				Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0),
 						"Ninguem")) {
 	this->nome = n;
 	this->capital = c;
-	//Viagem null = Viagem(Data(1, 1, 1), Hora(0, 0, 0), Percurso("", "", 0), "Ninguem");
-	//BST<Viagem> viagens(null);
 }
 
 string CompanhiaTaxis::getNome() {
@@ -223,20 +223,21 @@ void CompanhiaTaxis::fazerViagemOcasional(string cli, Data dia, Hora horaIn,
 	Taxipointer ta(t);
 	taxis.push(ta);
 
-	this->addViagemBST(v);
+	this->addViagemBSTOcasionais(v);
 }
 
 //MUDEI 2
 void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
-		Percurso p1, bool disc, float per, string tipoPag) {
+		Percurso p1, bool disc, float per) {
 
 	for (unsigned int j = 0; j < clientes.size(); j++) {
 		if (clientes[j]->getID() == id) {
 			Viagem v(dia, horaIn, p1, clientes[j]->getNomeC());
-			v.horaFinal();
+
 			v.pagarViagem();
 
 			Taxi* t = this->proximoTaxi(v);
+			t->changeDispo(v.horaFinal());
 
 			if (disc)
 				v.modificaCusto(clientes[j]->giveMonthlyPromotion(per));
@@ -293,7 +294,6 @@ void CompanhiaTaxis::fazerViagemCliente(int id, Data dia, Hora horaIn,
 //MUDEI
 void CompanhiaTaxis::cobrarPagamentoMensal() {
 	resetTabelasClientes(); //
-	criarTabelasClientes(); //
 
 	for (unsigned int i = 0; i < clientes.size(); i++) {
 		if (clientes[i]->getCusto().getTipo() == "fim_do_mes")
@@ -323,34 +323,31 @@ void CompanhiaTaxis::cobrarPagamentoMensal() {
 		taxis.push(aux.top());
 		aux.pop();
 	}
+
+	criarTabelasClientes(); //
+}
+
+bool compaCapital(Cliente* c1, Cliente* c2) {
+	if (c1->getCusto().getTotal() < c2->getCusto().getTotal())
+		return true;
+	else
+		return false;
 }
 
 void CompanhiaTaxis::mostrarClientesPorCapital() {
-	vector<Cliente> v;
+	vector<Cliente*> v = clientes;
 
-	for (unsigned int i = 0; i < clientes.size(); i++) {
-		v.push_back(*(clientes[i]));
-	}
-
-	/*vector<Cliente>::iterator it = v.begin();
-	 vector<Cliente>::iterator ite = v.end();
-	 sort(it, ite);
-	 reverse(it, ite);
-	 for (; it != ite; it++) {
-	 cout << (*it).mostrarCliente() << endl;
-	 }*/
-
-	sort(v.begin(), v.end());
+	sort(v.begin(), v.end(), compaCapital);
 	reverse(v.begin(), v.end());
 
 	for (unsigned int j = 0; j < v.size(); j++) {
-		cout << v[j].mostrarCliente() << endl;
+		cout << v[j]->mostrarCliente() << endl;
 	}
 
 }
 
-bool compaID(Cliente c1, Cliente c2) {
-	if (c1.getID() < c2.getID())
+bool compaID(Cliente* c1, Cliente* c2) {
+	if (c1->getID() < c2->getID())
 		return true;
 	else
 		return false;
@@ -358,27 +355,12 @@ bool compaID(Cliente c1, Cliente c2) {
 
 void CompanhiaTaxis::mostrarClientesPorID() {
 
-	vector<Cliente> v;
-
-	for (unsigned int i = 0; i < clientes.size(); i++) {
-		v.push_back(*(clientes[i]));
-	}
-
-	/*
-	 vector<Cliente>::iterator it = v.begin();
-	 vector<Cliente>::iterator ite = v.end();
-
-	 sort(it, ite, compaID);
-
-	 for (; it != ite; it++) {
-	 cout << (*it).mostrarCliente() << endl;
-	 }
-	 */
+	vector<Cliente*> v = clientes;
 
 	sort(v.begin(), v.end(), compaID);
 
 	for (unsigned int j = 0; j < v.size(); j++) {
-		cout << v[j].mostrarCliente() << endl;
+		cout << v[j]->mostrarCliente() << endl << endl;
 	}
 }
 
@@ -406,7 +388,6 @@ void CompanhiaTaxis::concaClientes(vector<Cliente*> c) {
 	clientes.insert(clientes.end(), c.begin(), c.end());
 }
 
-//MUDEI
 void CompanhiaTaxis::criarTabelasClientes() {
 
 	for (unsigned int i = 0; i < clientes.size(); i++) {
@@ -453,19 +434,19 @@ void CompanhiaTaxis::mostrarViagensBST() {
 	}
 }
 
-//NEON
-void CompanhiaTaxis::mostrarInativos() {
-	for (tabCli::iterator itB = inativos.begin(); itB != inativos.end();
-			itB++) {
-		cout << (*itB)->mostrarCliente() << endl;
-	}
+BST<Viagem> CompanhiaTaxis::getViagensOcasionais() {
+	return this->viagens_ocasionais;
 }
 
-//NEON
-void CompanhiaTaxis::mostrarAtivos() {
-	for (tabCli::iterator itB = ativos.begin(); itB != ativos.end();
-			itB++) {
-		cout << (*itB)->mostrarCliente() << endl;
+void CompanhiaTaxis::addViagemBSTOcasionais(Viagem &v) {
+	viagens_ocasionais.insert(v);
+}
+
+void CompanhiaTaxis::mostrarViagensBSTOcasionais() {
+	BSTItrIn<Viagem> it(viagens_ocasionais);
+	while (!it.isAtEnd()) {
+		cout << it.retrieve() << endl;
+		it.advance();
 	}
 }
 
@@ -502,3 +483,23 @@ Taxi* CompanhiaTaxis::proximoTaxi(Viagem v) {
 	else
 		return res;
 }
+
+void CompanhiaTaxis::mostrarInativos() {
+	for (tabCli::iterator itB = inativos.begin(); itB != inativos.end();
+			itB++) {
+		cout << (*itB)->mostrarCliente() << endl;
+	}
+}
+
+
+void CompanhiaTaxis::mostrarAtivos() {
+	for (tabCli::iterator itB = ativos.begin(); itB != ativos.end(); itB++) {
+		cout << (*itB)->mostrarCliente() << endl;
+	}
+}
+
+void CompanhiaTaxis::adicionaTaxis(Taxipointer ta) {
+	taxis.push(ta);
+}
+
+

@@ -22,12 +22,12 @@ Hora::Hora() {
 
 Hora::Hora(int h, int m, int s) {
 
-	if (h < 0 || h > 23)
+/*	if (h < 0 || h > 23)
 		throw HoraInvalida("Hora nao permitida");
 	if (m < 0 || m > 59)
-		throw HoraInvalida("Minutos nao permitidos");
+		throw HoraInvalida("Minutos nao permitidos");  //usando a hora do proprio computador bem como retirada de ficheiros, nao e necessario verificar a hora desta forma
 	if (s < 0 || s > 59)
-		throw HoraInvalida("Segundos nao permitidos");
+		throw HoraInvalida("Segundos nao permitidos");*/
 
 	hora = h;
 	minutos = m;
@@ -63,7 +63,7 @@ Hora Hora::somaHoras(int min) {
 	int minu = this->minutos + minfinal % 60;
 	int sec = this->segundos;
 
-	Hora h = Hora(hor, minu, sec);
+	Hora h = Hora(hor, minu%60, sec);
 	return h;
 }
 
