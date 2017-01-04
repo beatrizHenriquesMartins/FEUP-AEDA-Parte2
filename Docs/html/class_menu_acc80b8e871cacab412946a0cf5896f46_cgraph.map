@@ -1,0 +1,9 @@
+<map id="Menu::lerFicheiroViagensClientes" name="Menu::lerFicheiroViagensClientes">
+<area shape="rect" id="node2" href="$class_menu.html#a9a6b727e45d4dd81c471c2d02108789c" title="Menu::stringToData" alt="" coords="263,5,398,32"/>
+<area shape="rect" id="node3" href="$class_menu.html#a54c4b759f5ea6aaf0fa22916c2caca60" title="Menu::stringToHora" alt="" coords="263,56,398,83"/>
+<area shape="rect" id="node4" href="$class_companhia_taxis.html#a0be7b65e5c8ab9ac1e0cfbce87710cff" title="função para adicionar uma viagem à árvore binária de viagens de clientes " alt="" coords="223,107,439,133"/>
+<area shape="rect" id="node6" href="$class_companhia_taxis.html#afa0e3741302ef2d98d97c8ecf57d6a8c" title="função para procurar cliente " alt="" coords="226,157,435,184"/>
+<area shape="rect" id="node8" href="$class_companhia_taxis.html#a361e0a5a5685543138d11f5924a46f91" title="função para obter lista de clientes " alt="" coords="235,208,426,235"/>
+<area shape="rect" id="node5" href="$class_b_s_t.html#a2b117df6521c7d61dac75ff2c938bae7" title="BST::insert" alt="" coords="505,107,591,133"/>
+<area shape="rect" id="node7" href="$sequential_search_8h.html#acd555ad1f1fc3b2011aab63641f98151" title="sequentialSearch" alt="" coords="487,157,609,184"/>
+</map>

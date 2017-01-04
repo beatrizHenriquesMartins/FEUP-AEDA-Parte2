@@ -1,0 +1,1 @@
+22/3/2016 ; Hora inicial: 10:0:0h ; Hora final: 11:0:0h ; Percurso:      Feup-Trindade      Distancia: 14 ; Custo: 13 ; Cliente:      Andre Silva      ;

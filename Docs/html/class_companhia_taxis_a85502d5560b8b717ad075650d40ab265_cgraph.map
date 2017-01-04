@@ -1,0 +1,4 @@
+<map id="CompanhiaTaxis::procuraTaxi" name="CompanhiaTaxis::procuraTaxi">
+<area shape="rect" id="node2" href="$class_taxipointer.html#a25f54326636908a84ea02ef441dcd356" title="função para obter um Taxi* atrav�s da classe Taxipointer " alt="" coords="247,5,421,32"/>
+<area shape="rect" id="node3" href="$class_taxi.html#a749af36593511d9161f35c1516dedfb3" title="função para obter número do taxi " alt="" coords="263,56,405,83"/>
+</map>

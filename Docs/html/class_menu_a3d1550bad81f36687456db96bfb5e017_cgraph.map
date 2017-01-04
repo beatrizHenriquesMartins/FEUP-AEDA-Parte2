@@ -1,0 +1,8 @@
+<map id="Menu::menuRemoverTaxi" name="Menu::menuRemoverTaxi">
+<area shape="rect" id="node2" href="$class_companhia_taxis.html#ac6e7c25c1f3fb1a97d714668b4189f8f" title="função que imprime todos os taxis da companhia " alt="" coords="221,5,423,32"/>
+<area shape="rect" id="node4" href="$class_companhia_taxis.html#afcfc453f83a777764016864c08c2082a" title="função para eliminar taxi " alt="" coords="227,81,417,108"/>
+<area shape="rect" id="node3" href="$class_taxipointer.html#a25f54326636908a84ea02ef441dcd356" title="função para obter um Taxi* atrav�s da classe Taxipointer " alt="" coords="712,31,887,57"/>
+<area shape="rect" id="node5" href="$class_companhia_taxis.html#a85502d5560b8b717ad075650d40ab265" title="função para procurar taxi " alt="" coords="471,81,664,108"/>
+<area shape="rect" id="node6" href="$class_taxi.html#a749af36593511d9161f35c1516dedfb3" title="função para obter número do taxi " alt="" coords="729,107,870,133"/>
+<area shape="rect" id="node7" href="$class_taxi.html#a19a29ff6b33bcddde5a9fc7182b5f0f2" title="função para obter Rentabilidade " alt="" coords="492,183,643,209"/>
+</map>

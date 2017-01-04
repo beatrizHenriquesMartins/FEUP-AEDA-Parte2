@@ -1,0 +1,8 @@
+<map id="Menu::menuRemoverCliente" name="Menu::menuRemoverCliente">
+<area shape="rect" id="node2" href="$class_companhia_taxis.html#af88b12183df33c9e9018e0d888d9d3ba" title="função que imprime todos os clientes por ordem crescente de id " alt="" coords="237,5,455,47"/>
+<area shape="rect" id="node5" href="$class_companhia_taxis.html#a7485931a27987af67f33ce67ae7ea2fd" title="função para eliminar cliente " alt="" coords="243,71,449,98"/>
+<area shape="rect" id="node3" href="$_companhia_taxis_8cpp.html#afa13297c5ff7c81eb75e88698df90340" title="compaID" alt="" coords="571,13,644,39"/>
+<area shape="rect" id="node4" href="$class_cliente.html#a46bb7e4db84a2ebb62e3333dd1d7e21b" title="função para obter o id de utente cliente " alt="" coords="771,13,871,39"/>
+<area shape="rect" id="node6" href="$class_companhia_taxis.html#afa0e3741302ef2d98d97c8ecf57d6a8c" title="função para procurar cliente " alt="" coords="503,71,712,98"/>
+<area shape="rect" id="node7" href="$sequential_search_8h.html#acd555ad1f1fc3b2011aab63641f98151" title="sequentialSearch" alt="" coords="760,71,883,98"/>
+</map>

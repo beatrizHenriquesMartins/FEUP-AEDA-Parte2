@@ -1,0 +1,8 @@
+<map id="Menu::menuMudarCliente" name="Menu::menuMudarCliente">
+<area shape="rect" id="node2" href="$class_erro_input.html#aa4fbfcf2c76e9d74da9a525831bf7efb" title="ErroInput::alertaErro" alt="" coords="259,5,398,32"/>
+<area shape="rect" id="node3" href="$class_companhia_taxis.html#afa0e3741302ef2d98d97c8ecf57d6a8c" title="função para procurar cliente " alt="" coords="224,56,433,83"/>
+<area shape="rect" id="node5" href="$class_companhia_taxis.html#a361e0a5a5685543138d11f5924a46f91" title="função para obter lista de clientes " alt="" coords="233,107,424,133"/>
+<area shape="rect" id="node6" href="$class_companhia_taxis.html#ac38649c96e856af0157819ded3dddaf7" title="função para colocar as tabelas de dispersão vazias " alt="" coords="229,158,429,199"/>
+<area shape="rect" id="node7" href="$class_companhia_taxis.html#a744ccc262bb588fe296ccc7642fbf578" title="função para criar a tabela de dispersão de clientes activos e inativos " alt="" coords="231,223,427,265"/>
+<area shape="rect" id="node4" href="$sequential_search_8h.html#acd555ad1f1fc3b2011aab63641f98151" title="sequentialSearch" alt="" coords="481,56,604,83"/>
+</map>

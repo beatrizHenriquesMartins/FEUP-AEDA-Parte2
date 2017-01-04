@@ -1,0 +1,7 @@
+6
+Taxi numero 1 ;  Rentabilidade Atual: 0 ;  Horario entre: 10:0:0h e as 20:0:0h ; Disponibilidade: 0
+Taxi numero 4 ;  Rentabilidade Atual: 0 ;  Horario entre: 12:0:0h e as 23:0:0h ; Disponibilidade: 0
+Taxi numero 5 ;  Rentabilidade Atual: 0 ;  Horario entre: 9:0:0h e as 20:0:0h ; Disponibilidade: 0
+Taxi numero 5 ;  Rentabilidade Atual: 0 ;  Horario entre: 20:0:0h e as 21:0:0h ; Disponibilidade: 0
+Taxi numero 3 ;  Rentabilidade Atual: 0 ;  Horario entre: 6:0:0h e as 22:0:0h ; Disponibilidade: 31
+Taxi numero 2 ;  Rentabilidade Atual: 0 ;  Horario entre: 2:0:0h e as 19:0:0h ; Disponibilidade: 45.25

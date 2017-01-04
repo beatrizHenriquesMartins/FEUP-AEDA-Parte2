@@ -1,0 +1,51 @@
+<map id="Menu::menuCompanhia" name="Menu::menuCompanhia">
+<area shape="rect" id="node2" href="$class_menu.html#a44d8e60b204f3c69c66d9f6ae8c2cdf3" title="Menu::menuNomeCompanhia" alt="" coords="230,19,423,45"/>
+<area shape="rect" id="node4" href="$class_menu.html#a31a6370857393faa6cb7f7e118265685" title="Menu::menuVerClientesPorID" alt="" coords="230,81,423,108"/>
+<area shape="rect" id="node7" href="$class_menu.html#a7f47b12e1011ba227c0c1ae07d896da0" title="Menu::menuClientes" alt="" coords="256,544,397,571"/>
+<area shape="rect" id="node9" href="$class_opcao_errada.html#a26bc1d7170a0ef29e3a9eae58760ac6f" title="OpcaoErrada::alertaErro" alt="" coords="807,952,970,979"/>
+<area shape="rect" id="node16" href="$class_erro_input.html#aa4fbfcf2c76e9d74da9a525831bf7efb" title="ErroInput::alertaErro" alt="" coords="819,405,958,432"/>
+<area shape="rect" id="node18" href="$class_taxis_indisponiveis.html#a2b10868ccdb1ecff8429f2d6646d6123" title="função para obter r que provocou excessão " alt="" coords="825,755,952,797"/>
+<area shape="rect" id="node27" href="$class_menu.html#a7de3a15418ee72b70d73df8394fdb00e" title="Menu::menuVerCapital" alt="" coords="249,1117,404,1144"/>
+<area shape="rect" id="node29" href="$class_menu.html#af52a904142c40c95038ec30dbddd43ce" title="Menu::menuPrestarServico\lOcasional" alt="" coords="521,646,700,687"/>
+<area shape="rect" id="node31" href="$class_menu.html#a4725ffe8a5bf21a80cce35b46c668809" title="Menu::menuListaClientesMais\lLucrativos" alt="" coords="228,1169,425,1210"/>
+<area shape="rect" id="node33" href="$class_menu.html#a839e8ba2720d6eda8688d3ddda6e7979" title="Menu::menuMostrarTodosTaxis" alt="" coords="225,1067,429,1093"/>
+<area shape="rect" id="node35" href="$class_menu.html#aaf49a7b3ee571e3ecf82d632d0040ed1" title="Menu::menuAplicarDesconto\lMensal" alt="" coords="232,1234,421,1275"/>
+<area shape="rect" id="node36" href="$class_menu.html#a1a78c26932ec0ed13e8d9af3cede76c0" title="Menu::menuTaxis" alt="" coords="264,1016,389,1043"/>
+<area shape="rect" id="node40" href="$class_menu.html#adb74e20beabff4b292d49c1e4cef4694" title="Menu::menuCobrarPagamentos\lMensais" alt="" coords="224,158,429,199"/>
+<area shape="rect" id="node42" href="$class_menu.html#aafd1fe72f1aefa8202935e5fb1a40cea" title="Menu::menuViagensRealizadas" alt="" coords="224,1351,429,1377"/>
+<area shape="rect" id="node45" href="$class_menu.html#a3f514dd302f97ada602ca29f686559d5" title="Menu::menuViagensCliRealizadas" alt="" coords="217,1300,437,1327"/>
+<area shape="rect" id="node46" href="$class_menu.html#a2fd00be3308d17ba7fbeb8e019e92b58" title="Menu::menuViagensOcaRealizadas" alt="" coords="212,1401,441,1428"/>
+<area shape="rect" id="node47" href="$class_menu.html#a5a7e720dc2f2e143ae63a5e3f4c15ffd" title="Menu::menuMostrarClientes\lInativos" alt="" coords="234,1453,419,1494"/>
+<area shape="rect" id="node49" href="$class_menu.html#acdea71ef08a5b682be7c50c819a4b841" title="Menu::menuMostrarClientes\lAtivos" alt="" coords="234,1518,419,1559"/>
+<area shape="rect" id="node3" href="$class_companhia_taxis.html#adcb8ed0185c98cbd720a057cf938f765" title="função para obter nome " alt="" coords="521,5,700,32"/>
+<area shape="rect" id="node5" href="$class_companhia_taxis.html#af88b12183df33c9e9018e0d888d9d3ba" title="função que imprime todos os clientes por ordem crescente de id " alt="" coords="780,198,997,239"/>
+<area shape="rect" id="node6" href="$_companhia_taxis_8cpp.html#afa13297c5ff7c81eb75e88698df90340" title="compaID" alt="" coords="1045,205,1119,232"/>
+<area shape="rect" id="node8" href="$class_menu.html#a7719bc8829800f8b23e7aaff29289f74" title="Menu::menuNovoCliente" alt="" coords="529,864,692,891"/>
+<area shape="rect" id="node12" href="$class_menu.html#a13b0b6a0ee509e1d772889e70ffd5633" title="Menu::menuRemoverCliente" alt="" coords="519,107,703,133"/>
+<area shape="rect" id="node14" href="$class_menu.html#a3f6a97a45d26ee4feba4863d17a3b7b5" title="Menu::menuFazerViagem" alt="" coords="525,544,696,571"/>
+<area shape="rect" id="node22" href="$class_menu.html#af545054cb5196a67d5f50c8fb2b0382d" title="Menu::menuVerCliente" alt="" coords="533,325,688,352"/>
+<area shape="rect" id="node23" href="$class_menu.html#aaded2b868804e97cf7854dabd3a9bdd9" title="Menu::menuVerHistoricoCliente" alt="" coords="508,376,713,403"/>
+<area shape="rect" id="node24" href="$class_menu.html#a8eaf279b802628a97e0310ecaafc67eb" title="Menu::menuViagensMensais\lClientes" alt="" coords="515,427,706,469"/>
+<area shape="rect" id="node25" href="$class_menu.html#a44b243a70071498cf7576c803fd00335" title="Menu::menuMarcarViagem" alt="" coords="521,595,700,621"/>
+<area shape="rect" id="node26" href="$class_menu.html#a1429c0aec51cb372dcf4550c3bb0a459" title="Menu::menuMudarCliente" alt="" coords="525,275,696,301"/>
+<area shape="rect" id="node10" href="$class_companhia_taxis.html#af080e3d223856b45f6d54ce0e05fdfca" title="função que adiciona um cliente empresa à lista de clientes " alt="" coords="801,821,976,862"/>
+<area shape="rect" id="node11" href="$class_companhia_taxis.html#ad1e93d309abfded2f77a9ac666abda9b" title="função que adiciona um cliente particular à lista de clientes " alt="" coords="801,886,976,927"/>
+<area shape="rect" id="node13" href="$class_companhia_taxis.html#a7485931a27987af67f33ce67ae7ea2fd" title="função para eliminar cliente " alt="" coords="785,107,992,133"/>
+<area shape="rect" id="node15" href="$class_companhia_taxis.html#ad5c5496a740b77dcc97073c9d373ae15" title="função cria uma viagem de cliente " alt="" coords="789,522,988,563"/>
+<area shape="rect" id="node17" href="$class_cliente_inexistente.html#a80dfb079ffdabcbaac8ce72ee312d685" title="função para obter id que provocou excessão " alt="" coords="826,457,951,498"/>
+<area shape="rect" id="node19" href="$class_hora_invalida.html#add9cce215a06803ea9bdd0345f1cc7f7" title="função para obter r que provocou excessão " alt="" coords="811,588,966,615"/>
+<area shape="rect" id="node20" href="$class_data_invalida.html#ad556f85f63b6ba49d7b7b78154ecf6d7" title="funÁ„o classe excess„o " alt="" coords="807,639,970,665"/>
+<area shape="rect" id="node21" href="$class_companhia_taxis.html#ac38649c96e856af0157819ded3dddaf7" title="função para colocar as tabelas de dispersão vazias " alt="" coords="789,303,989,345"/>
+<area shape="rect" id="node28" href="$class_companhia_taxis.html#abded966deadcc6a706685e3d0d7d884b" title="função para obter capital companhia " alt="" coords="519,1219,703,1245"/>
+<area shape="rect" id="node30" href="$class_companhia_taxis.html#aefbe69cc63166a9f0f34d07f495c7f8c" title="função cria uma viagem de ocasinal " alt="" coords="789,690,988,731"/>
+<area shape="rect" id="node32" href="$class_companhia_taxis.html#a4e73e4617921a2885aa5fde6787787a4" title="função que imprime todos os clientes por ordem descrescente de total gasto em viagens ..." alt="" coords="502,1270,719,1311"/>
+<area shape="rect" id="node34" href="$class_companhia_taxis.html#ac6e7c25c1f3fb1a97d714668b4189f8f" title="função que imprime todos os taxis da companhia " alt="" coords="788,1143,989,1169"/>
+<area shape="rect" id="node37" href="$class_menu.html#a52092fd8db30783f6982c11b1efe8d29" title="Menu::menuComprarTaxi" alt="" coords="527,1016,694,1043"/>
+<area shape="rect" id="node38" href="$class_menu.html#a3d1550bad81f36687456db96bfb5e017" title="Menu::menuRemoverTaxi" alt="" coords="527,1117,695,1144"/>
+<area shape="rect" id="node39" href="$class_menu.html#a8eac4937b1b99ad21977321994696a2b" title="Menu::menuVerTaxi" alt="" coords="541,493,680,520"/>
+<area shape="rect" id="node41" href="$class_companhia_taxis.html#ad8ce2783c91c95330947cd01b4bc5732" title="função que calcula o valor total de todos os cliente que querem pagar no final do mês ..." alt="" coords="497,158,725,199"/>
+<area shape="rect" id="node43" href="$class_companhia_taxis.html#ab2d4957af65e4a8a1c4b1d370dbca57b" title="função para imprimir as viagens guardadas na árvore binária de viagens de clientes ..." alt="" coords="489,1339,732,1365"/>
+<area shape="rect" id="node44" href="$class_companhia_taxis.html#a815deeed5068e45b52604314c0015fd3" title="função para imprimir as viagens guardadas na árvore binária de viagens de ocasionais ..." alt="" coords="502,1393,719,1434"/>
+<area shape="rect" id="node48" href="$class_companhia_taxis.html#abbbf2e2ab7f8d9bcbebb5888fc07c0cd" title="função para imprimir todos os clientes inativos e respectivos dados " alt="" coords="504,1460,717,1487"/>
+<area shape="rect" id="node50" href="$class_companhia_taxis.html#aea5bfd0c4e07edc225750be39f29c02f" title="função para imprimir todos os clientes ativos e respectivos dados " alt="" coords="508,1525,713,1552"/>
+</map>

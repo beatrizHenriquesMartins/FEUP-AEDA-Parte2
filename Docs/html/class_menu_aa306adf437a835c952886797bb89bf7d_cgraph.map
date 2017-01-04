@@ -1,0 +1,11 @@
+<map id="Menu::escreverFicheiroClientesViagens" name="Menu::escreverFicheiroClientesViagens">
+<area shape="rect" id="node2" href="$class_companhia_taxis.html#a361e0a5a5685543138d11f5924a46f91" title="função para obter lista de clientes " alt="" coords="256,44,447,71"/>
+<area shape="rect" id="node3" href="$class_data.html#a16795b3f8095a690871899522c6df37f" title="funÁ„o para imprimir data com formataÁ„o especifica " alt="" coords="300,95,403,121"/>
+<area shape="rect" id="node7" href="$class_hora.html#a6bd31808bc3944e1973e8ae246fc620d" title="função para imprimir hora com formatação especifica " alt="" coords="300,171,403,197"/>
+<area shape="rect" id="node4" href="$class_data.html#aa9b7bdc683d9c493d903184e85f1e6b3" title="funÁ„o para obter dia " alt="" coords="514,5,609,32"/>
+<area shape="rect" id="node5" href="$class_data.html#a1df6f5e1695c7cae56b9ee752a6895e8" title="funÁ„o para obter mes " alt="" coords="511,56,611,83"/>
+<area shape="rect" id="node6" href="$class_data.html#a986bec10cbca338f08c9096d8e51efb5" title="funÁ„o para obter ano " alt="" coords="512,107,611,133"/>
+<area shape="rect" id="node8" href="$class_hora.html#a70af0f16ecd56ecec24b9068c7515282" title="função para obter hora " alt="" coords="510,157,613,184"/>
+<area shape="rect" id="node9" href="$class_hora.html#aee1628d04f9c19e9bf2cf34dea39c746" title="função para obter minutos " alt="" coords="501,208,622,235"/>
+<area shape="rect" id="node10" href="$class_hora.html#a0e432ed4ff88073c7a60fab51ba5bbc3" title="função para obter segundos " alt="" coords="495,259,628,285"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Menu::menuViagensRealizadas" name="Menu::menuViagensRealizadas">
+<area shape="rect" id="node2" href="$class_companhia_taxis.html#ab2d4957af65e4a8a1c4b1d370dbca57b" title="função para imprimir as viagens guardadas na árvore binária de viagens de clientes ..." alt="" coords="259,27,501,53"/>
+<area shape="rect" id="node6" href="$class_companhia_taxis.html#a815deeed5068e45b52604314c0015fd3" title="função para imprimir as viagens guardadas na árvore binária de viagens de ocasionais ..." alt="" coords="271,78,489,119"/>
+<area shape="rect" id="node3" href="$class_b_s_t_itr_in.html#a6f9a43217862c263a9bf15b9a08b889a" title="BSTItrIn::isAtEnd" alt="" coords="549,5,672,32"/>
+<area shape="rect" id="node4" href="$class_b_s_t_itr_in.html#ac7ac215c1247bd25fc1fdb8053826a32" title="BSTItrIn::retrieve" alt="" coords="552,56,669,83"/>
+<area shape="rect" id="node5" href="$class_b_s_t_itr_in.html#ac772d3ebbac748c5f8cf9bc659f2e32c" title="BSTItrIn::advance" alt="" coords="549,107,672,133"/>
+</map>

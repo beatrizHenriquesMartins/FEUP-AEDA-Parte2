@@ -1,0 +1,19 @@
+<map id="Menu::menuEmp" name="Menu::menuEmp">
+<area shape="rect" id="node2" href="$class_menu.html#a27596ff800029b710dfff312ed64d901" title="Menu::lerFicheiroCliente\lParticular" alt="" coords="178,42,341,83"/>
+<area shape="rect" id="node5" href="$class_menu.html#acd4393dafb680960175572e78f3ee9c4" title="Menu::lerFicheiroCliente\lEmpresas" alt="" coords="178,107,341,149"/>
+<area shape="rect" id="node7" href="$class_menu.html#acc80b8e871cacab412946a0cf5896f46" title="Menu::lerFicheiroViagens\lClientes" alt="" coords="175,251,344,293"/>
+<area shape="rect" id="node15" href="$class_menu.html#a3885280e813882e3e90c7df873b15b73" title="Menu::lerFicheiroViagens\lOcasionais" alt="" coords="175,338,344,379"/>
+<area shape="rect" id="node17" href="$class_menu.html#af98d838cd753416eca441539b23da340" title="Menu::lerFicheiroTaxis" alt="" coords="183,427,336,453"/>
+<area shape="rect" id="node3" href="$class_menu.html#a3c7f286b826e2e04734bfb35b6c08494" title="Menu::trim" alt="" coords="458,56,542,83"/>
+<area shape="rect" id="node4" href="$class_companhia_taxis.html#a85a4485f7b63f32410b600223b63b23b" title="função que actualiza a lista de clientes " alt="" coords="405,5,595,32"/>
+<area shape="rect" id="node6" href="$class_companhia_taxis.html#a873d6408ef680f5a1fc30f7b6daebc00" title="função usada para concatenar 2 vectores de clientes " alt="" coords="396,107,604,133"/>
+<area shape="rect" id="node8" href="$class_menu.html#a9a6b727e45d4dd81c471c2d02108789c" title="Menu::stringToData" alt="" coords="433,309,567,336"/>
+<area shape="rect" id="node9" href="$class_menu.html#a54c4b759f5ea6aaf0fa22916c2caca60" title="Menu::stringToHora" alt="" coords="433,427,567,453"/>
+<area shape="rect" id="node10" href="$class_companhia_taxis.html#a0be7b65e5c8ab9ac1e0cfbce87710cff" title="função para adicionar uma viagem à árvore binária de viagens de clientes " alt="" coords="392,259,608,285"/>
+<area shape="rect" id="node12" href="$class_companhia_taxis.html#afa0e3741302ef2d98d97c8ecf57d6a8c" title="função para procurar cliente " alt="" coords="395,157,605,184"/>
+<area shape="rect" id="node14" href="$class_companhia_taxis.html#a361e0a5a5685543138d11f5924a46f91" title="função para obter lista de clientes " alt="" coords="405,208,595,235"/>
+<area shape="rect" id="node11" href="$class_b_s_t.html#a2b117df6521c7d61dac75ff2c938bae7" title="BST::insert" alt="" coords="674,313,761,340"/>
+<area shape="rect" id="node13" href="$sequential_search_8h.html#acd555ad1f1fc3b2011aab63641f98151" title="sequentialSearch" alt="" coords="656,157,779,184"/>
+<area shape="rect" id="node16" href="$class_companhia_taxis.html#af7228a742522adac035c950ffa5631e2" title="função para adicionar uma viagem à árvore binária de viagens de ocasionais " alt="" coords="405,361,595,402"/>
+<area shape="rect" id="node18" href="$class_companhia_taxis.html#a9b8e086c96a43e984174fc6af39b7b31" title="função que actualiza a lista de taxis " alt="" coords="413,477,587,504"/>
+</map>

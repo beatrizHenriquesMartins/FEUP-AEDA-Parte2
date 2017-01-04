@@ -1,0 +1,4 @@
+<map id="Menu::menuMostrarTodosTaxis" name="Menu::menuMostrarTodosTaxis">
+<area shape="rect" id="node2" href="$class_companhia_taxis.html#ac6e7c25c1f3fb1a97d714668b4189f8f" title="função que imprime todos os taxis da companhia " alt="" coords="257,5,459,32"/>
+<area shape="rect" id="node3" href="$class_taxipointer.html#a25f54326636908a84ea02ef441dcd356" title="função para obter um Taxi* atrav�s da classe Taxipointer " alt="" coords="507,5,681,32"/>
+</map>

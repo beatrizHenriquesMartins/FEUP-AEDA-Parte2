@@ -1,0 +1,6 @@
+<map id="Menu::menuListaClientesMaisLucrativos" name="Menu::menuListaClientesMaisLucrativos">
+<area shape="rect" id="node2" href="$class_companhia_taxis.html#a4e73e4617921a2885aa5fde6787787a4" title="função que imprime todos os clientes por ordem descrescente de total gasto em viagens ..." alt="" coords="251,23,468,65"/>
+<area shape="rect" id="node3" href="$_companhia_taxis_8cpp.html#abf72e82e9726f593b0ca028a66da5732" title="compaCapital" alt="" coords="516,31,617,57"/>
+<area shape="rect" id="node4" href="$class_utente.html#a84d834bca51ce543c6e76234ba270f81" title="função que calcula o valor a pagar pelo utente " alt="" coords="677,5,797,32"/>
+<area shape="rect" id="node5" href="$class_pagamento.html#ade66d8c163ba2bc814c7565490377ba3" title="função para obter valor a pagar " alt="" coords="665,56,808,83"/>
+</map>

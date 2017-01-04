@@ -1,0 +1,6 @@
+<map id="CompanhiaTaxis::removeTaxi" name="CompanhiaTaxis::removeTaxi">
+<area shape="rect" id="node2" href="$class_companhia_taxis.html#a85502d5560b8b717ad075650d40ab265" title="função para procurar taxi " alt="" coords="244,31,437,57"/>
+<area shape="rect" id="node3" href="$class_taxipointer.html#a25f54326636908a84ea02ef441dcd356" title="função para obter um Taxi* atrav�s da classe Taxipointer " alt="" coords="485,5,660,32"/>
+<area shape="rect" id="node4" href="$class_taxi.html#a749af36593511d9161f35c1516dedfb3" title="função para obter número do taxi " alt="" coords="502,68,643,95"/>
+<area shape="rect" id="node5" href="$class_taxi.html#a19a29ff6b33bcddde5a9fc7182b5f0f2" title="função para obter Rentabilidade " alt="" coords="265,132,416,159"/>
+</map>

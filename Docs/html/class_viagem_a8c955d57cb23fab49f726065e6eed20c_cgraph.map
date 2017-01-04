@@ -1,0 +1,5 @@
+<map id="Viagem::horaFinal" name="Viagem::horaFinal">
+<area shape="rect" id="node2" href="$class_percurso.html#a0f8920294007befff27924c4850ffb44" title="função para obter distância " alt="" coords="180,5,335,32"/>
+<area shape="rect" id="node3" href="$class_hora.html#ad54ed49a29096cc68e7090522a53f164" title="função que soma minutos a uma determinada hora " alt="" coords="196,56,319,83"/>
+<area shape="rect" id="node4" href="$class_hora.html#a90c18369977bbf1bf3a7370d8ea9e9ae" title="construtor da classe Hora vazio " alt="" coords="383,56,467,83"/>
+</map>
