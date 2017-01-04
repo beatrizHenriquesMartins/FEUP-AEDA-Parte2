@@ -1,0 +1,5 @@
+<map id="Cliente::operator&lt;" name="Cliente::operator&lt;">
+<area shape="rect" id="node2" href="$class_pagamento.html#ade66d8c163ba2bc814c7565490377ba3" title="função para obter valor a pagar " alt="" coords="201,5,343,32"/>
+<area shape="rect" id="node3" href="$class_utente.html#a84d834bca51ce543c6e76234ba270f81" title="função que calcula o valor a pagar pelo utente " alt="" coords="212,56,332,83"/>
+<area shape="rect" id="node4" href="$class_cliente.html#a088fbfee103fea79da95bda35ad51305" title="função para obter o histórico de viagens de utente cliente " alt="" coords="179,107,365,133"/>
+</map>

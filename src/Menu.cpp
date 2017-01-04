@@ -1468,7 +1468,6 @@ void Menu::menuPrestarServicoOcasional(CompanhiaTaxis &comp) {
 	} catch (DataInvalida &d) {
 		d.dataErrada();
 	}
-
 }
 
 void Menu::menuListaClientesMaisLucrativos(CompanhiaTaxis &comp) {

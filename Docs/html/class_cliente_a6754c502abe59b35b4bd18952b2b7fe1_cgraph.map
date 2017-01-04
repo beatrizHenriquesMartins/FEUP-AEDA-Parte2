@@ -1,0 +1,6 @@
+<map id="Cliente::mostrarCliente" name="Cliente::mostrarCliente">
+<area shape="rect" id="node2" href="$class_utente.html#acf7774c3e1475f740d598209c05dfedd" title="função para obter o nome do utente " alt="" coords="215,5,344,32"/>
+<area shape="rect" id="node3" href="$class_utente.html#a84d834bca51ce543c6e76234ba270f81" title="função que calcula o valor a pagar pelo utente " alt="" coords="219,56,339,83"/>
+<area shape="rect" id="node4" href="$class_pagamento.html#ade66d8c163ba2bc814c7565490377ba3" title="função para obter valor a pagar " alt="" coords="208,107,351,133"/>
+<area shape="rect" id="node5" href="$class_pagamento.html#a37e269bb02697d8c10cc9a60571c4bea" title="função para obter tipo de pagamento " alt="" coords="210,157,349,184"/>
+</map>

@@ -1,0 +1,51 @@
+<map id="Menu::Menu" name="Menu::Menu">
+<area shape="rect" id="node2" href="$class_menu.html#a040b2ac98690c49f5171d546763db172" title="Menu::menuInicio" alt="" coords="148,785,272,812"/>
+<area shape="rect" id="node3" href="$class_menu.html#a48b45c5d905182cd523808882b11043e" title="Menu::menuEmp" alt="" coords="370,176,491,203"/>
+<area shape="rect" id="node15" href="$class_menu.html#a3cbd7d0e99b7e4f6f05661a2b5f60786" title="Menu::menuCompanhia" alt="" coords="351,1179,510,1205"/>
+<area shape="rect" id="node20" href="$class_opcao_errada.html#a26bc1d7170a0ef29e3a9eae58760ac6f" title="OpcaoErrada::alertaErro" alt="" coords="889,1404,1052,1431"/>
+<area shape="rect" id="node25" href="$class_erro_input.html#aa4fbfcf2c76e9d74da9a525831bf7efb" title="ErroInput::alertaErro" alt="" coords="901,1623,1040,1649"/>
+<area shape="rect" id="node26" href="$class_hora_invalida.html#add9cce215a06803ea9bdd0345f1cc7f7" title="função para obter r que provocou excessão " alt="" coords="893,1732,1048,1759"/>
+<area shape="rect" id="node37" href="$class_menu.html#ab723ee27163a157b8beddd7dd6c1013d" title="Menu::escreverFicheiroClientes\lParticulares" alt="" coords="329,617,532,658"/>
+<area shape="rect" id="node38" href="$class_menu.html#a15f83e738966ce4f64aa814abf42f2eb" title="Menu::escreverFicheiroClientes\lEmpresa" alt="" coords="329,525,532,566"/>
+<area shape="rect" id="node40" href="$class_menu.html#aa306adf437a835c952886797bb89bf7d" title="Menu::escreverFicheiroClientes\lViagens" alt="" coords="329,398,532,439"/>
+<area shape="rect" id="node43" href="$class_menu.html#a436337ed27b0d5c4170d3eb3590a94e6" title="Menu::escreverFicheiroOcasionais\lViagens" alt="" coords="320,1863,541,1905"/>
+<area shape="rect" id="node47" href="$class_menu.html#ad102ddbb880f275826c5933356dc21d8" title="Menu::escreverFicheiroComp" alt="" coords="609,684,799,711"/>
+<area shape="rect" id="node48" href="$class_menu.html#a67a6a9efc6f9e8839cf74c2e98ad2e74" title="Menu::escreverFicheiroTaxis" alt="" coords="337,2009,524,2036"/>
+<area shape="rect" id="node4" href="$class_menu.html#a27596ff800029b710dfff312ed64d901" title="Menu::lerFicheiroCliente\lParticular" alt="" coords="623,81,785,122"/>
+<area shape="rect" id="node7" href="$class_menu.html#acd4393dafb680960175572e78f3ee9c4" title="Menu::lerFicheiroCliente\lEmpresas" alt="" coords="623,15,785,57"/>
+<area shape="rect" id="node9" href="$class_menu.html#acc80b8e871cacab412946a0cf5896f46" title="Menu::lerFicheiroViagens\lClientes" alt="" coords="619,263,789,305"/>
+<area shape="rect" id="node13" href="$class_menu.html#a3885280e813882e3e90c7df873b15b73" title="Menu::lerFicheiroViagens\lOcasionais" alt="" coords="619,198,789,239"/>
+<area shape="rect" id="node14" href="$class_menu.html#af98d838cd753416eca441539b23da340" title="Menu::lerFicheiroTaxis" alt="" coords="627,147,781,173"/>
+<area shape="rect" id="node5" href="$class_menu.html#a3c7f286b826e2e04734bfb35b6c08494" title="Menu::trim" alt="" coords="929,56,1013,83"/>
+<area shape="rect" id="node6" href="$class_companhia_taxis.html#a85a4485f7b63f32410b600223b63b23b" title="função que actualiza a lista de clientes " alt="" coords="875,107,1066,133"/>
+<area shape="rect" id="node8" href="$class_companhia_taxis.html#a873d6408ef680f5a1fc30f7b6daebc00" title="função usada para concatenar 2 vectores de clientes " alt="" coords="867,5,1075,32"/>
+<area shape="rect" id="node10" href="$class_menu.html#a9a6b727e45d4dd81c471c2d02108789c" title="Menu::stringToData" alt="" coords="903,264,1038,291"/>
+<area shape="rect" id="node11" href="$class_menu.html#a54c4b759f5ea6aaf0fa22916c2caca60" title="Menu::stringToHora" alt="" coords="903,205,1038,232"/>
+<area shape="rect" id="node12" href="$class_companhia_taxis.html#a361e0a5a5685543138d11f5924a46f91" title="função para obter lista de clientes " alt="" coords="875,456,1066,483"/>
+<area shape="rect" id="node16" href="$class_menu.html#a44d8e60b204f3c69c66d9f6ae8c2cdf3" title="Menu::menuNomeCompanhia" alt="" coords="607,633,801,660"/>
+<area shape="rect" id="node18" href="$class_menu.html#a31a6370857393faa6cb7f7e118265685" title="Menu::menuVerClientesPorID" alt="" coords="607,1303,801,1329"/>
+<area shape="rect" id="node19" href="$class_menu.html#a7f47b12e1011ba227c0c1ae07d896da0" title="Menu::menuClientes" alt="" coords="633,1404,775,1431"/>
+<area shape="rect" id="node21" href="$class_taxis_indisponiveis.html#a2b10868ccdb1ecff8429f2d6646d6123" title="função para obter r que provocou excessão " alt="" coords="907,1477,1034,1518"/>
+<area shape="rect" id="node22" href="$class_menu.html#a7de3a15418ee72b70d73df8394fdb00e" title="Menu::menuVerCapital" alt="" coords="627,735,781,761"/>
+<area shape="rect" id="node24" href="$class_menu.html#af52a904142c40c95038ec30dbddd43ce" title="Menu::menuPrestarServico\lOcasional" alt="" coords="615,1557,793,1598"/>
+<area shape="rect" id="node27" href="$class_menu.html#a4725ffe8a5bf21a80cce35b46c668809" title="Menu::menuListaClientesMais\lLucrativos" alt="" coords="605,1674,803,1715"/>
+<area shape="rect" id="node28" href="$class_menu.html#a839e8ba2720d6eda8688d3ddda6e7979" title="Menu::menuMostrarTodosTaxis" alt="" coords="602,836,806,863"/>
+<area shape="rect" id="node29" href="$class_menu.html#aaf49a7b3ee571e3ecf82d632d0040ed1" title="Menu::menuAplicarDesconto\lMensal" alt="" coords="609,887,799,929"/>
+<area shape="rect" id="node30" href="$class_menu.html#a1a78c26932ec0ed13e8d9af3cede76c0" title="Menu::menuTaxis" alt="" coords="641,1455,767,1481"/>
+<area shape="rect" id="node31" href="$class_menu.html#adb74e20beabff4b292d49c1e4cef4694" title="Menu::menuCobrarPagamentos\lMensais" alt="" coords="601,953,807,994"/>
+<area shape="rect" id="node32" href="$class_menu.html#aafd1fe72f1aefa8202935e5fb1a40cea" title="Menu::menuViagensRealizadas" alt="" coords="601,1019,807,1045"/>
+<area shape="rect" id="node33" href="$class_menu.html#a3f514dd302f97ada602ca29f686559d5" title="Menu::menuViagensCliRealizadas" alt="" coords="594,1069,814,1096"/>
+<area shape="rect" id="node34" href="$class_menu.html#a2fd00be3308d17ba7fbeb8e019e92b58" title="Menu::menuViagensOcaRealizadas" alt="" coords="589,1120,819,1147"/>
+<area shape="rect" id="node35" href="$class_menu.html#a5a7e720dc2f2e143ae63a5e3f4c15ffd" title="Menu::menuMostrarClientes\lInativos" alt="" coords="611,1171,797,1213"/>
+<area shape="rect" id="node36" href="$class_menu.html#acdea71ef08a5b682be7c50c819a4b841" title="Menu::menuMostrarClientes\lAtivos" alt="" coords="611,1237,797,1278"/>
+<area shape="rect" id="node17" href="$class_companhia_taxis.html#adcb8ed0185c98cbd720a057cf938f765" title="função para obter nome " alt="" coords="881,659,1060,685"/>
+<area shape="rect" id="node23" href="$class_companhia_taxis.html#abded966deadcc6a706685e3d0d7d884b" title="função para obter capital companhia " alt="" coords="879,723,1063,749"/>
+<area shape="rect" id="node39" href="$class_empresa.html#a28801c2132ffe02d7b0ee40b44f3d1bf" title="função para obter número de funcionários da empresa " alt="" coords="637,532,771,559"/>
+<area shape="rect" id="node41" href="$class_data.html#a16795b3f8095a690871899522c6df37f" title="funÁ„o para imprimir data com formataÁ„o especifica " alt="" coords="653,380,755,407"/>
+<area shape="rect" id="node42" href="$class_hora.html#a6bd31808bc3944e1973e8ae246fc620d" title="função para imprimir hora com formatação especifica " alt="" coords="653,329,755,356"/>
+<area shape="rect" id="node44" href="$class_companhia_taxis.html#a7fe4110cc9400115cc5b60645494efee" title="função para obter a àrvore binária de viagens de ocasionais " alt="" coords="609,1943,799,1985"/>
+<area shape="rect" id="node45" href="$class_b_s_t.html#a10fd737b2be62437023407fdc123f728" title="BST::isEmpty" alt="" coords="653,1841,755,1868"/>
+<area shape="rect" id="node46" href="$class_b_s_t_itr_in.html#ac7ac215c1247bd25fc1fdb8053826a32" title="BSTItrIn::retrieve" alt="" coords="645,1892,763,1919"/>
+<area shape="rect" id="node49" href="$class_companhia_taxis.html#a837449361506e484eb8a773353268584" title="função para obter a lista de taaxis " alt="" coords="617,2009,791,2036"/>
+<area shape="rect" id="node50" href="$class_taxipointer.html#a25f54326636908a84ea02ef441dcd356" title="função para obter um Taxi* atrav�s da classe Taxipointer " alt="" coords="617,2060,791,2087"/>
+</map>

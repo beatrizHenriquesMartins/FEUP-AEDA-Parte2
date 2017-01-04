@@ -1,0 +1,4 @@
+<map id="Menu::escreverFicheiroTaxis" name="Menu::escreverFicheiroTaxis">
+<area shape="rect" id="node2" href="$class_companhia_taxis.html#a837449361506e484eb8a773353268584" title="função para obter a lista de taaxis " alt="" coords="240,5,415,32"/>
+<area shape="rect" id="node3" href="$class_taxipointer.html#a25f54326636908a84ea02ef441dcd356" title="função para obter um Taxi* atrav�s da classe Taxipointer " alt="" coords="240,56,415,83"/>
+</map>

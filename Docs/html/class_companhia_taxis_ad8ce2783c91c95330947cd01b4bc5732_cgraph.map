@@ -1,0 +1,11 @@
+<map id="CompanhiaTaxis::cobrarPagamentoMensal" name="CompanhiaTaxis::cobrarPagamentoMensal">
+<area shape="rect" id="node2" href="$class_companhia_taxis.html#ac38649c96e856af0157819ded3dddaf7" title="função para colocar as tabelas de dispersão vazias " alt="" coords="281,5,481,47"/>
+<area shape="rect" id="node3" href="$class_companhia_taxis.html#a744ccc262bb588fe296ccc7642fbf578" title="função para criar a tabela de dispersão de clientes activos e inativos " alt="" coords="283,71,479,112"/>
+<area shape="rect" id="node4" href="$class_taxipointer.html#a25f54326636908a84ea02ef441dcd356" title="função para obter um Taxi* atrav�s da classe Taxipointer " alt="" coords="294,137,469,163"/>
+<area shape="rect" id="node5" href="$class_taxi.html#a19a29ff6b33bcddde5a9fc7182b5f0f2" title="função para obter Rentabilidade " alt="" coords="306,187,457,214"/>
+<area shape="rect" id="node6" href="$class_taxi.html#ae24f8a97266300a16b64a16243581fc6" title="função para actulizar rentabilidade " alt="" coords="306,238,457,265"/>
+<area shape="rect" id="node7" href="$class_taxi.html#a749af36593511d9161f35c1516dedfb3" title="função para obter número do taxi " alt="" coords="311,289,452,315"/>
+<area shape="rect" id="node8" href="$class_taxi.html#ae6dba350a3a0a292ac9e336e8ae879de" title="função para obter hora de inicio " alt="" coords="327,339,436,366"/>
+<area shape="rect" id="node9" href="$class_taxi.html#a0d930cf9b5f920cd9bfc906584c6e058" title="função para obter hora final " alt="" coords="324,390,439,417"/>
+<area shape="rect" id="node10" href="$class_taxi.html#a5d0669f542ab99533a60c4f3de1333d5" title="função para obter a disponibilidade do taxi " alt="" coords="330,441,433,467"/>
+</map>

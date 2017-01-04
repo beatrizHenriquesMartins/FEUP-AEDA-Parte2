@@ -1,0 +1,6 @@
+<map id="Menu::menuVerCliente" name="Menu::menuVerCliente">
+<area shape="rect" id="node2" href="$class_erro_input.html#aa4fbfcf2c76e9d74da9a525831bf7efb" title="ErroInput::alertaErro" alt="" coords="243,5,382,32"/>
+<area shape="rect" id="node3" href="$class_companhia_taxis.html#afa0e3741302ef2d98d97c8ecf57d6a8c" title="função para procurar cliente " alt="" coords="208,56,417,83"/>
+<area shape="rect" id="node5" href="$class_companhia_taxis.html#a361e0a5a5685543138d11f5924a46f91" title="função para obter lista de clientes " alt="" coords="217,107,408,133"/>
+<area shape="rect" id="node4" href="$sequential_search_8h.html#acd555ad1f1fc3b2011aab63641f98151" title="sequentialSearch" alt="" coords="465,56,588,83"/>
+</map>

@@ -1,0 +1,21 @@
+<map id="CompanhiaTaxis::fazerViagemOcasional" name="CompanhiaTaxis::fazerViagemOcasional">
+<area shape="rect" id="node2" href="$class_viagem.html#a8c955d57cb23fab49f726065e6eed20c" title="fun√ß√£o que calcula a hora final da viagem " alt="" coords="520,461,647,488"/>
+<area shape="rect" id="node6" href="$class_companhia_taxis.html#ab21f4b2ec83ee42ba3f7b3fbb5ffa571" title="função que nos permite ter o taxi mais disponivel dentro do Horario da Viagem passada como argumento ..." alt="" coords="252,233,448,260"/>
+<area shape="rect" id="node16" href="$class_taxi.html#a04ffdc9a9001f7274e0f46876dcb05af" title="função que permite mudar a disponibilidade do Taxi " alt="" coords="285,360,415,387"/>
+<area shape="rect" id="node17" href="$class_taxi.html#ae24f8a97266300a16b64a16243581fc6" title="função para actulizar rentabilidade " alt="" coords="275,411,425,437"/>
+<area shape="rect" id="node18" href="$class_viagem.html#a4348e5d34d25b6e0964cc25a0708fec9" title="fun√ß√£o que calcula o custo da viagem " alt="" coords="275,461,425,488"/>
+<area shape="rect" id="node19" href="$class_companhia_taxis.html#af7228a742522adac035c950ffa5631e2" title="função para adicionar uma viagem à árvore binária de viagens de ocasionais " alt="" coords="255,513,445,554"/>
+<area shape="rect" id="node3" href="$class_percurso.html#a0f8920294007befff27924c4850ffb44" title="função para obter distância " alt="" coords="719,436,873,463"/>
+<area shape="rect" id="node4" href="$class_hora.html#ad54ed49a29096cc68e7090522a53f164" title="função que soma minutos a uma determinada hora " alt="" coords="735,487,857,513"/>
+<area shape="rect" id="node5" href="$class_hora.html#a90c18369977bbf1bf3a7370d8ea9e9ae" title="construtor da classe Hora vazio " alt="" coords="921,487,1005,513"/>
+<area shape="rect" id="node7" href="$class_taxipointer.html#a25f54326636908a84ea02ef441dcd356" title="função para obter um Taxi* atrav�s da classe Taxipointer " alt="" coords="496,107,671,133"/>
+<area shape="rect" id="node8" href="$class_taxi.html#a20bb314e7d8d784207fca69b58b2f3c6" title="função para obter disponibilidade " alt="" coords="531,157,636,184"/>
+<area shape="rect" id="node9" href="$class_viagem.html#a473784cd9ba2f092bff94a3f72c61595" title="fun√ß√£o para obter hora de inicio " alt="" coords="519,208,648,235"/>
+<area shape="rect" id="node10" href="$class_viagem.html#afd88cf72c79798019634e6656e41f2d1" title="fun√ß√£o para obter hora de fim " alt="" coords="513,259,653,285"/>
+<area shape="rect" id="node11" href="$class_taxi.html#a749af36593511d9161f35c1516dedfb3" title="função para obter número do taxi " alt="" coords="513,309,654,336"/>
+<area shape="rect" id="node12" href="$class_taxi.html#a19a29ff6b33bcddde5a9fc7182b5f0f2" title="função para obter Rentabilidade " alt="" coords="508,360,659,387"/>
+<area shape="rect" id="node13" href="$class_taxi.html#ae6dba350a3a0a292ac9e336e8ae879de" title="função para obter hora de inicio " alt="" coords="529,411,638,437"/>
+<area shape="rect" id="node14" href="$class_taxi.html#a0d930cf9b5f920cd9bfc906584c6e058" title="função para obter hora final " alt="" coords="526,5,641,32"/>
+<area shape="rect" id="node15" href="$class_taxi.html#a5d0669f542ab99533a60c4f3de1333d5" title="função para obter a disponibilidade do taxi " alt="" coords="532,56,635,83"/>
+<area shape="rect" id="node20" href="$class_b_s_t.html#a2b117df6521c7d61dac75ff2c938bae7" title="BST::insert" alt="" coords="540,520,627,547"/>
+</map>

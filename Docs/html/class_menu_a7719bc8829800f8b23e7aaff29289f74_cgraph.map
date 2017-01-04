@@ -1,0 +1,5 @@
+<map id="Menu::menuNovoCliente" name="Menu::menuNovoCliente">
+<area shape="rect" id="node2" href="$class_opcao_errada.html#a26bc1d7170a0ef29e3a9eae58760ac6f" title="OpcaoErrada::alertaErro" alt="" coords="222,5,385,32"/>
+<area shape="rect" id="node3" href="$class_companhia_taxis.html#af080e3d223856b45f6d54ce0e05fdfca" title="função que adiciona um cliente empresa à lista de clientes " alt="" coords="216,57,391,98"/>
+<area shape="rect" id="node4" href="$class_companhia_taxis.html#ad1e93d309abfded2f77a9ac666abda9b" title="função que adiciona um cliente particular à lista de clientes " alt="" coords="216,122,391,163"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="CompanhiaTaxis::mostrarClientesPorCapital" name="CompanhiaTaxis::mostrarClientesPorCapital">
+<area shape="rect" id="node2" href="$_companhia_taxis_8cpp.html#abf72e82e9726f593b0ca028a66da5732" title="compaCapital" alt="" coords="271,31,372,57"/>
+<area shape="rect" id="node3" href="$class_utente.html#a84d834bca51ce543c6e76234ba270f81" title="função que calcula o valor a pagar pelo utente " alt="" coords="431,5,551,32"/>
+<area shape="rect" id="node4" href="$class_pagamento.html#ade66d8c163ba2bc814c7565490377ba3" title="função para obter valor a pagar " alt="" coords="420,56,563,83"/>
+</map>

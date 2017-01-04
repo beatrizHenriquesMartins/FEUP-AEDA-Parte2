@@ -1,2 +1,3 @@
-1
-1 ; 22/3/2016 ; Hora inicial: 10:00:00 ; Hora final: 11:00:00 ;  Percurso: Feup-Trindade Distancia: 14 ; Custo: 13
+2
+1 ; 22/3/2016 ; Hora inicial: 10:0:0h ; Hora final: 11:0:0h ; Percurso:       Feup-Trindade       Distancia: 14 ; Custo: 131 ; Cliente:       Diogo Pereira       ;
+8 ; 4/1/2017 ; Hora inicial: 9:49:24h ; Hora final: 10:1:24h ; Percurso: feup-maia Distancia: 20 ; Custo: 13.8 ; Cliente: Pereira&Filhos ;

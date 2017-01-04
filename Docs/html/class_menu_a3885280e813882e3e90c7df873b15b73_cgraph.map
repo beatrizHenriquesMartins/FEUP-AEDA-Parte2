@@ -1,0 +1,6 @@
+<map id="Menu::lerFicheiroViagensOcasionais" name="Menu::lerFicheiroViagensOcasionais">
+<area shape="rect" id="node2" href="$class_menu.html#a9a6b727e45d4dd81c471c2d02108789c" title="Menu::stringToData" alt="" coords="251,5,385,32"/>
+<area shape="rect" id="node3" href="$class_menu.html#a54c4b759f5ea6aaf0fa22916c2caca60" title="Menu::stringToHora" alt="" coords="251,56,385,83"/>
+<area shape="rect" id="node4" href="$class_companhia_taxis.html#af7228a742522adac035c950ffa5631e2" title="função para adicionar uma viagem à árvore binária de viagens de ocasionais " alt="" coords="223,107,413,149"/>
+<area shape="rect" id="node5" href="$class_b_s_t.html#a2b117df6521c7d61dac75ff2c938bae7" title="BST::insert" alt="" coords="461,115,548,141"/>
+</map>

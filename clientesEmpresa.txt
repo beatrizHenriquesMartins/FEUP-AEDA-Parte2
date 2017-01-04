@@ -1,5 +1,5 @@
 5
-8 ; Pereira&Filhos ; Rua Chaos do Monte, Vilar de Andorinho ; diogopeixotopereira@gmail.com ; 934533870 ; 270564373 ; 200 ; numerario ; 10 ; 4
+8 ; Pereira&Filhos ; Rua Chaos do Monte, Vilar de Andorinho ; diogopeixotopereira@gmail.com ; 934533870 ; 270564373 ; 213 ; numerario ; 10 ; 5
 9 ; Moda Henriques Martins ; Rua Padre Arnaldo Rebelo 122, Maia ; henriquesmartins@gmail.com ; 964533870 ; 265533627 ; 20 ; multibanco ; 1 ; 2
 10 ; Rodoviarias ; Rua D.Afonso II 71, Alfena ; rodas@gmail.com ; 964533870 ; 271133445 ; 20 ; numerario ; 20 ; 10
 11 ; Ks ; Rua D.Sancho 35, Ermesinde ; ks@gmail.com ; 964577870 ; 277833445 ; 20 ; numerario ; 30 ; 3

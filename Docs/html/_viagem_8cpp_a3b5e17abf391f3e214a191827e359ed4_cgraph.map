@@ -1,0 +1,13 @@
+<map id="operator&lt;&lt;" name="operator&lt;&lt;">
+<area shape="rect" id="node2" href="$class_viagem.html#a35b80ad86e12c9b7b883c937e0749521" title="fun√ß√£o para obter data " alt="" coords="165,5,283,32"/>
+<area shape="rect" id="node3" href="$class_data.html#a16795b3f8095a690871899522c6df37f" title="funÁ„o para imprimir data com formataÁ„o especifica " alt="" coords="173,56,275,83"/>
+<area shape="rect" id="node7" href="$class_viagem.html#a473784cd9ba2f092bff94a3f72c61595" title="fun√ß√£o para obter hora de inicio " alt="" coords="159,107,289,133"/>
+<area shape="rect" id="node8" href="$class_viagem.html#afd88cf72c79798019634e6656e41f2d1" title="fun√ß√£o para obter hora de fim " alt="" coords="154,157,294,184"/>
+<area shape="rect" id="node9" href="$class_viagem.html#a31ec781a07c23229d7a932320a8aea8b" title="fun√ß√£o para obter percurso " alt="" coords="144,208,304,235"/>
+<area shape="rect" id="node10" href="$class_percurso.html#a04ed2a53c45b3cdd398e7efe4595378a" title="função para imprimir percurso com formatação especifica " alt="" coords="161,259,287,285"/>
+<area shape="rect" id="node11" href="$class_viagem.html#a2914432b94b57df638976193ed7d6503" title="fun√ß√£o para obter custo viagem " alt="" coords="139,309,309,336"/>
+<area shape="rect" id="node12" href="$class_viagem.html#a3e07c53c5fb30a937fd9d43028792f29" title="fun√ß√£o para obter o cliente associado a viagem " alt="" coords="158,360,290,387"/>
+<area shape="rect" id="node4" href="$class_data.html#aa9b7bdc683d9c493d903184e85f1e6b3" title="funÁ„o para obter dia " alt="" coords="360,5,455,32"/>
+<area shape="rect" id="node5" href="$class_data.html#a1df6f5e1695c7cae56b9ee752a6895e8" title="funÁ„o para obter mes " alt="" coords="357,56,457,83"/>
+<area shape="rect" id="node6" href="$class_data.html#a986bec10cbca338f08c9096d8e51efb5" title="funÁ„o para obter ano " alt="" coords="358,107,457,133"/>
+</map>

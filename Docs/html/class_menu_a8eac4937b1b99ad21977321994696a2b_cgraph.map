@@ -1,0 +1,6 @@
+<map id="Menu::menuVerTaxi" name="Menu::menuVerTaxi">
+<area shape="rect" id="node2" href="$class_erro_input.html#aa4fbfcf2c76e9d74da9a525831bf7efb" title="ErroInput::alertaErro" alt="" coords="219,5,358,32"/>
+<area shape="rect" id="node3" href="$class_companhia_taxis.html#a85502d5560b8b717ad075650d40ab265" title="função para procurar taxi " alt="" coords="192,56,385,83"/>
+<area shape="rect" id="node4" href="$class_taxipointer.html#a25f54326636908a84ea02ef441dcd356" title="função para obter um Taxi* atrav�s da classe Taxipointer " alt="" coords="433,31,608,57"/>
+<area shape="rect" id="node5" href="$class_taxi.html#a749af36593511d9161f35c1516dedfb3" title="função para obter número do taxi " alt="" coords="450,81,591,108"/>
+</map>
